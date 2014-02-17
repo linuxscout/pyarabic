@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: PyArabic
+Version: 0.3
+Summary: pyarabic Arabic text tools
+Home-page: http://pyarabic.sourceforge.net/
+Author: Taha Zerrouki
+Author-email: taha_zerrouki@gawab.com
+License: GPL
+Description: A basic functions to manipulate arabic letters and words.
+Platform: Os-independent
+
