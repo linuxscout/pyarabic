@@ -1,5 +1,5 @@
 #! /usr/bin/python
-from distutils.core import setup
+from setuptools import setup
 from glob import glob
 
 # to install type:
