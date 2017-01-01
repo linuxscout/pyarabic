@@ -1,9 +1,9 @@
-#! /usr/bin/python
+#! /usr/bin/python2
 from distutils.core import setup
 from glob import glob
 
 # to install type:
-# python setup.py install --root=/
+# python2 setup.py install --root=/
 
 setup (name='PyArabic', version='0.4',
       description='pyarabic Arabic text tools for Python',
