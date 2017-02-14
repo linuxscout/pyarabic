@@ -29,10 +29,10 @@ class Stack :
         """
         self.items.append(item)
 
-    def pop(self):
+    def pop(self) :
         """
         pop an item from the stack
-        @return: poped item
+        @return : poped item
         @rtype: mixed        
         """
         if not self.is_empty():
@@ -43,7 +43,7 @@ class Stack :
     def is_empty(self) :
         """
         test if the stack is empty
-        @return: True or False
+        @return : True or False
         @rtype: boolean
         """        
         return (self.items == [])

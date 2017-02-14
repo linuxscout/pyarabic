@@ -1,6 +1,7 @@
 # -*- coding=utf-8 -*-
 #Lexeme	Label
 text=u"""
+السيسي nasab
 محمد	nom
 أبا زبر	konia
 أبا زبيد	konia
@@ -13057,16 +13058,17 @@ text2= u"""
 يي	اسم علم - مكان - نهر / بُحيرة
 يي-لان	اسم علم - مكان مدينة / مُقاطَعة / منطقة
 ييكاتيرينبرغ	اسم علم - مكان مدينة / مُقاطَعة / منطقة
+السيسي	konia
 """
 
 
 # text+=text2;
-ProperNouns={}
+ProperNouns = {}
 for line in text.split('\n'):
 	if not line.startswith('#'):
 		line = line.split('\t');
 		if len(line)>=2:
 			lexeme = line[0]
 			label  = line[1]
-			ProperNouns[lexeme]=label;
+			ProperNouns[lexeme] = label;
 # print ProperNoun;

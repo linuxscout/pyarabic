@@ -1,112 +1,119 @@
-﻿ #~* ----------------------------------------------------------------------
- #~*
- #~* Copyright (C) 2009 by Khaled Al-Shamaa.
- #~*
- #~* http://www.ar-php.org
- #~*
- #~* ----------------------------------------------------------------------
- #~*
- #~* LICENSE
- #~*
- #~* This program is open source product you can redistribute it and/or
- #~* modify it under the terms of the GNU Lesser General Public License (LGPL)
- #~* as published by the Free Software Foundation either version 3
- #~* of the License, or (at your option) any later version.
- #~*
- #~* This program is distributed in the hope that it will be useful,
- #~* but WITHOUT ANY WARRANTY without even the implied warranty of
- #~* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- #~* GNU Lesser General Public License for more details.
- #~*
- #~* You should have received a copy of the GNU Lesser General Public License
- #~* along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.txt>.
- #~*
- #~* ----------------------------------------------------------------------
- #~*
- #~* Class Name: Spell numbers in the Arabic idiom
- #~*
- #~* Filename:   ArNumbers.class.php
- #~*
- #~* Original    Author(s): Khaled Al-Sham'aa <khaled.alshamaa@gmail.com>
- #~*
- #~* Purpose:    Spell numbers in the Arabic idiom
- #~*
- #~* ----------------------------------------------------------------------
- #~*
- #~* Spell numbers in the Arabic idiom
- #~*
- #~* PHP class to spell numbers in the Arabic idiom. This function is very
- #~* useful for financial applications in Arabic for example.
- #~*
- #~* If you ever have to create an Arabic PHP application built around invoicing or
- #~* accounting, you might find this class useful. Its sole reason for existence is
- #~* to help you translate integers into their spoken-word equivalents in Arabic
- #~* language.
- #~*
- #~* How is this useful? Well, consider the typical invoice: In addition to a
- #~* description of the work done, the date, and the hourly or project cost, it always
- #~* includes a total cost at the end, the amount that the customer is expected to pay.
- #~* To avoid any misinterpretation of the total amount, many organizations (mine
- #~* included) put the amount in both words and figures for example, 1,200 becomes
- #~* "one thousand and two hundred dollars." You probably do the same thing every time
- #~* you write a check.
- #~*
- #~* Now take this scenario to a Web-based invoicing system. The actual data used to
- #~* generate the invoice will be stored in a database as integers, both to save space
- #~* and to simplify calculations. So when a printable invoice is generated, your Web
- #~* application will need to convert those integers into words, this is more clarity
- #~* and more personality.
- #~*
- #~* This class will accept almost any numeric value and convert it into an equivalent
- #~* string of words in written Arabic language (using Windows-1256 character set).
- #~* The value can be any positive number up to 999,999,999 (users should not use
- #~* commas). It will take care of feminine and Arabic grammar rules.
- #~*
- #~* Example:
- #~* <code>
- #~*     include('./Arabic.php')
- #~*     Arabic = new Arabic('ArNumbers')
- #~*
- #~*     Arabic->ArNumbers->setFeminine(1)
- #~*     Arabic->ArNumbers->setFormat(1)
- #~*
- #~*     integer = 2147483647
- #~*
- #~*     text = Arabic->int2str(integer)
- #~*
- #~*     echo "<p align = \"right\"><b class = hilight>integer</b><br />text</p>"
- #~*
- #~*     Arabic->ArNumbers->setFeminine(2)
- #~*     Arabic->ArNumbers->setFormat(2)
- #~*
- #~*     integer = 2147483647
- #~*
- #~*     text = Arabic->int2str(integer)
- #~*
- #~*     echo "<p align = \"right\"><b class = hilight>integer</b><br />text</p>"
- #~* </code>
- #~*
- #~* @category  Text
- #~* @package   Arabic
- #~* @author    Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
- #~* @copyright 2009 Khaled Al-Shamaa
- #~*
- #~* @license   LGPL <http://www.gnu.org/licenses/lgpl.txt>
- #~* @link      http://www.ar-php.org
-#~
- #~* This PHP class spell numbers in the Arabic idiom
- #~*
- #~* @category  Text
- #~* @package   Arabic
- #~* @author    Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
- #~* @copyright 2009 Khaled Al-Shamaa
- #~*
- #~* @license   LGPL <http://www.gnu.org/licenses/lgpl.txt>
- #~* @link      http://www.ar-php.org
-'''     Arabic number class    '''
+﻿"""
+ * ----------------------------------------------------------------------
+ *
+ * Copyright (C) 2009 by Khaled Al-Shamaa.
+ *
+ * http://www.ar-php.org
+ *
+ * ----------------------------------------------------------------------
+ *
+ * LICENSE
+ *
+ * This program is open source product you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License (LGPL)
+ * as published by the Free Software Foundation either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+ *
+ * ----------------------------------------------------------------------
+ *
+ * Class Name: Spell numbers in the Arabic idiom
+ *
+ * Filename:   ArNumbers.class.php
+ *
+ * Original    Author(s): Khaled Al-Sham'aa <khaled.alshamaa@gmail.com>
+ *
+ * Purpose:    Spell numbers in the Arabic idiom
+ *
+ * ----------------------------------------------------------------------
+ *
+ * Spell numbers in the Arabic idiom
+ *
+ * PHP class to spell numbers in the Arabic idiom. This function is very
+ * useful for financial applications in Arabic for example.
+ *
+ * If you ever have to create an Arabic PHP application built around invoicing or
+ * accounting, you might find this class useful. Its sole reason for existence is
+ * to help you translate integers into their spoken-word equivalents in Arabic
+ * language.
+ *
+ * How is this useful? Well, consider the typical invoice: In addition to a
+ * description of the work done, the date, and the hourly or project cost, it always
+ * includes a total cost at the end, the amount that the customer is expected to pay.
+ * To avoid any misinterpretation of the total amount, many organizations (mine
+ * included) put the amount in both words and figures for example, 1,200 becomes
+ * "one thousand and two hundred dollars." You probably do the same thing every time
+ * you write a check.
+ *
+ * Now take this scenario to a Web-based invoicing system. The actual data used to
+ * generate the invoice will be stored in a database as integers, both to save space
+ * and to simplify calculations. So when a printable invoice is generated, your Web
+ * application will need to convert those integers into words, this is more clarity
+ * and more personality.
+ *
+ * This class will accept almost any numeric value and convert it into an equivalent
+ * string of words in written Arabic language (using Windows-1256 character set).
+ * The value can be any positive number up to 999,999,999 (users should not use
+ * commas). It will take care of feminine and Arabic grammar rules.
+ *
+ * Example:
+ * <code>
+ *     include('./Arabic.php')
+ *     Arabic = new Arabic('ArNumbers')
+ *
+ *     Arabic->ArNumbers->setFeminine(1)
+ *     Arabic->ArNumbers->setFormat(1)
+ *
+ *     integer = 2147483647
+ *
+ *     text = Arabic->int2str(integer)
+ *
+ *     echo "<p align = \"right\"><b class = hilight>integer</b><br />text</p>"
+ *
+ *     Arabic->ArNumbers->setFeminine(2)
+ *     Arabic->ArNumbers->setFormat(2)
+ *
+ *     integer = 2147483647
+ *
+ *     text = Arabic->int2str(integer)
+ *
+ *     echo "<p align = \"right\"><b class = hilight>integer</b><br />text</p>"
+ * </code>
+ *
+ * @category  Text
+ * @package   Arabic
+ * @author    Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
+ * @copyright 2009 Khaled Al-Shamaa
+ *
+ * @license   LGPL <http://www.gnu.org/licenses/lgpl.txt>
+ * @link      http://www.ar-php.org
+
+ * This PHP class spell numbers in the Arabic idiom
+ *
+ * @category  Text
+ * @package   Arabic
+ * @author    Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
+ * @copyright 2009 Khaled Al-Shamaa
+ *
+ * @license   LGPL <http://www.gnu.org/licenses/lgpl.txt>
+ * @link      http://www.ar-php.org
+ """
+
+if __name__  ==  '__main__':
+    import sys
+    sys.path.append('../')
+    import pyarabic.arabrepr as arabrepr
 import math
 import pyarabic.araby as araby
 import pyarabic.number_const as nbconst
+#~ from nbconst.import *
 
 class ArNumbers:
     '''
@@ -114,6 +121,9 @@ class ArNumbers:
     _individual = {}
     _feminine = 1
     _format = 1
+##"""
+##     * Loads initialize values
+##"""
     def __init__(self):
         self._individual = nbconst.INDIVIDUALS
         self.complications = nbconst.COMPLICATIONS
@@ -199,12 +209,12 @@ class ArNumbers:
 
     def _int2str(self, number):
         """
-		 * Spell integer number in Arabic idiom
-		 *
-		 * @param integer number The number you want to spell in Arabic idiom
-		 *
-		 * @return string The Arabic idiom that spells inserted number
-		 * @author Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
+         * Spell integer number in Arabic idiom
+         *
+         * @param integer number The number you want to spell in Arabic idiom
+         *
+         * @return string The Arabic idiom that spells inserted number
+         * @author Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
         """
 
         blocks = []
@@ -212,7 +222,7 @@ class ArNumbers:
         string = u''
         number = number#trunc(int(number)) #(int)number)
         try:
-            number = int(number)
+            number_value = int(number)
         except  ValueError:
             number = "0"
         if (int(number) > 0):
@@ -244,7 +254,7 @@ class ArNumbers:
 
     def _written_block(self, number):
         """
-         Spell sub block number of three digits max in Arabic idiom
+         * Spell sub block number of three digits max in Arabic idiom
          *
          * @param integer number Sub block number of three digits max you want to
          *                        spell in Arabic idiom
@@ -287,14 +297,12 @@ class ArNumbers:
 def text2number(text):
     """
     Convert arabic text into number, for example convert تسعة وعشرون = >29.
-    
-    Example:
-    >>> text2number(u"خمسمئة وثلاث وعشرون")
-    523
     @param text: input text
     @type text: unicode
     @return : number extracted from text
     @rtype: integer
+    >>> text2number(u"خمسمئة وثلاث وعشرون")
+    523
     """
     #the result total is 0
     total = 0
@@ -509,23 +517,21 @@ def get_previous_tag(word):
         return u'مرفوع'
     else:
         return u''
+
 def extract_number_phrases(text):
     """
     Extract number words in a text.
-    
-    Example:
-    >>> extract_number_phrases(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
-    خمسمئة وثلاثة وعشرين
-    ثلاثة عشر 
-        
     @param text: input text
     @type text: unicode
     @return : number words extracted from text
     @rtype: integer
+    >>> extract_number_phrases(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    خمسمئة وثلاثة وعشرين
+    ثلاثة عشر 
     """
     phrases = []
 
-    wordlist = araby.tokenize(text)
+    wordlist = araby.tokenize(text)#text.split(' ')
     positions =  detect_number_phrases_position(wordlist)
 
     for pos in positions:
@@ -536,16 +542,13 @@ def extract_number_phrases(text):
 def extract_number_context(text, ):
     """
     Extract number words in a text.
-    
-    Example:
-    >>> extract_number_context(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
-    وجدت، خمسمئة وثلاثة وعشرين، دينارا
-    فاشتريت، ثلاثة عشر ، دفترا
-    
     @param text: input text
     @type text: unicode
-    @return: number words extracted from text
+    @return : number words extracted from text
     @rtype: integer
+    >>> extract_number_context(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    وجدت، خمسمئة وثلاثة وعشرين، دينارا
+     فاشتريت، ثلاثة عشر ، دفترا
     """
     phrases = []
     wordlist = araby.tokenize(text)
@@ -567,21 +570,19 @@ def extract_number_context(text, ):
 def detect_number_phrases_position(wordlist):
     """
     Detect number words in a text and return positions of each phrase.
-    
-    Example:
-    >>> detect_number_phrases_position(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
-    (1،3)، (6،7)
     @param wordlist: wordlist
     @type wordlist: unicode list
     @return : list of numbers clause positions [(start,end),(start2,end2),]
     @rtype: list of tuple
-
+    >>> detect_number_phrases_position(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    (1،3)، (6،7)
     """
     #~ wordlist# = text.split(u' ')
     #print words
     phrases = []
     startnumber = -1
     endnumber = False
+    taglist = []
     for i in range(len(wordlist)):
         word = wordlist[i]
         if i+1 < len(wordlist):
@@ -596,7 +597,7 @@ def detect_number_phrases_position(wordlist):
             key = word_nm[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
-        if nbconst.NumberWords.has_key(key):
+        if nbconst.NumberWords.has_key(key) or key.isnumeric() :
             if not key in (u'أحد', u'إحدى', u'اثنا', u'اثني',  u'اثنتي', \
              u'اثنتا')  or nextword in (u'عشر',  u'عشرة'):
                 if startnumber < 0:
@@ -610,20 +611,64 @@ def detect_number_phrases_position(wordlist):
     # add the final phrases 
     if startnumber >= 0: #There are a previous number phrase.
         phrases.append((startnumber, endnumber))
+
     return phrases
 
+
+
+def detect_numbers(wordlist):
+    """
+    Detect number words in a text and return a taglist as BIO.
+    @param wordlist: wordlist
+    @type wordlist: unicode list
+    @return : list of tags BIO
+    @rtype: list of unicode
+    >>> detect_numbers(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    ['DO', 'DB', 'DI', 'DI', 'DO', 'DO', 'DB', 'DI', 'DO']
+    """
+    phrases = []
+    starts = False
+    taglist = []
+       
+    for i in range(len(wordlist)):
+        word = wordlist[i]
+        if i+1 < len(wordlist):
+            nextword = araby.strip_tashkeel(wordlist[i+1])
+        else: 
+            nextword = None
+        #save the original word with possible harakat if exist
+        word_nm = araby.strip_tashkeel(word)
+        key = word_nm
+        # the first word can have prefixes 
+        if word_nm and not starts and word_nm != u'واحد' \
+            and word_nm[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+            key = word_nm[1:]
+        elif word_nm != u'واحد' and word_nm.startswith(u'و'):
+            key = word_nm[1:]
+        if nbconst.NumberWords.has_key(key) or key.isnumeric():
+            if not key in (u'أحد', u'إحدى', u'اثنا', u'اثني',  u'اثنتي', \
+             u'اثنتا')  or nextword in (u'عشر',  u'عشرة'):
+                if not starts:
+                    taglist.append("DB")
+                    starts = True
+                else:
+                    taglist.append("DI")
+            else:
+                starts = False
+                taglist.append("O")       
+        else:
+            starts = False
+            taglist.append("O")
+    return taglist
 def detect_number_words(text):
     """
     Detect number words in a text.
-    
-    Example:
-    >>> text2number(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
-                    خمسمئة وثلاثة وعشرين
-    
     @param text: input text
     @type text: unicode
     @return : number words extracted from text
     @rtype: integer
+    >>> text2number(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
+    خمسمئة وثلاثة وعشرين
     """
 
     #~ words = araby.tokenize(text)
@@ -648,19 +693,46 @@ def detect_number_words(text):
                 print u'\t'.join([str(sim), numberedwords, vocalized, \
                  str(numeric), u' '.join([previous, phrase, nextword]), \
                   nextword, voc_unit, str(sim_unit)]).encode('utf8')
-
 def pre_tashkeel_number(wordlist):
     """
     Detect number words in a text.
-    
-    Example:
-    >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
-    وجدت خمسمئة وثلاثة وعشرين دينار
     @param wordlist: input text
     @type wordlist: unicode
     @return : wordlist with vocalized number clause
     @rtype: list
-ا
+    >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
+    وجدت خمسمئة وثلاثة وعشرين دينارا
+
+    """
+    taglist = detect_numbers(wordlist)
+    previous = ""
+    vocalized_list = []
+    chunk = []
+    previous_tag = ""
+    for word, tag in zip(wordlist, taglist):
+        if tag in ("DB", "DI"):
+            chunk.append(word)
+        else:
+            if chunk:
+              #get the tag of previous word
+              previous_tag = get_previous_tag(previous)
+              vocalized = vocalize_number( chunk, previous_tag)
+              vocalized_list.extend(vocalized)
+              chunk = []
+            vocalized_list.append(word)
+            previous = word
+        
+    return vocalized_list
+
+def pre_tashkeel_number2(wordlist):
+    """
+    Detect number words in a text.
+    @param wordlist: input text
+    @type wordlist: unicode
+    @return : wordlist with vocalized number clause
+    @rtype: list
+    >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
+    وجدت خمسمئة وثلاثة وعشرين دينارا
     """
 
     positions =  detect_number_phrases_position(wordlist)
@@ -690,7 +762,8 @@ if __name__  ==  '__main__':
         u"خمسمئة وثلاث وعشرون دينارا",
     u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا",
     u"لم أجد شيئا",
-    u'من ثلائمئة وخمسين بلدا ',
+u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا",
+    u'من ثلاثمئة وخمسين بلدا ',
         u'من ثلاثمئة وخمسين بلدا ',
     u'من أربعمئة وخمسين بلدا ',
     ]
@@ -698,5 +771,12 @@ if __name__  ==  '__main__':
         positions_phrases =  detect_number_phrases_position(araby.tokenize(txt))
         print positions_phrases
         nb_phrases = extract_number_phrases(txt)
+        wordlist = araby.tokenize(txt)
+        taglist = detect_numbers(wordlist)
+        arepr = arabrepr.ArabicRepr()
+        print taglist
+        print u" ".join(wordlist).encode('utf8')
+        print arepr.repr(zip(taglist, wordlist)).encode('utf8')
+        print "tashkeel",u" ".join(pre_tashkeel_number(wordlist)).encode('utf8')
         print txt.encode('utf8')
         print u'\t'.join(nb_phrases).encode('utf8')
