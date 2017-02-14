@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
 #
+ThaousandMultiple=();
 NumberTenMasculinUnits=(
 u'اثني',
 u'اثنا',
@@ -516,3 +517,141 @@ u'لعل',
 u'أَنَّ',
 u'فَإَنَّ',
 ]);
+INDIVIDUALS={}
+INDIVIDUALS[0] = {}
+INDIVIDUALS[1] = {}        
+INDIVIDUALS[2] = {}
+INDIVIDUALS[2][1] = {}
+INDIVIDUALS[2][2] = {}
+INDIVIDUALS[3] = {}
+INDIVIDUALS[4] = {}
+INDIVIDUALS[5] = {}
+INDIVIDUALS[6] = {}
+INDIVIDUALS[7] = {}
+INDIVIDUALS[8] = {}
+INDIVIDUALS[9] = {}
+INDIVIDUALS[10] = {}
+INDIVIDUALS[11] = {}
+INDIVIDUALS[12] = {}
+INDIVIDUALS[12][1] = {}
+INDIVIDUALS[12][2] = {}
+INDIVIDUALS[13] = {}
+INDIVIDUALS[14] = {}
+INDIVIDUALS[15] = {}
+INDIVIDUALS[16] = {}
+INDIVIDUALS[17] = {}
+INDIVIDUALS[18] = {}
+INDIVIDUALS[19] = {}
+INDIVIDUALS[20] = {}
+INDIVIDUALS[30] = {}
+INDIVIDUALS[40] = {}
+INDIVIDUALS[50] = {}
+INDIVIDUALS[60] = {}
+INDIVIDUALS[70] = {}
+INDIVIDUALS[80] = {}
+INDIVIDUALS[90] = {}
+INDIVIDUALS[100] = {}
+INDIVIDUALS[200] = {}
+INDIVIDUALS[300] = {}
+INDIVIDUALS[400] = {}
+INDIVIDUALS[500] = {}
+INDIVIDUALS[600] = {}
+INDIVIDUALS[700] = {}
+INDIVIDUALS[800] = {}
+INDIVIDUALS[900] = {}
+INDIVIDUALS[1000] = {}
+INDIVIDUALS[2000] = {}
+INDIVIDUALS[14] = {}
+INDIVIDUALS[0][1] = u''
+INDIVIDUALS[0][2] = u''        
+INDIVIDUALS[1][1] = u'واحد'
+INDIVIDUALS[1][2] = u'واحدة'
+INDIVIDUALS[2][1][1] = u'إثنان'
+INDIVIDUALS[2][1][2] = u'إثنين'
+INDIVIDUALS[2][2][1] = u'إثنتان'
+INDIVIDUALS[2][2][2] = u'إثنتين'
+
+INDIVIDUALS[3][1] = u'ثلاث'
+INDIVIDUALS[4][1] = u'أربع'
+INDIVIDUALS[5][1] = u'خمس'
+INDIVIDUALS[6][1] = u'ست'
+INDIVIDUALS[7][1] = u'سبع'
+INDIVIDUALS[8][1] = u'ثماني'
+INDIVIDUALS[9][1] = u'تسع'
+INDIVIDUALS[10][1] = u'عشر'
+INDIVIDUALS[3][2] = u'ثلاثة'
+INDIVIDUALS[4][2] = u'أربعة'
+INDIVIDUALS[5][2] = u'خمسة'
+INDIVIDUALS[6][2] = u'ستة'
+INDIVIDUALS[7][2] = u'سبعة'
+INDIVIDUALS[8][2] = u'ثمانية'
+INDIVIDUALS[9][2] = u'تسعة'
+INDIVIDUALS[10][2] = u'عشرة'
+
+INDIVIDUALS[11][1] = u'أحد عشر'
+INDIVIDUALS[11][2] = u'إحدى عشرة'
+
+INDIVIDUALS[12][1][1] = u'إثنا عشر'
+INDIVIDUALS[12][1][2] = u'إثني عشر'
+INDIVIDUALS[12][2][1] = u'إثنتا عشرة'
+INDIVIDUALS[12][2][2] = u'إثنتي عشرة'
+
+INDIVIDUALS[13][1] = u'ثلاث عشرة'
+INDIVIDUALS[14][1] = u'أربع عشرة'
+INDIVIDUALS[15][1] = u'خمس عشرة'
+INDIVIDUALS[16][1] = u'ست عشرة'
+INDIVIDUALS[17][1] = u'سبع عشرة'
+INDIVIDUALS[18][1] = u'ثماني عشرة'
+INDIVIDUALS[19][1] = u'تسع عشرة'
+INDIVIDUALS[13][2] = u'ثلاثة عشر'
+INDIVIDUALS[14][2] = u'أربعة عشر'
+INDIVIDUALS[15][2] = u'خمسة عشر'
+INDIVIDUALS[16][2] = u'ستة عشر'
+INDIVIDUALS[17][2] = u'سبعة عشر'
+INDIVIDUALS[18][2] = u'ثمانية عشر'
+INDIVIDUALS[19][2] = u'تسعة عشر'
+
+INDIVIDUALS[20][1] = u'عشرون'
+INDIVIDUALS[30][1] = u'ثلاثون'
+INDIVIDUALS[40][1] = u'أربعون'
+INDIVIDUALS[50][1] = u'خمسون'
+INDIVIDUALS[60][1] = u'ستون'
+INDIVIDUALS[70][1] = u'سبعون'
+INDIVIDUALS[80][1] = u'ثمانون'
+INDIVIDUALS[90][1] = u'تسعون'
+INDIVIDUALS[20][2] = u'عشرين'
+INDIVIDUALS[30][2] = u'ثلاثين'
+INDIVIDUALS[40][2] = u'أربعين'
+INDIVIDUALS[50][2] = u'خمسين'
+INDIVIDUALS[60][2] = u'ستين'
+INDIVIDUALS[70][2] = u'سبعين'
+INDIVIDUALS[80][2] = u'ثمانين'
+INDIVIDUALS[90][2] = u'تسعين'
+
+INDIVIDUALS[200][1] = u'مئتان'
+INDIVIDUALS[200][2] = u'مئتين'
+
+INDIVIDUALS[100] = u'مئة'
+INDIVIDUALS[300] = u'ثلاثمئة'
+INDIVIDUALS[400] = u'أربعمئة'
+INDIVIDUALS[500] = u'خمسمئة'
+INDIVIDUALS[600] = u'ستمئة'
+INDIVIDUALS[700] = u'سبعمئة'
+INDIVIDUALS[800] = u'ثمانمئة'
+INDIVIDUALS[900] = u'تسعمئة'
+COMPLICATIONS = {1:{}, 2:{}, 3:{}}
+COMPLICATIONS[1][1] = u'ألفان'
+COMPLICATIONS[1][2] = u'ألفين'
+COMPLICATIONS[1][3] = u'آلاف'
+COMPLICATIONS[1][4] = u'ألف'
+
+COMPLICATIONS[2][1] = u'مليونان'
+COMPLICATIONS[2][2] = u'مليونين'
+COMPLICATIONS[2][3] = u'ملايين'
+COMPLICATIONS[2][4] = u'مليون'
+
+COMPLICATIONS[3][1] = u'ملياران'
+COMPLICATIONS[3][2] = u'مليارين'
+COMPLICATIONS[3][3] = u'مليارات'
+COMPLICATIONS[3][4] = u'مليار'
+

@@ -1,3 +1,12 @@
 setup.py
-pyarabic\__init__.py
-pyarabic\araby.py
+pyarabic/arabrepr.py
+pyarabic/araby_const.py
+pyarabic/araby.py
+pyarabic/__init__.py
+pyarabic/named_const.py
+pyarabic/named.py
+pyarabic/number_const.py
+pyarabic/number.py
+pyarabic/propernouns.py
+pyarabic/stack.py
+pyarabic/unshape.py
