@@ -5,8 +5,6 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 =======
 pyarabic: A specific *Arabic language* library for **Python**  مكتبة برمجية للغة العربية بلغة بيثون
 
-[![downloads]( https://img.shields.io/pypi/dw/pyarabic.svg)](https://pypi.python.org/pypi/pyarabic)
-[![downloads]( https://img.shields.io/pypi/dm/pyarabic.svg)](https://pypi.python.org/pypi/pyarabic)
 
   Developpers:  Taha Zerrouki: http://tahadz.com
     taha dot zerrouki at gmail dot com
@@ -174,7 +172,12 @@ ALEF_HAMZA_ABOVE = u'\u0623'
 
 وصف الدالة  |الدالة
 ------|------------
-إذا كان الحالاسم العربرف المعطى سكونا يرجع صحيح | is_sukun(archar)
+حذف الحركات كلها بما فيها الشدة|strip_tashkeel(text)
+حذف الحركات كلها ماعدا الشدة|strip_harakat(text)
+حذف الحركة الأخيرة|strip_lastharaka(text)
+حذف التطويل| strip_tatweel(text)
+تنميط أشكال الهمزة المختلفة | normalize_hamza(text)
+تفريق كلمات النص |tokenize(text)إذا كان الحرف المعطى سكونا يرجع صحيح | is_sukun(archar)
 إذا كان الحرف المعطى شدة يرجع صحيح | is_shadda(archar)
 إذا كان الحرف المعطى تطويلا يرجع صحيح | is_tatweel(archar)
 إذا كان الحرف المعطى تنوينا يرجع صحيح | is_tanwin(archar)
@@ -192,4 +195,25 @@ ALEF_HAMZA_ABOVE = u'\u0623'
 إذا كان الحرف المعطى حرفا قمريا يرجع صحيح | is_moon(archar)
 إذا كان الحرف المعطى حرفا شمسيا يرجع صحيح | is_sun(archar)
 
+###مثال
+
+في نطق الأسماء يتحوّل الحرف الشمسي بعد ال التعريف إلى حرف مشدد أي أنّ "الشمس" تنطق "أششمس"، 
+```python
+#!/usr/bin/python
+# -*- coding=utf-8 -*-
+import pyarabic.araby as araby
+words=[u'الشمس', u'القمر', u'الرجل', u'بصل', u'البصل']
+for word in words:
+    if word.startswith(araby.ALEF+araby.LAM) and araby.isSun(word[2]):
+        word=u''.join([araby.ALEF+word[2],word[2:]]);
+    print word.encode('utf8');
+```
+في المثال، نعطي عددا من الكلمات لكتابة نطقها، بتحويل الحرف الشمسي بعد ال التعريف إلى حرف مكرر والنتيجة تكون 
+```
+اششمس
+القمر
+اررجل
+بصل
+البصل
+```
 

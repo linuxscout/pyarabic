@@ -1,4 +1,16 @@
-﻿unshaping_table={
+﻿#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+"""
+Arabic unshape letters
+Allow to convert standard text to forms in programs which doesn't support arabic letters rendering
+@author: Taha Zerrouki
+@contact: taha dot zerrouki at gmail dot com
+@copyright: Arabtechies,  Arabeyes,   Taha Zerrouki
+@license: GPL
+@date:2017/02/14
+@version: 0.3
+""" 
+unshaping_table={
 u'\uFEA1':u'\u062D',
 u'\uFEA3':u'\u062D',
 u'\uFEA4':u'\u062D',
@@ -124,6 +136,18 @@ u'\uFEFC':u'\u0644\u0627',# LAM ALEF
 
 }
 def unshaping_text(text):
+    """ Unshape a text
+
+    Example:
+        >>> TEXTS = u'لو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+        >>> print unshaping_text(TEXTS).encode('utf8')
+        باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+    
+    @param text: input text
+    @type text: unicode
+    @return: unshaped text
+    @rtype: unicode
+    """
     unshaping_text="";
     list_line=text.splitlines();
     for line in list_line:
@@ -131,9 +155,19 @@ def unshaping_text(text):
     return unshaping_text;
 
 
-import pyarabic.araby as arab
-#arab=arabic.araby();
 def unshaping_line(line):
+    """ Unshape a  line
+    
+    Example:
+        >>> line = u'فليتك تحلو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+        >>> print unshaping_line(line).encode('utf8')
+        باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+        
+    @param line: input line
+    @type line: unicode
+    @return: unshaped line
+    @rtype: unicode
+    """    
     unshaping_line="";
     currentword=u"";
     words=line.split();
@@ -146,14 +180,37 @@ def unshaping_line(line):
 
 
 def unshaping_word(word):
+    """ Unshape a word
+    
+    Example:
+        >>> word = u'العربية'
+        >>> print unshaping_word(word).encode('utf8')
+        ةيبرعلا
+    
+    @param word: input word
+    @type word: unicode
+    @return: unshaped word
+    @rtype: unicode
+    """       
     unshaping_word="";
-##    if not arab.isArabicrange(word):
-##        return word;
     for c in word:
         if c in unshaping_table.keys():
-            unshaping_word=unshaping_table[c]+unshaping_word;
+            unshaping_word = unshaping_table[c] + unshaping_word;
         else:
-            unshaping_word=c+unshaping_word;
+            unshaping_word = c + unshaping_word;
     return unshaping_word;
+
+
+if __name__  ==  '__main__':
+    TEXTS = u"""فليتك تحلو والحيـاة مريرة * وليتك ترضى والانـــام غضاب 
+وليت الذي بيني وبينك عامر * وبيني وبين العـالمين خراب
+اذا صح الود فيك فالكل هين * وكل الي فــوق التراب تراب    """
+    print unshaping_text(TEXTS).encode('utf8')
+    print "--line--"
+    line = u'فليتك تحلو والحيـاة مريرة * وليتك ترضى والانـــام غضاب '
+    print unshaping_line(line).encode('utf8')
+    print "--word--"
+    word = u'العربية'
+    print unshaping_word(word).encode('utf8')
 
 

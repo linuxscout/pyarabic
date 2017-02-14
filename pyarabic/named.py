@@ -3,21 +3,18 @@
 #
 """
 Arabic Named enteties recognation pyarabic.named
+@author: Taha Zerrouki
+@contact: taha dot zerrouki at gmail dot com
+@copyright: Arabtechies,  Arabeyes,   Taha Zerrouki
+@license: GPL
+@date:2017/02/14
+@version: 0.3
 """
 
 import sys
 if __name__  ==  '__main__':
     sys.path.append('../')
     import pyarabic.arabrepr as arabrepr
-#~if __name__ == '__main__':
-    #~import  araby
-    #~import  named_const
-    #~import  propernouns    
-#~else:
-    #~sys.path.append('../lib')
-    #~import pyarabic.araby as araby
-    #~import pyarabic.named_const as named_const
-    #~import pyarabic.propernouns as propernouns
 sys.path.append('../../lib')
 import pyarabic.araby as araby
 import pyarabic.named_const as named_const
@@ -30,8 +27,6 @@ u'علاء',
 u'نجم',
 u'نور',
 u'سيف',
-#u'',
-#u'',
 
 )
 def is_proper_noun(word):
@@ -48,12 +43,15 @@ def is_proper_noun(word):
 def detect_named_position(wordlist):
     """
     Detect named enteties words in a text and return positions of each phrase.
+    
+    Example:
+        >>> detect_named_position(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
+        ((1,3), (6,8))    
+    
     @param wordlist: wordlist
     @type wordlist: unicode list
-    @return : list of numbers clause positions [(start,end),(start2,end2),]
+    @return: list of numbers clause positions [(start,end),(start2,end2),]
     @rtype: list of tuple
-    >>> detect_named_position(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
-    ((1,3), (6,8))
     """
     #~ wordlist#=text.split(u' ')    
     #print words    
@@ -120,12 +118,15 @@ def detect_named_position(wordlist):
 def extract_named(text):
     """
     Extract named enteties words in a text.
+    
+    Example:
+        >>> extract_named(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
+        ("خالد بن رافع"، "أحمد بن عنبر ")
+    
     @param text: input text
     @type text: unicode
-    @return : named enteties words extracted from text
+    @return: named enteties words extracted from text
     @rtype: integer
-    >>> extract_named(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
-    ("خالد بن رافع"، "أحمد بن عنبر ")
     """
     phrases = []    
     wordlist = araby.tokenize(text)    
@@ -141,12 +142,14 @@ def extract_named(text):
 def extract_named_within_context(text):
     """
     Extract number words in a text.
+    Example:
+        >>> extract_named_within_context(u"تصدق عبد الله بن عمر بدينار")    
+        ("تصدق"، "عبد الله بن عمر"، "بدينار")
+        
     @param text: input text
     @type text: unicode
-    @return : number words extracted from text
+    @return: number words extracted from text
     @rtype: integer
-    >>> extractNumberPhrasesWithinContext(u"تصدق عبد الله بن عمر بدينار")    
-    ("تصدق"، "عبد الله بن عمر"، "بدينار")
     """
     phrases = []    
     wordlist = araby.tokenize(text)    
@@ -165,64 +168,13 @@ def extract_named_within_context(text):
                    u' '.join(wordlist[pos[0]: pos[1]+1]), nextword))
     return phrases    
 
-def detect_named2(text):
-    """
-    Detect named enteties in a text
-    @param text: input text
-    @type text: unicode
-    @return : extract named enteties
-    @rtype: integer
-    >>> text2number(u"وجد  عبد الله بن عمر دينارا")    
-    عبد الله بن عمر
-    """
-    words = araby.tokenize(text)    
-    phrase  = []    
-    phrases = []    
-    previous = u""    
-    for i in range(len(words)):
-        word = words[i]    
-        if i+1 < len(words):
-            nextword = words[i+1]    
-        else:
-            nextword = u""    
-        key = word    
-        # the first word can have prefixes 
-        if not phrase and word and word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
-            key = word[1:]    
-          
-        if not phrase and key in (u'ابن', ):
-            phrase.append(word)    
 
-        elif key in (u'بن', u'أبو', u'أبا', u'أبي', u'عبد' , ):
-            phrase.append(word)    
-    
-        elif previous in (u'بن', u'ابن', u'أبو', u'أبا', u'أبي', u'عبد',):
-            phrase.append(word)    
-        elif nextword in (u'بن',  u'عبد' , u'أبو', u'أبي') \
-            and word in (u'الدين',):
-            phrase.append(previous)    
-            phrase.append(word)    
-        elif nextword in (u'بن', ) :
-            phrase.append(word)    
-        else:
-            if len(phrase) >= 1:
-                if word.startswith(u'ال') and word.endswith(u'ي'):
-                    phrase.append(word)    
-                phrases.append(u" ".join(phrase))    
-                #~phrases.append(u"".join(phrase))    
-            phrase = []    
-        previous = key    
-    # add the final phrases 
-    if phrase:
-        #~phrases.append(u" ".join(phrase))    
-        phrases.append(u"".join(phrase))    
-    return phrases
     
 def get_previous_tag(word):
     """Get the word tags
     @param word: given word
     @type word: unicode
-    @return :word tag
+    @return: word tag
     @rtype: unicode
     """
     word = araby.strip_tashkeel(word)    
@@ -291,12 +243,16 @@ def vocalize_named(wordlist, syn_tags = ""):
 def detect_named(wordlist):
     """
     Detect named enteties words in a text and return positions of each phrase.
+    
+    Example:
+        >>> detect_named_position(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
+        ((1,3), (6,8))
+    
     @param wordlist: wordlist
     @type wordlist: unicode list
-    @return : list of numbers clause positions [(start,end),(start2,end2),]
+    @return: list of numbers clause positions [(start,end),(start2,end2),]
     @rtype: list of tuple
-    >>> detect_named_position(u"قال خالد بن رافع  حدثني أحمد بن عنبر عن خاله")    
-    ((1,3), (6,8))
+
     """
     #~ wordlist#=text.split(u' ')    
     #print words    
@@ -367,10 +323,8 @@ def pretashkeel_named(wordlist):
     Detect named words in a text.
     @param wordlist: input text
     @type wordlist: unicode
-    @return : wordlist with vocalized named clause
+    @return: wordlist with vocalized named clause
     @rtype: list
-    >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")    
-    وجدت خمسمئة وثلاثة وعشرين دينارا
     """
     taglist = detect_named(wordlist)
     previous = ""
@@ -392,35 +346,6 @@ def pretashkeel_named(wordlist):
         
     return vocalized_list
 
-def pretashkeel_named2(wordlist):
-    """
-    Detect named words in a text.
-    @param wordlist: input text
-    @type wordlist: unicode
-    @return : wordlist with vocalized named clause
-    @rtype: list
-    >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")    
-    وجدت خمسمئة وثلاثة وعشرين دينارا
-    """
-
-    positions =  detect_named_position(wordlist)    
-    #print positions
-    for pos in positions:
-        if len(pos) >= 2:
-            startpos = pos[0]    
-            endpos =  pos[1]    
-            if startpos <= len(wordlist) and endpos <= len(wordlist):
-                # get the context of current number phrase
-                if startpos-1 >= 0:
-                    previous = wordlist[startpos-1]    
-                else:
-                    previous = u''    
-                #get the tag of previous word
-                tags = get_previous_tag(previous)    
-                vocalized = vocalize_named(\
-                   wordlist[startpos:endpos+1], tags)                   
-                wordlist = wordlist[:startpos] + vocalized + wordlist[endpos+1:]
-    return wordlist    
 
 if __name__ == '__main__':
     #import number as ArabicNumberToLetters

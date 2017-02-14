@@ -143,11 +143,11 @@ TEHLIKE   = ( TEH,   TEH_MARBUTA )
 
 SMALL   = ( SMALL_ALEF,  SMALL_WAW,  SMALL_YEH)
 MOON = (HAMZA, ALEF_MADDA, ALEF_HAMZA_ABOVE, ALEF_HAMZA_BELOW,
-		ALEF, BEH, JEEM, HAH, KHAH, AIN, GHAIN, 
-		FEH, QAF, KAF, MEEM, HEH, WAW, YEH)
+        ALEF, BEH, JEEM, HAH, KHAH, AIN, GHAIN, 
+        FEH, QAF, KAF, MEEM, HEH, WAW, YEH)
 
 SUN = ( TEH, THEH, DAL, THAL, REH, ZAIN, SEEN, SHEEN,
-		SAD, DAD, TAH, ZAH, LAM, NOON, )
+        SAD, DAD, TAH, ZAH, LAM, NOON, )
 
 ALPHABETIC_ORDER = {
                 ALEF             : 1, 
@@ -240,10 +240,10 @@ NAMES  = {
 HARAKAT_PATTERN  = re.compile(ur"["+u"".join(HARAKAT)+u"]",  re.UNICODE)
 #~ """ pattern to strip Harakat"""
 LASTHARAKA_PATTERN  = \
-	re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
+    re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
 #~ """ Pattern to strip only the last haraka """
 SHORTHARAKAT_PATTERN  = \
-	re.compile(ur"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
+    re.compile(ur"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
 #~ Pattern to lookup Short Harakat(Fatha, Damma, Kasra, sukun, tanwin),
 # but not shadda
 TASHKEEL_PATTERN  = re.compile(ur"["+u"".join(TASHKEEL)+u"]",  re.UNICODE)
@@ -298,9 +298,9 @@ def is_tanwin(archar):
 
 def is_tashkeel(archar):
     """Checks for Arabic Tashkeel Marks (
-		- FATHA, DAMMA, KASRA,  SUKUN,  
-		- SHADDA, 
-		- FATHATAN, DAMMATAN,  KASRATAn).
+        - FATHA, DAMMA, KASRA,  SUKUN,  
+        - SHADDA, 
+        - FATHATAN, DAMMATAN,  KASRATAn).
     @param archar: arabic unicode char
     @type archar: unicode
     @return: 
@@ -604,11 +604,14 @@ def strip_harakat(text):
     The striped marks are :
         - FATHA,  DAMMA,  KASRA
         - SUKUN
-        - FATHATAN,  DAMMATAN,  KASRATAN,  ,  ,  .
+        - FATHATAN,  DAMMATAN,  KASRATAN,
+        
+        
     Example:
-    >>> text = u"الْعَرَبِيّةُ"
-    >>> stripTashkeel(text)
-    >>> العربيّة
+        >>> text = u"الْعَرَبِيّةُ"
+        >>> strip_harakat(text)
+        >>> العربيّة
+              
     @param text: arabic text.
     @type text: unicode.
     @return: return a striped text.
@@ -629,14 +632,16 @@ def strip_lastharaka(text):
         - FATHA,  DAMMA,  KASRA
         - SUKUN
         - FATHATAN,  DAMMATAN,  KASRATAN
+
     Example:
-    >>> text = u"الْعَرَبِيّةُ"
-    >>> stripTashkeel(text)
-    >>> الْعَرَبِيّة
+        >>> text = u"الْعَرَبِيّةُ"
+        >>> strip_lastharaka(text)
+        الْعَرَبِيّة
+    
     @param text: arabic text.
     @type text: unicode.
     @return: return a striped text.
-    @rtype: unicode.
+    @rtype: unicode.        
     """
     if text:
         if is_vocalized(text):
@@ -650,14 +655,16 @@ def strip_tashkeel(text):
         - SUKUN
         - SHADDA
         - FATHATAN,  DAMMATAN,  KASRATAN,  ,  ,  .
+
     Example:
-    >>> text = u"الْعَرَبِيّةُ"
-    >>> stripTashkeel(text)
-    العربية
+        >>> text = u"الْعَرَبِيّةُ"
+        >>> strip_tashkeel(text)
+        العربية
+
     @param text: arabic text.
     @type text: unicode.
     @return: return a striped text.
-    @rtype: unicode.
+    @rtype: unicode.    
     """
     if not text:
         return text
@@ -668,14 +675,17 @@ def strip_tashkeel(text):
 def strip_tatweel(text):
     """
     Strip tatweel from a text and return a result text.
+    
     Example:
-    >>> text = u"العـــــربية"
-    >>> stripTatweel(text)
-    >>> العربية
+        >>> text = u"العـــــربية"
+        >>> strip_tatweel(text)
+        العربية
+    
     @param text: arabic text.
     @type text: unicode.
     @return: return a striped text.
     @rtype: unicode.
+        
     """
     return text.replace(TATWEEL, '')
 
@@ -684,10 +694,10 @@ def strip_shadda(text):
     Strip Shadda from a text and return a result text.
 
     Example:
-	>>> text = u"الشّمسيّة"
-	>>> stripTatweel(text)
-        الشمسية
-
+        >>> text = u"الشّمسيّة"
+        >>> strip_shadda(text)
+         الشمسية
+    
     @param text: arabic text.
     @type text: unicode.
     @return: return a striped text.
@@ -702,9 +712,10 @@ def normalize_ligature(text):
     this function convert it into two letters, 
     The converted letters into  LAM and ALEF are :
         - LAM_ALEF,  LAM_ALEF_HAMZA_ABOVE,  LAM_ALEF_HAMZA_BELOW,  LAM_ALEF_MADDA_ABOVE
+
     Example:
-	>>> text = u"لانها لالء الاسلام"
-	>>> normalizeLigature(text)
+        >>> text = u"لانها لالء الاسلام"
+        >>> normalize_ligature(text)
         لانها لالئ الاسلام
 
     @param text: arabic text.
@@ -720,11 +731,13 @@ def normalize_hamza(word):
     """Standardize the Hamzat into one form of hamza, 
     replace Madda by hamza and alef.
     Replace the LamAlefs by simplified letters.
-    Example:
-	>>> text = u"سئل أحد الأئمة"
-	>>> normalizeHamza(text)
-        سءل ءحد الءءمة
 
+    
+    Example:
+        >>> text = u"سئل أحد الأئمة"
+        >>> normalize_hamza(text)
+         سءل ءحد الءءمة
+        
     @param word: arabic text.
     @type word: unicode.
     @return: return a converted text.
@@ -746,12 +759,30 @@ def separate(word,  extract_shadda = False):
     separate the letters from the vowels,  in arabic word, 
     if a letter hasn't a haraka,  the not definited haraka is attributed.
     return ( letters, vowels)
+    
+    Example:
+        >>> araby.separate(text)
+        (u'\u0627\u0644\u0639\u0631\u0628\u064a\u0629', u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f')
+        >>> letters, marks =araby.separate(text)
+        >>> print letters.encode('utf8')
+        العربية
+        >>> print marks.encode('utf8')
+        >>> for m in marks:
+        ...     print araby.name(m)
+        فتحة
+        سكون
+        فتحة
+        فتحة
+        فتحة
+        فتحة
+        ضمة
+    
     @param word: the input word
     @type word: unicode
     @param extract_shadda: extract shadda as seperate text
     @type extract_shadda: Boolean 
     @return: ( letters, vowels)
-    @rtype:couple of unicode 
+    @rtype:couple of unicode
     """
     stack1 = stack.Stack(word)
     # the word is inversed in the stack 
@@ -801,6 +832,14 @@ def joint(letters,  marks):
     """ joint the letters with the marks
     the length ot letters and marks must be equal 
     return word
+
+    Example:
+        >>> letters = u"العربية"
+        >>> marks   = u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f'
+        >>> word = araby.joint(letters, marks)
+        >>> print word.encode('utf8')
+        اَلْعَرَبَيَةُ
+    
     @param letters: the word letters
     @type letters: unicode
     @param marks: the word marks
@@ -846,6 +885,13 @@ def vocalizedlike(word1, word2):
     """
     if the two words has the same letters and the same harakats,  this fuction return True.
     The two words can be full vocalized,  or partial vocalized
+
+    Example:
+        >>> word1 = u"ضَربٌ"
+        >>> word2 = u"ضَرْبٌ"
+        >>> araby.vocalizedlike(word1, word2)
+        True
+    
     @param word1: first word 
     @type word1: unicode
     @param word2: second word 
@@ -853,7 +899,7 @@ def vocalizedlike(word1, word2):
     @return: if two words have similar vocalization
     @rtype: Boolean
     """
-    if vocalized_similarity(word1, word2)<0:
+    if vocalized_similarity(word1, word2) < 0:
         return False
     else: return True
 
@@ -861,11 +907,18 @@ def vocalizedlike(word1, word2):
 # Function def vaznlike(word1, wazn):
 #-------------------------
 def waznlike(word1, wazn):
-    """if the  word1 is like a wazn (pattern), 
+    """If the  word1 is like a wazn (pattern), 
     the letters must be equal, 
     the wazn has FEH,  AIN,  LAM letters.
     this are as generic letters.
     The two words can be full vocalized,  or partial vocalized
+    
+    Example:
+        >>> word1 = u"ضارب"
+        >>> wazn =  u"فَاعِل"
+        >>> araby.waznlike(word1, wazn)
+        True
+    
     @param word1: input word 
     @type word1: unicode
     @param wazn: given word template  وزن
@@ -885,7 +938,7 @@ def waznlike(word1, wazn):
             last2 = stack2.pop()
         elif last1 not in vowels and last2 in (FEH,  AIN, LAM):
             root.push(last1)
-            print "t"
+            #~ print "t"
             last1 = stack1.pop()
             last2 = stack2.pop()
         elif last1 in vowels and last2 not in vowels:
@@ -896,7 +949,7 @@ def waznlike(word1, wazn):
             break
     # reverse the root letters
     root.items.reverse()
-    print " the root is ",  root.items#"".join(root.items)
+    #~ print " the root is ",  root.items#"".join(root.items)
     if not (stack1.is_empty() and stack2.is_empty()):
         return False
     else: return True
@@ -906,6 +959,17 @@ def shaddalike(partial, fully):
     If the two words has the same letters and the same harakats,  this fuction return True.
     The first word is partially vocalized, the second is fully
     if the partially contians a shadda, it must be at the same place in the fully 
+    
+    Example:
+        >>> word1 = u"ردّ"
+        >>> word2=u"ردَّ"
+        >>> araby.shaddalike(word1, word2)
+        True
+    
+    @param partial: the partially vocalized word
+    @type partial: unicode
+    @param fully: the fully vocalized word
+    @type fully: unicode
     @return: if contains shadda 
     @rtype: Boolean
     """
@@ -942,10 +1006,18 @@ def shaddalike(partial, fully):
 
 def reduce_tashkeel(text):
     """Reduce the Tashkeel,  by deleting evident cases.
+
+    Exmaple:
+        >>> word = u"يُتَسََلَّمْنَ"
+        >>> reduced = araby.reduce_tashkeel(word)
+        >>> print reduced.encode('utf8')
+        يُتسلّمن
+        
     @param text: the input text fully vocalized.
     @type text: unicode.
     @return : partially vocalized text.
     @rtype: unicode.
+    
     """
     patterns = [
     # delete all fathat,   except on waw and yeh
@@ -971,12 +1043,23 @@ def vocalized_similarity(word1, word2):
     """
     if the two words has the same letters and the same harakats,  this function return True.
     The two words can be full vocalized, or partial vocalized
+    
+    Example:
+        >>> word1 = u"ضَربٌ"
+        >>> word2 = u"ضَرْبٌ"
+        >>> araby.vocalizedlike(word1, word2)
+        True
+        >>> word1 = u"ضَربٌ"
+        >>> word2 = u"ضَرْبٍ"
+        >>> araby.vocalized_similarity(word1, word2)
+        -1
+    
     @param word1: first word 
     @type word1: unicode
     @param word2: second word 
     @type word2: unicode
     @return: return if words are similar, else return negative number of errors
-    @rtype: Boolean / int   
+    @rtype: Boolean / int 
     """
     
     stack1 = stack.Stack(word1)
@@ -1009,7 +1092,17 @@ def vocalized_similarity(word1, word2):
 
 def tokenize(text = u""):
     """
-    Tokenize text into words
+    Tokenize text into words.
+
+    Example:
+        >>> text = u"العربية لغة جميلة."
+        >>> tokens = araby.tokenize(text)
+        >>> print u"\\n".join(tokens)
+        ‎العربية
+        ‎لغة
+        ‎جميلة
+        .
+    
     @param text: the input text.
     @type text: unicode.
     @return: list of words.
