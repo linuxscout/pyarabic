@@ -6,13 +6,8 @@ functions to manipulate Arabic letters and text, like detecting Arabic
 letters, Arabic letters groups and characteristics, remove diacritics
 etc.
 
-# pyarabic
-==========
-
-pyarabic: A specific *Arabic language* library for **Python** مكتبة
-برمجية للغة العربية بلغة بيثون
-
-|downloads| |downloads|
+مكتبة برمجية للغة العربية بلغة بيثون، توفر دوالا للتحكم في الحروف
+والنصوص، مثلا تحديد نوع الحرف، حذف الحركات، مقارنة التشكيل.
 
 Developpers: Taha Zerrouki: http://tahadz.com taha dot zerrouki at gmail
 dot com
@@ -20,9 +15,9 @@ dot com
 +-------------+--------------------------------------------------------------------------------------------------------+
 | Features    | value                                                                                                  |
 +=============+========================================================================================================+
-| Authors     | `Authors.md <https://github.com/linuxscout/pyarabic/master/AUTHORS.md>`__                              |
+| Authors     | Taha Zerrouki: http://tahadz.com, taha dot zerrouki at gmail dot com                                   |
 +-------------+--------------------------------------------------------------------------------------------------------+
-| Release     | 0.6                                                                                                    |
+| Release     | 0.6.1                                                                                                  |
 +-------------+--------------------------------------------------------------------------------------------------------+
 | License     | `GPL <https://github.com/linuxscout/pyarabic/master/LICENSE>`__                                        |
 +-------------+--------------------------------------------------------------------------------------------------------+
@@ -48,7 +43,8 @@ If you would cite it in academic work, can you use this citation
 
 ::
 
-    T. Zerrouki‏, Pyarabic, An Arabic language library for Python,  https://pypi.python.org/pypi/pyarabic/, 2010
+    T. Zerrouki‏, Pyarabic, An Arabic language library for Python,
+      https://pypi.python.org/pypi/pyarabic/, 2010
 
 or in bibtex format
 
@@ -64,11 +60,41 @@ or in bibtex format
 مزايا
 -----
 
+-  تصنيف الحروف
+-  تفريق النص إلى وحدات
+-  حذف الحركات:( كل الحركات، الحركات عدا الشدة، حذف الشدة، حذف التطويل،
+   حذف الحركة الأخيرة)
+-  فصل الحركات عن النصوص وإدماجها
+-  اختزال التشكيل
+-  قياس التماثل بين كلمتين ( في الحركات جزئيا وكليا، التماثل مع وزن)
+-  تنميط الحروف ( توحيد التراكيب مثل لام الألف، والهمزات)
+-  تحويل الأعداد إلى كلمات
+-  استخلاص العبارات العددية من النص
+-  تشكيل أولي للعبارات العددية
+-  قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف
+-  عرض أفضل للكائنات بترميز يونيكود
+
 Features
 --------
 
+-  Arabic letters classification
+-  Text tokenization
+-  Strip Harakat ( all, except Shadda, tatweel, last\_haraka)
+-  Sperate and join Letters and Harakat
+-  Reduce tashkeel
+-  Mesure tashkeel similarity ( Harakats, fully or partially vocalized,
+   similarity with a template)
+-  Letters normalization ( Ligatures and Hamza)
+-  Numbers to words
+-  Extract numerical phrases
+-  Pre-vocalization of numerical phrases
+-  Unshiping texts
+-  Improve repr built-in function, to display unicode objects.
+
 Applications
 ============
+
+-  Arabic text processing
 
 Installation
 ============
@@ -80,8 +106,10 @@ Installation
 Usage
 =====
 
-Example
-~~~~~~~
+.. code:: python
+
+    import pyarabic.araby as araby
+    import pyarabic.number as number
 
 Package Documentation
 =====================
@@ -92,18 +120,11 @@ Files
 =====
 
 -  file/directory category description
-
--  [docs] docs/ docs documentation
-
--  [support]
-
-   -  pyarabic : basic arabic library
-
--  [test]
-
-   -  output/ test test output
-   -  samples/ test sample files
-   -  tools/ test script to use pyarabic
+-  araby.py: arabic routins.
+-  arabrepr: improve repr for unicode coded objects.
+-  number.py: handle numerical phrases.
+-  named.py: handle named enteties recognation.
+-  unshape.py: unshaping arabic text
 
 وصف
 ===
@@ -223,13 +244,238 @@ The arabic chars contains all arabic letters, a sub class of unicode,
 الوظائف- الدوال
 ^^^^^^^^^^^^^^^
 
-الوظائف (الدوال) دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة
-المطلوبة
+أهم الوظائف
+'''''''''''
+
++-----------------------------------+---------------------------+
+| وصف الدالة                        | الدالة                    |
++===================================+===========================+
+| حذف الحركات كلها بما فيها الشدة   | strip\_tashkeel(text)     |
++-----------------------------------+---------------------------+
+| حذف الحركات كلها ماعدا الشدة      | strip\_harakat(text)      |
++-----------------------------------+---------------------------+
+| حذف الحركة الأخيرة                | strip\_lastharaka(text)   |
++-----------------------------------+---------------------------+
+| حذف التطويل                       | strip\_tatweel(text)      |
++-----------------------------------+---------------------------+
+| تنميط أشكال الهمزة المختلفة       | normalize\_hamza(text)    |
++-----------------------------------+---------------------------+
+| تفريق كلمات النص                  | tokenize(text)            |
++-----------------------------------+---------------------------+
+
+-  حذف الحركات
+
+-  حذف كل الحركات عدا الشدة
+
+Strip Harakat from arabic word except Shadda. The striped marks are :
+Example:
+
+.. code:: python
+
+    >>> text = u"الْعَرَبِيّةُ"
+    >>> strip_harakat(text)
+    >>> العربيّة
+
+-  حذف الحركات بما فيها الشدة
+
+Strip vowels from a text, include Shadda. The striped marks are :
+
+.. code:: python
+
+    >>> text = u"الْعَرَبِيّةُ"
+    >>> strip_tashkeel(text)
+    العربية
+
+-  حذف الحركة الأخيرة فقط: قد تكون هي الحركة الإعرابية، لكن ليس في كل
+   الحالات، مثلا يضربه، حركة الإعراب على الباء وليس على الهاء
+
+Strip the last Haraka from arabic word except Shadda. The striped marks
+are :
+
+.. code:: python
+
+    >>> text = u"الْعَرَبِيّةُ"
+    >>> strip_lastharaka(text)
+    الْعَرَبِيّة
+
+-  اختزال التشكيل Reduce the Tashkeel, by deleting evident cases.
+
+.. code:: python
+
+    >>> word = u"يُتَسََلَّمْنَ"
+    >>> reduced = araby.reduce_tashkeel(word)
+    >>> print reduced.encode('utf8')
+    يُتسلّمن
+
+-  حذف التطويل أو الشدة
+
+Strip tatweel or Shadda from a text.
+
+.. code:: python
+
+    >>> text = u"العـــــربية"
+    >>> strip_tatweel(text)
+    العربية
+    >>> text = u"الشّمسيّة"
+    >>> strip_shadda(text)
+     الشمسية
+
+-  تنميط الحروف المركبة والهمزة
+
+بعض البرامج تعطي حروف متراكبة، توحيدها يرجعها إلى حروف بسيطة
+
+Normalize Lam Alef ligatures into two letters (LAM and ALEF) LAM\_ALEF,
+LAM\_ALEF\_HAMZA\_ABOVE, LAM\_ALEF\_HAMZA\_BELOW,
+LAM\_ALEF\_MADDA\_ABOVE
+
+.. code:: python
+
+    >>> text = u"لانها لالء الاسلام"
+    >>> normalize_ligature(text)
+    لانها لالئ الاسلام
+
+-  توحيد الهمزة
+
+Standardize the Hamzat into one form of hamza, replace Madda by hamza
+and alef. Replace the LamAlefs by simplified letters.
+
+.. code:: python
+
+    >>> text = u"سئل أحد الأئمة"
+    >>> normalize_hamza(text)
+     سءل ءحد الءءمة
+
+-  فصل الحركات والحروف
+
+يمكن استخلاص الحروف والحركات في سلسلتين متوازيتين، بحيث يقابل كل حرف
+حركة محددة، إذا غابت الحركة رمزنا لها بتطويل
+
+separate the letters from the vowels, in arabic word, if a letter hasn't
+a haraka, the not definited haraka is attributed. return ( letters,
+vowels)
+
+.. code:: python
+
+    >>> araby.separate(text)
+    (u'\u0627\u0644\u0639\u0631\u0628\u064a\u0629', u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f')
+    >>> letters, marks =araby.separate(text)
+    >>> print letters.encode('utf8')
+    العربية
+    >>> print marks.encode('utf8')
+    >>> for m in marks:
+    ...     print araby.name(m)
+    فتحة
+    سكون
+    فتحة
+    فتحة
+    فتحة
+    فتحة
+    ضمة
+
+يمكن دمج الحركات والحروف في كلمة واحدة، شرط أن يكون طول السلسلتين
+متساويا. ينوب عن غياب الحركة حرف التطويل
+
+joint the letters with the marks the length ot letters and marks must be
+equal return word
+
+.. code:: python
+
+    >>> letters = u"العربية"
+    >>> marks   = u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f'
+    >>> word = araby.joint(letters, marks)
+    >>> print word.encode('utf8')
+    اَلْعَرَبَيَةُ
+
+-  حساب التماثل
+
+التماثل في الحركات بين كلمتين يون صحيحا إذا كان للكلمتين نفس الحروف،
+ونفس الحركات، ولو كانت الحركات ناقصة
+
+if the two words has the same letters and the same harakats, this
+fuction return True. The two words can be full vocalized, or partial
+vocalized
+
+.. code:: python
+
+    >>> word1 = u"ضَربٌ"
+    >>> word2 = u"ضَرْبٌ"
+    >>> araby.vocalizedlike(word1, word2)
+    True
+
+-  تماثل الوزن تتماثل كلمة مع وزن إذا كانت الحروف تتطابق مع الوزن
+   والحركات مع الحركات، يمكن أن يكون التشكيل غير كامل
+
+If the word1 is like a wazn (pattern), the letters must be equal, the
+wazn has FEH, AIN, LAM letters. this are as generic letters. The two
+words can be full vocalized, or partial vocalized
+
+.. code:: python
+
+    >>> word1 = u"ضارب"
+    >>> wazn =  u"فَاعِل"
+    >>> araby.waznlike(word1, wazn)
+    True
+
+-  تتماثل كلمتان في الشدة إذ كانت لهما نفس المكان، والحركات أيضا وقد
+   يكون التشكيل غير كامل
+
+If the two words has the same letters and the same harakats, this
+fuction return True. The first word is partially vocalized, the second
+is fully if the partially contians a shadda, it must be at the same
+place in the fully
+
+.. code:: python
+
+    >>> word1 = u"ردّ"
+    >>> word2=u"ردَّ"
+    >>> araby.shaddalike(word1, word2)
+    True
+
+-  حساب التماثل في الحركات
+
+نقيس التماثل في الحركات ، بحيث كل اختلاف ننقص 1 فنحصل على عدد سالب حسب
+عدد مرات الاختلاف
+
+if the two words has the same letters and the same harakats, this
+function return True. The two words can be full vocalized, or partial
+vocalized
+
+.. code:: python
+
+    >>> word1 = u"ضَربٌ"
+    >>> word2 = u"ضَرْبٌ"
+    >>> araby.vocalizedlike(word1, word2)
+    True
+    >>> word1 = u"ضَربٌ"
+    >>> word2 = u"ضَرْبٍ"
+    >>> araby.vocalized_similarity(word1, word2)
+    -1
+
+-  تفريق النص
+
+يمكن استعمال الدالة tokenize لتفريق النص إلى كلمات
+
+Tokenize text into words.
+
+.. code:: python
+
+    >>> text = u"العربية لغة جميلة."
+    >>> tokens = araby.tokenize(text)
+    >>> print u"\n".join(tokens)
+    ‎العربية
+    ‎لغة
+    ‎جميلة
+    .
+
+وظائف الحروف
+^^^^^^^^^^^^
+
+دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة المطلوبة
 
 +-------------------------------------------------------+---------------------------+
 | وصف الدالة                                            | الدالة                    |
 +=======================================================+===========================+
-| إذا كان الحالاسم العربرف المعطى سكونا يرجع صحيح       | is\_sukun(archar)         |
+| إذا كان الحرف المعطى سكونا يرجع صحيح                  | is\_sukun(archar)         |
 +-------------------------------------------------------+---------------------------+
 | إذا كان الحرف المعطى شدة يرجع صحيح                    | is\_shadda(archar)        |
 +-------------------------------------------------------+---------------------------+
@@ -264,7 +510,178 @@ The arabic chars contains all arabic letters, a sub class of unicode,
 | إذا كان الحرف المعطى حرفا شمسيا يرجع صحيح             | is\_sun(archar)           |
 +-------------------------------------------------------+---------------------------+
 
-.. |downloads| image:: https://img.shields.io/pypi/dw/pyarabic.svg
-   :target: https://pypi.python.org/pypi/pyarabic
-.. |downloads| image:: https://img.shields.io/pypi/dm/pyarabic.svg
-   :target: https://pypi.python.org/pypi/pyarabic
+مثال
+~~~~
+
+في نطق الأسماء يتحوّل الحرف الشمسي بعد ال التعريف إلى حرف مشدد أي أنّ
+"الشمس" تنطق "أششمس"،
+
+.. code:: python
+
+    #!/usr/bin/python
+    # -*- coding=utf-8 -*-
+    import pyarabic.araby as araby
+    words=[u'الشمس', u'القمر', u'الرجل', u'بصل', u'البصل']
+    for word in words:
+        if word.startswith(araby.ALEF+araby.LAM) and araby.isSun(word[2]):
+            word=u''.join([araby.ALEF+word[2],word[2:]]);
+        print word.encode('utf8');
+
+في المثال، نعطي عددا من الكلمات لكتابة نطقها، بتحويل الحرف الشمسي بعد ال
+التعريف إلى حرف مكرر والنتيجة تكون
+
+::
+
+    اششمس
+    القمر
+    اررجل
+    بصل
+    البصل
+
+وظائف الأعداد والأرقام
+======================
+
+number.py توفر هذه المكتبة وظائف مثل : \* البحث عن مواضع العبارات
+العددية \* تحويل الكلمات إلى أعداد، \* استخلاص العبارات العددية \*
+تشكيلها \* تحويل الكلمات إلى أعداد Convert arabic text into number, for
+example convert تسعة وعشرون = >29.
+
+.. code:: python
+
+    >>> text2number(u"خمسمئة وثلاث وعشرون")
+    523
+
+-  تشكيل جملة كلمات عددية Vocalize a number words clause
+
+.. code:: python
+
+    >>> txt = u"خمسمئة وثلاثة وعشرين"
+    >>> wordlist = araby.tokenize(txt)
+    >>> vocalized =  vocalize_number(wordlist)
+    >>> print u" ".join(vocalized)
+    خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ
+    >>>
+
+-  استخلاص العبارات العددية من جملة
+
+Extract number words in a text.
+
+.. code:: python
+
+    >>> extract_number_phrases(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    خمسمئة وثلاثة وعشرين
+    ثلاثة عشر
+
+-  استخلاص العبارات العددية مع سياقها
+
+Extract number words in a text with context.
+
+.. code:: python
+
+    >>> extract_number_context(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    ‎وجدت، خمسمئة وثلاثة وعشرين، دينارا
+    ‎فاشتريت، ثلاثة عشر ، دفتر
+
+-  استخلاص مواضع العبارات العددية
+
+Detect number words in a text and return positions of each phrase.
+
+.. code:: python
+
+    >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
+    >>> wordlist = araby.tokenize(txt)
+    >>> positions_phrases =  detect_number_phrases_position(wordlist)
+    >>> print positions_phrase
+    >>> print positions_phrases
+    [(1, 3), (6, 7)]
+
+-  استخلاص مواضع العبارات العددية باستعمال الوسوم
+
+-  DO: لاشيء
+-  DB: بداية العبارة العددية
+-  BI: داخل العبارة العددية
+
+Detect number words in a text and return a taglist as BIO.
+
+.. code:: python
+
+    >>> wordlist = araby.tokenize(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+    >>> detect_numbers(wordlist)
+    ['DO', 'DB', 'DI', 'DI', 'DO', 'DO', 'DB', 'DI', 'DO']
+
+-  استخلاص العبارات العددية وإرجاع الجمل
+
+Detect number words in a text, return strings.
+
+.. code:: python
+
+    >>> detect_number_words(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
+    خمسمئة وثلاثة وعشرين
+
+-  تشكيل أولي للعبارات العددية
+
+Vocalized a number clauses in a text.
+
+.. code:: python
+
+    >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
+    >>> wordlist = araby.tokenize(txt)
+    >>> vocalized =  pre_tashkeel_number(wordlist)
+    >>> print u" ".join(vocalized)
+    وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينارا فاشتريت ثَلاثَةَ عَشَرَ دفترا
+
+وظائف قلب النصوص
+^^^^^^^^^^^^^^^^
+
+تستعمل لقلب الحروف، بسبب عدم دعم بعض البرامج للغة العربية، مما يدعونا
+إلى قلب الحروف.
+
+-  قلب النص
+
+Unshape a text
+
+.. code:: python
+
+    >>> TEXTS = u'لو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+    >>> print unshaping_text(TEXTS).encode('utf8')
+    باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+
+-  قلب سطر
+
+Unshape a line
+
+.. code:: python
+
+    >>> line = u'فليتك تحلو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+    >>> print unshaping_line(line).encode('utf8')
+    باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+
+-  قلب كلمة
+
+Unshape a word
+
+.. code:: python
+
+    >>> word = u'العربية'
+    >>> print unshaping_word(word).encode('utf8')
+    ةيبرعلا
+
+وظيفة العرض للنصوص العربية في كائنات بيثون
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه
+الدالة لتحسين هذا العرض
+
+A redifinition of repr fucntion, you can use it like this
+
+.. code:: python
+
+    >>> import pyarabic.arabrepr as arabrepr
+    >>> arepr = arabrepr.ArabicRepr()
+    >>> repr = arepr.repr
+    >>> word = u"السلام عليكم ورحمة الله"
+    >>> wordlist = word.split(" ")
+    >>> print wordlist
+    [u'\u0627\u0644\u0633\u0644\u0627\u0645', u'\u0639\u0644\u064a\u0643\u0645', u'\u0648\u0631\u062d\u0645\u0629', u'\u0627\u0644\u0644\u0647']
+    >>> print repr(wordlist)
+    [u'السلام', u'عليكم', u'ورحمة', u'الله']

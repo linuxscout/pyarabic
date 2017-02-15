@@ -51,15 +51,27 @@ or in bibtex format
 * تحويل الأعداد إلى كلمات
 * استخلاص العبارات العددية من النص
 * تشكيل أولي للعبارات العددية
-
+* قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف
+* عرض أفضل للكائنات بترميز يونيكود
 
 ## Features
-
+* Arabic letters classification
+* Text tokenization
+* Strip Harakat ( all, except Shadda, tatweel, last_haraka)
+* Sperate and  join Letters and Harakat
+* Reduce tashkeel
+* Mesure tashkeel similarity ( Harakats, fully or partially vocalized, similarity with a template)
+* Letters normalization ( Ligatures and Hamza)
+* Numbers to words
+* Extract numerical phrases
+* Pre-vocalization of numerical phrases
+* Unshiping texts
+* Improve repr built-in function, to display unicode objects.
 
 
 Applications
 ====
-
+* Arabic text processing
 
 Installation
 =====
@@ -69,11 +81,12 @@ pip install pyarabic
     
 Usage
 =====
+```python
+import pyarabic.araby as araby
+import pyarabic.number as number
+```
 
 
-
-
-### Example 
 
 
 Package Documentation
@@ -83,17 +96,11 @@ Package Documentation
 Files
 =====
 * file/directory    category    description 
-
-* [docs]
-    docs/   docs    documentation
-
-* [support]
-    - pyarabic  : basic arabic library
-
-* [test]
-    - output/   test    test output
-    - samples/  test    sample files
-    - tools/    test    script to use pyarabic
+ * araby.py: arabic routins.
+ * arabrepr: improve repr for unicode coded objects.
+ * number.py: handle numerical phrases.
+ * named.py: handle named enteties recognation.
+ * unshape.py: unshaping arabic text
 
 # وصف
 مكتبة بيثون للعربيةPyArabic  مكتبة برمجية تجمع في طياتها خصائص ووظائف يحتاجها المبرمج للتعامل مع النصوص العربية، وهي مستوحاة من مكتبة بي أتش بي العربية لصديقنا خالد الشمعة، التي تستهدف توفير مصدر مفتوح لكثير من وظائف النصوص العربية لاستعمالها في مجال النشر في الإنترنت.
@@ -516,3 +523,53 @@ Vocalized a number clauses in a text.
 وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينارا فاشتريت ثَلاثَةَ عَشَرَ دفترا
 ```
 
+
+#### وظائف قلب النصوص
+تستعمل لقلب الحروف، بسبب عدم دعم بعض البرامج للغة العربية، مما يدعونا إلى قلب الحروف.
+
+* قلب النص 
+
+Unshape a text
+
+```python 
+>>> TEXTS = u'لو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+>>> print unshaping_text(TEXTS).encode('utf8')
+باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+
+```
+* قلب سطر
+
+Unshape a line
+
+```python
+>>> line = u'فليتك تحلو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
+>>> print unshaping_line(line).encode('utf8')
+باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
+
+```
+* قلب كلمة
+
+Unshape a word
+```python
+>>> word = u'العربية'
+>>> print unshaping_word(word).encode('utf8')
+ةيبرعلا
+```
+
+
+###  وظيفة العرض للنصوص العربية في كائنات بيثون
+عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه الدالة لتحسين هذا العرض
+
+A redifinition of repr fucntion, you can use it like this
+
+```python
+>>> import pyarabic.arabrepr as arabrepr
+>>> arepr = arabrepr.ArabicRepr()
+>>> repr = arepr.repr
+>>> word = u"السلام عليكم ورحمة الله"
+>>> wordlist = word.split(" ")
+>>> print wordlist
+[u'\u0627\u0644\u0633\u0644\u0627\u0645', u'\u0639\u0644\u064a\u0643\u0645', u'\u0648\u0631\u062d\u0645\u0629', u'\u0627\u0644\u0644\u0647']
+>>> print repr(wordlist)
+[u'السلام', u'عليكم', u'ورحمة', u'الله']
+```
