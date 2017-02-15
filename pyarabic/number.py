@@ -239,7 +239,15 @@ def text2number(text):
     total += partial        
     return total
 def vocalize_number(wordlist, syn_tags = ""):
-    """ Vocalize a number words
+    """ Vocalize a number words clause
+    
+    Example:
+        >>> txt = u"خمسمئة وثلاثة وعشرين"
+        >>> wordlist = araby.tokenize(txt)
+        >>> vocalized =  vocalize_number(wordlist)
+        >>> print u" ".join(vocalized)
+        خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ
+    
     @param wordlist: words to vocalize
     @type wordlist: unicode list
     @param syn_tags: tags about the clause
@@ -447,9 +455,10 @@ def extract_number_phrases(text):
             if pos[0] <= len(wordlist) and pos[1] <= len(wordlist):
                 phrases.append(u' '.join(wordlist[pos[0]: pos[1]+1]))
     return phrases
+    
 def extract_number_context(text, ):
     """
-    Extract number words in a text.
+    Extract number words in a text within context.
 
     Example:
         >>> extract_number_context(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
@@ -483,8 +492,12 @@ def detect_number_phrases_position(wordlist):
     Detect number words in a text and return positions of each phrase.
     
     Example:
-        >>> detect_number_phrases_position(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
-        (1،3)، (6،7)
+        >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
+        >>> wordlist = araby.tokenize(txt)
+        >>> positions_phrases =  detect_number_phrases_position(wordlist)
+        >>> print positions_phrase
+        >>> print positions_phrases
+        [(1, 3), (6, 7)]
 
     @param wordlist: wordlist
     @type wordlist: unicode list
@@ -535,7 +548,8 @@ def detect_numbers(wordlist):
     Detect number words in a text and return a taglist as BIO.
 
     Example:
-        >>> detect_numbers(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+        >>> wordlist = araby.tokenize(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
+        >>> detect_numbers(wordlist)
         ['DO', 'DB', 'DI', 'DI', 'DO', 'DO', 'DB', 'DI', 'DO']
 
     @param wordlist: wordlist
@@ -577,12 +591,13 @@ def detect_numbers(wordlist):
             starts = False
             taglist.append("O")
     return taglist
+
 def detect_number_words(text):
     """
     Detect number words in a text.
     
     Example:
-        >>> text2number(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
+        >>> detect_number_words(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
         خمسمئة وثلاثة وعشرين 
     
     @param text: input text
@@ -591,8 +606,6 @@ def detect_number_words(text):
     @rtype: integer
     """
 
-    #~ words = araby.tokenize(text)
-    #print words
     phrases_context = extract_number_context(text)
     for ph_con in phrases_context:
         if len(ph_con) >= 3:
@@ -602,24 +615,31 @@ def detect_number_words(text):
             numberedwords = phrase
             numeric = text2number(numberedwords)
             tags = get_previous_tag(previous)
-            vocalized = vocalize_number(araby.strip_tashkeel(\
-            numberedwords).split(' '), tags)                
+            wordlist = araby.strip_tashkeel(numberedwords).split(' ')
+            vocalized = vocalize_number(wordlist , tags)                
             #calcul  vocalization similarity : 
             sim = araby.vocalized_similarity(numberedwords, vocalized)
             voc_unit = vocalize_unit(numeric, nextword)
-            sim_unit = araby.vocalized_similarity(voc_unit, \
-                nextword)                    
+            sim_unit = araby.vocalized_similarity(voc_unit, nextword) 
+                              
             if sim < 0:
-                print u'\t'.join([str(sim), numberedwords, vocalized, \
-                 str(numeric), u' '.join([previous, phrase, nextword]), \
-                  nextword, voc_unit, str(sim_unit)]).encode('utf8')
+                #~ print u'\t'.join([str(sim), u' '.join(numberedwords), vocalized, 
+                 #~ str(numeric), u' '.join([previous, phrase, nextword]), 
+                  #~ nextword, voc_unit, str(sim_unit)]).encode('utf8')
+                print u'\t'.join([str(sim), u' '.join(numberedwords), u' '.join(vocalized)]).encode('utf8') 
+                print str(numeric), u' '.join([previous, phrase, nextword]).encode('utf8') 
+                print u'\t'.join([nextword, voc_unit, str(sim_unit)]).encode('utf8')
+
 def pre_tashkeel_number(wordlist):
     """
-    Detect number words in a text.
+    Vocalized a number clauses in a text.
 
     Example:
-        >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
-        وجدت خمسمئة وثلاثة وعشرين دينارا
+        >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
+        >>> wordlist = araby.tokenize(txt)
+        >>> vocalized =  pre_tashkeel_number(wordlist)
+        >>> print u" ".join(vocalized)
+        وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينارا فاشتريت ثَلاثَةَ عَشَرَ دفترا
 
     @param wordlist: input text
     @type wordlist: unicode
@@ -646,39 +666,7 @@ def pre_tashkeel_number(wordlist):
         
     return vocalized_list
 
-def pre_tashkeel_number2(wordlist):
-    """
-    Detect number words in a text.
-    
-    Example:
-        >>> preTashkeelNumber(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
-        وجدت خمسمئة وثلاثة وعشرين دينارا
-    
-    @param wordlist: input text
-    @type wordlist: unicode
-    @return: wordlist with vocalized number clause
-    @rtype: list
-    """
 
-    positions =  detect_number_phrases_position(wordlist)
-    for pos in positions:
-        if len(pos) >= 2:
-            startpos = pos[0]
-            endpos =  pos[1]
-            if startpos <= len(wordlist) and endpos <= len(wordlist):
-                # get the context of current number phrase
-                if startpos-1 >= 0:
-                    previous =  wordlist[startpos-1]
-                else: previous = u''
-                #~ if endos+1 < len(wordlist):
-                    #~ next =  wordlist[endpos+1]
-                #~ else: next = u''
-                #get the tag of previous word
-                tags = get_previous_tag(previous)
-                vocalized = vocalize_number(wordlist[startpos: endpos+1], \
-                                          tags)                
-                wordlist = wordlist[:startpos] + vocalized +wordlist[endpos+1:]
-    return wordlist
 if __name__  ==  '__main__':
     #import number as ArabicNumberToLetters
     TEXTS = [u"مليونان وألفان وإثنا عشر", 
@@ -692,16 +680,18 @@ u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ث
         u'من ثلاثمئة وخمسين بلدا ',
     u'من أربعمئة وخمسين بلدا ',
     ]
+    arepr = arabrepr.ArabicRepr()
     for txt in TEXTS:
-        positions_phrases =  detect_number_phrases_position(araby.tokenize(txt))
+        wordlist = araby.tokenize(txt)
+        positions_phrases =  detect_number_phrases_position(wordlist)
         print positions_phrases
         nb_phrases = extract_number_phrases(txt)
-        wordlist = araby.tokenize(txt)
         taglist = detect_numbers(wordlist)
-        arepr = arabrepr.ArabicRepr()
         print taglist
         print u" ".join(wordlist).encode('utf8')
         print arepr.repr(zip(taglist, wordlist)).encode('utf8')
         print "tashkeel",u" ".join(pre_tashkeel_number(wordlist)).encode('utf8')
         print txt.encode('utf8')
         print u'\t'.join(nb_phrases).encode('utf8')
+        print "detect number word"
+        detect_number_words(txt)
