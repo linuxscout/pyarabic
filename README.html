@@ -1,0 +1,628 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h1 id="pyarabic">pyarabic</h1>
+<p>A specific <em>Arabic language</em> library for <strong>Python</strong>, provides basic functions to manipulate Arabic letters and text, like detecting Arabic letters, Arabic letters groups and characteristics, remove diacritics etc.</p>
+<p>مكتبة برمجية للغة العربية بلغة بيثون، توفر دوالا للتحكم في الحروف والنصوص، مثلا تحديد نوع الحرف، حذف الحركات، مقارنة التشكيل.</p>
+<p>Developpers: Taha Zerrouki: http://tahadz.com taha dot zerrouki at gmail dot com</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Features</th>
+<th align="left">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Authors</td>
+<td align="left">Taha Zerrouki: http://tahadz.com, taha dot zerrouki at gmail dot com</td>
+</tr>
+<tr class="even">
+<td align="left">Release</td>
+<td align="left">0.6.1</td>
+</tr>
+<tr class="odd">
+<td align="left">License</td>
+<td align="left"><a href="https://github.com/linuxscout/pyarabic/master/LICENSE">GPL</a></td>
+</tr>
+<tr class="even">
+<td align="left">Tracker</td>
+<td align="left"><a href="https://github.com/linuxscout/pyarabic/issues">linuxscout/pyarabic/Issues</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Website</td>
+<td align="left"><a href="https://pypi.python.org/pypi/pyarabic">https://pypi.python.org/pypi/pyarabic</a></td>
+</tr>
+<tr class="even">
+<td align="left">Doc</td>
+<td align="left"><a href="http://pythonhosted.org/pyarabic/">package Documentaion</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Source</td>
+<td align="left"><a href="http://github.com/linuxscout/pyarabic">Github</a></td>
+</tr>
+<tr class="even">
+<td align="left">Download</td>
+<td align="left"><a href="https://pypi.python.org/pypi/pyarabic">pypi.python.org</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Feedbacks</td>
+<td align="left"><a href="http://tahadz.com/pyarabic/contact">Comments</a></td>
+</tr>
+<tr class="even">
+<td align="left">Accounts</td>
+<td align="left"><span class="citation">[@Twitter]</span>(https://twitter.com/linuxscout) <span class="citation">[@Sourceforge]</span>(http://sourceforge.net/projects/pyarabic/)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="citation">Citation</h2>
+<p>If you would cite it in academic work, can you use this citation</p>
+<pre><code>T. Zerrouki‏, Pyarabic, An Arabic language library for Python,
+  https://pypi.python.org/pypi/pyarabic/, 2010</code></pre>
+<p>or in bibtex format</p>
+<pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span class="kw">@misc</span>{<span class="ot">zerrouki2012pyarabic</span>,
+  <span class="dt">title</span>={pyarabic, An Arabic language library for Python},
+  <span class="dt">author</span>={Zerrouki, Taha},
+  <span class="dt">url</span>={https://pypi.python.org/pypi/pyarabic,
+  year={2010}
+}</code></pre>
+<h2 id="مزايا">مزايا</h2>
+<ul>
+<li>تصنيف الحروف</li>
+<li>تفريق النص إلى وحدات</li>
+<li>حذف الحركات:( كل الحركات، الحركات عدا الشدة، حذف الشدة، حذف التطويل، حذف الحركة الأخيرة)</li>
+<li>فصل الحركات عن النصوص وإدماجها</li>
+<li>اختزال التشكيل</li>
+<li>قياس التماثل بين كلمتين ( في الحركات جزئيا وكليا، التماثل مع وزن)</li>
+<li>تنميط الحروف ( توحيد التراكيب مثل لام الألف، والهمزات)</li>
+<li>تحويل الأعداد إلى كلمات</li>
+<li>استخلاص العبارات العددية من النص</li>
+<li>تشكيل أولي للعبارات العددية</li>
+<li>قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف</li>
+<li>عرض أفضل للكائنات بترميز يونيكود</li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li>Arabic letters classification</li>
+<li>Text tokenization</li>
+<li>Strip Harakat ( all, except Shadda, tatweel, last_haraka)</li>
+<li>Sperate and join Letters and Harakat</li>
+<li>Reduce tashkeel</li>
+<li>Mesure tashkeel similarity ( Harakats, fully or partially vocalized, similarity with a template)</li>
+<li>Letters normalization ( Ligatures and Hamza)</li>
+<li>Numbers to words</li>
+<li>Extract numerical phrases</li>
+<li>Pre-vocalization of numerical phrases</li>
+<li>Unshiping texts</li>
+<li>Improve repr built-in function, to display unicode objects.</li>
+</ul>
+<h1 id="applications">Applications</h1>
+<ul>
+<li>Arabic text processing</li>
+</ul>
+<h1 id="installation">Installation</h1>
+<pre><code>pip install pyarabic</code></pre>
+<h1 id="usage">Usage</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> pyarabic.araby <span class="ch">as</span> araby
+<span class="ch">import</span> pyarabic.number <span class="ch">as</span> number</code></pre>
+<h1 id="package-documentation">Package Documentation</h1>
+<p><a href="https://pythonhosted.org/PyArabic/">https://pythonhosted.org/PyArabic/</a></p>
+<h1 id="files">Files</h1>
+<ul>
+<li>file/directory category description</li>
+<li>araby.py: arabic routins.</li>
+<li>arabrepr: improve repr for unicode coded objects.</li>
+<li>number.py: handle numerical phrases.</li>
+<li>named.py: handle named enteties recognation.</li>
+<li>unshape.py: unshaping arabic text</li>
+</ul>
+<h1 id="وصف">وصف</h1>
+<p>مكتبة بيثون للعربيةPyArabic مكتبة برمجية تجمع في طياتها خصائص ووظائف يحتاجها المبرمج للتعامل مع النصوص العربية، وهي مستوحاة من مكتبة بي أتش بي العربية لصديقنا خالد الشمعة، التي تستهدف توفير مصدر مفتوح لكثير من وظائف النصوص العربية لاستعمالها في مجال النشر في الإنترنت.</p>
+<h1 id="تعريف-نص-عربي">تعريف نص عربي</h1>
+<p>أفضل طريقة للتعامل مع النصوص العربية بلغة بيثون هو استخدام الترميز يونيكود، التي يدعمها بيثون دعما أصليا، لا حاجة فيه إلى مكتبات خارجية أو دوال خاصة، وقد يكون هذا أهمّ ما دفعني لاختيار لغة بيثون، إذ يكفي أن تسبق النص بحرف يو u لتدع بيثون يريحك من عناء التفكير وبرمجة النصوص، ويعامل معها بشفافية عالية.</p>
+<p>تعريف نص عربي بترميز يونيكود</p>
+<pre class="sourceCode python"><code class="sourceCode python">text = <span class="st">u&#39;الإسلام ديننا&#39;</span></code></pre>
+<p>اختيار ترميز ملف المتن.</p>
+<pre><code>﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-</code></pre>
+<p>عرض النص العربي في المخرج</p>
+<pre><code>print text.encode(&#39;utf8&#39;)</code></pre>
+<p>اسم المكتبة pyarabic فيها العديد من الوظائف المجمعة في وحدات:</p>
+<p>فيها العديد من الوظائف المجمعة في وحدات: * وحدة : araby.py وفيها الثوابت كالحروف وأسمائها ومجموعاتها والوظائف العامة كحذف الحركات وحذف التطويل ومقارنة التشكيل بين الكلمات، وضبط علامات الترقيم. * وحدة الأعداد number.py : وفيها وظائف تحويل الأعداد إلى كلمات والكلمات إلى أعداد، كشف ألفاظ الأعداد في النص، وتشكيلها. * وحدة المسميات : named.py وفيها وظائف لكشف الأسماء والمسميات في النص.</p>
+<h3 id="وحدة-الوظائف-العامة-araby">وحدة الوظائف العامة araby</h3>
+<p>يمكن استدعاؤها بالأمر</p>
+<pre class="sourceCode python"><code class="sourceCode python">Import pyarabic.araby <span class="ch">as</span> araby</code></pre>
+<p>وسنستعمل الاختصار araby فيما بعد الثوابت العامة في مكتبة عربي: تضم الحروف العربية ومجموعاتها المختلفة وبعض الأنماط المستخدمة لاحقا في وظائف مختلفة 1- الحروف العربية الأساسية مع تسميات لاتينية لاستعمالها في البرمجة</p>
+<p>The arabic chars contains all arabic letters, a sub class of unicode,</p>
+<pre class="sourceCode python"><code class="sourceCode python">COMMA            = <span class="st">u&#39;\u060C&#39;</span>
+SEMICOLON        = <span class="st">u&#39;\u061B&#39;</span>
+QUESTION         = <span class="st">u&#39;\u061F&#39;</span>
+HAMZA            = <span class="st">u&#39;\u0621&#39;</span>
+ALEF_MADDA       = <span class="st">u&#39;\u0622&#39;</span>
+ALEF_HAMZA_ABOVE = <span class="st">u&#39;\u0623&#39;</span></code></pre>
+<p>المزيد في ملف araby.py</p>
+<p>تضم مجموعة الحروف العربية الحروف الأساسية، والحركات والأرقام، وعلامات الترقيم، وبعض الحروف الخاصة كالألف الخنجرية والياء الصغيرة، و لامات الألف بأشكالها. ####مجموعات الأحرف: ويمكن تقسيم الحروف في مجموعات وتصنيفات نستعملها فيما بعد في الوظائف المختلفة</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">الاسم العربي</th>
+<th align="left">وصف المجموعة</th>
+<th align="left">عناصرها</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">الحروف</td>
+<td align="left">مجموعة الحروف العربية دون حركات</td>
+<td align="left">LETTERS = u'ابتةثجحخدذرزسشصضطظعغفقكلمنهويءآأؤإئ'</td>
+</tr>
+<tr class="even">
+<td align="left">التشكيل</td>
+<td align="left">مجموعة الحركات مع الشدة مدرجة</td>
+<td align="left">TASHKEEL =(FATHATAN, DAMMATAN, KASRATAN, FATHA,DAMMA,KASRA, SUKUN, SHADDA)</td>
+</tr>
+<tr class="odd">
+<td align="left">الحركات</td>
+<td align="left">مجموعة الحركات دون الشدة مدرجة</td>
+<td align="left">HARAKAT =( FATHATAN, DAMMATAN, KASRATAN, FATHA, DAMMA, KASRA, SUKUN);</td>
+</tr>
+<tr class="even">
+<td align="left">الحركات القصيرة</td>
+<td align="left">الحركات القصيرة دون تنوين</td>
+<td align="left">SHORTHARAKAT =( FATHA, DAMMA, KASRA, SUKUN);</td>
+</tr>
+<tr class="odd">
+<td align="left">التنوين</td>
+<td align="left">حركات التنوين</td>
+<td align="left">TANWIN =(FATHATAN, DAMMATAN, KASRATAN);</td>
+</tr>
+<tr class="even">
+<td align="left">المركبات</td>
+<td align="left">لامات الألف في أشكالها المختلفة</td>
+<td align="left">LIGUATURES = (u'ﻻ', u'ﻷ', u'ﻹ', u'ﻵ')</td>
+</tr>
+<tr class="odd">
+<td align="left">الهمزات</td>
+<td align="left">الهمزة في أشكالها المختلفة</td>
+<td align="left">HAMZAT = (u'ء', u'ؤ', u'ئ', u'ٔ', u'ٕ', u'إ', u'أ')</td>
+</tr>
+<tr class="even">
+<td align="left">الألفات</td>
+<td align="left">الألف في أشكالها المختلفة</td>
+<td align="left">ALEFAT = (u'ا', u'آ', u'أ', u'إ', u'ٱ', u'ى', u'ٰ')</td>
+</tr>
+<tr class="odd">
+<td align="left">حروف العلة</td>
+<td align="left">الياء والواو والألف</td>
+<td align="left">WEAK = (u'ا', u'و', u'ي', u'ى')</td>
+</tr>
+<tr class="even">
+<td align="left">الياءات</td>
+<td align="left">ما يرسم مثل الياء، الصغيرة منها، والألف المقصورة والهمزة على النبرة</td>
+<td align="left">YEHLIKE = (u'ي', u'ئ', u'ى', u'ۦ')</td>
+</tr>
+<tr class="odd">
+<td align="left">الواوات</td>
+<td align="left">ما يرسم مثل الواو</td>
+<td align="left">WAWLIKE = (u'و', u'ؤ', u'ۥ')</td>
+</tr>
+<tr class="even">
+<td align="left">التاءات</td>
+<td align="left">التاء المربوطة والمفتوحة</td>
+<td align="left">TEHLIKE = (u'ت', u'ة')</td>
+</tr>
+<tr class="odd">
+<td align="left">الحروف الصغيرة</td>
+<td align="left">الألف والياء والواو الصغار</td>
+<td align="left">SMALL = (u'ٰ', u'ۥ', u'ۦ')</td>
+</tr>
+<tr class="even">
+<td align="left">الحروف القمرية</td>
+<td align="left">الحروف القمرية</td>
+<td align="left">MOON = (u'ء', u'آ', u'أ', u'إ', u'ا', u'ب', u'ج', u'ح', u'خ', ...</td>
+</tr>
+<tr class="odd">
+<td align="left">الحروف الشمسية</td>
+<td align="left">الحروف القمرية</td>
+<td align="left">SUN = (u'ت', u'ث', u'د', u'ذ', u'ر', u'ز', u'س', u'ش', u'ص', u...</td>
+</tr>
+<tr class="even">
+<td align="left">ترتيب الحروف العربية</td>
+<td align="left">يعطي لكل حرف عربي رقما ترتيبيا فالألف واحد والباء اثنان والهمزة 29.</td>
+<td align="left">AlphabeticOrder = {u'ء': 29, u'آ': 29, u'أ': 29, u'ؤ': 29, u'إ...</td>
+</tr>
+<tr class="odd">
+<td align="left">أسماء الحروف</td>
+<td align="left">يعطي كل حرف اسمه العربي</td>
+<td align="left">NAMES = {u'ء': u'همزة', u'آ': u'ألف ممدودة', u'أ': u'همزة على ...</td>
+</tr>
+</tbody>
+</table>
+<h4 id="الوظائف--الدوال">الوظائف- الدوال</h4>
+<h5 id="أهم-الوظائف">أهم الوظائف</h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">وصف الدالة</th>
+<th align="left">الدالة</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">حذف الحركات كلها بما فيها الشدة</td>
+<td align="left">strip_tashkeel(text)</td>
+</tr>
+<tr class="even">
+<td align="left">حذف الحركات كلها ماعدا الشدة</td>
+<td align="left">strip_harakat(text)</td>
+</tr>
+<tr class="odd">
+<td align="left">حذف الحركة الأخيرة</td>
+<td align="left">strip_lastharaka(text)</td>
+</tr>
+<tr class="even">
+<td align="left">حذف التطويل</td>
+<td align="left">strip_tatweel(text)</td>
+</tr>
+<tr class="odd">
+<td align="left">تنميط أشكال الهمزة المختلفة</td>
+<td align="left">normalize_hamza(text)</td>
+</tr>
+<tr class="even">
+<td align="left">تفريق كلمات النص</td>
+<td align="left">tokenize(text)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>حذف الحركات</p></li>
+<li><p>حذف كل الحركات عدا الشدة</p></li>
+</ul>
+<p>Strip Harakat from arabic word except Shadda. The striped marks are : Example:</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;الْعَرَبِيّةُ&quot;</span>
+&gt;&gt;&gt; strip_harakat(text)
+&gt;&gt;&gt; العربيّة</code></pre>
+<ul>
+<li>حذف الحركات بما فيها الشدة</li>
+</ul>
+<p>Strip vowels from a text, include Shadda. The striped marks are :</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;الْعَرَبِيّةُ&quot;</span>
+&gt;&gt;&gt; strip_tashkeel(text)
+العربية</code></pre>
+<ul>
+<li>حذف الحركة الأخيرة فقط: قد تكون هي الحركة الإعرابية، لكن ليس في كل الحالات، مثلا يضربه، حركة الإعراب على الباء وليس على الهاء</li>
+</ul>
+<p>Strip the last Haraka from arabic word except Shadda. The striped marks are :</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;الْعَرَبِيّةُ&quot;</span>
+&gt;&gt;&gt; strip_lastharaka(text)
+الْعَرَبِيّة</code></pre>
+<ul>
+<li>اختزال التشكيل Reduce the Tashkeel, by deleting evident cases.</li>
+</ul>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word = <span class="st">u&quot;يُتَسََلَّمْنَ&quot;</span>
+&gt;&gt;&gt; reduced = araby.reduce_tashkeel(word)
+&gt;&gt;&gt; <span class="dt">print</span> reduced.encode(<span class="st">&#39;utf8&#39;</span>)
+يُتسلّمن</code></pre>
+<ul>
+<li>حذف التطويل أو الشدة</li>
+</ul>
+<p>Strip tatweel or Shadda from a text.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;العـــــربية&quot;</span>
+&gt;&gt;&gt; strip_tatweel(text)
+العربية
+&gt;&gt;&gt; text = <span class="st">u&quot;الشّمسيّة&quot;</span>
+&gt;&gt;&gt; strip_shadda(text)
+ الشمسية</code></pre>
+<ul>
+<li>تنميط الحروف المركبة والهمزة</li>
+</ul>
+<p>بعض البرامج تعطي حروف متراكبة، توحيدها يرجعها إلى حروف بسيطة</p>
+<p>Normalize Lam Alef ligatures into two letters (LAM and ALEF) LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_HAMZA_BELOW, LAM_ALEF_MADDA_ABOVE</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;لانها لالء الاسلام&quot;</span>
+&gt;&gt;&gt; normalize_ligature(text)
+لانها لالئ الاسلام</code></pre>
+<ul>
+<li>توحيد الهمزة</li>
+</ul>
+<p>Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. Replace the LamAlefs by simplified letters.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;سئل أحد الأئمة&quot;</span>
+&gt;&gt;&gt; normalize_hamza(text)
+ <span class="dv">س</span>ءل ءحد الءءمة</code></pre>
+<ul>
+<li>فصل الحركات والحروف</li>
+</ul>
+<p>يمكن استخلاص الحروف والحركات في سلسلتين متوازيتين، بحيث يقابل كل حرف حركة محددة، إذا غابت الحركة رمزنا لها بتطويل</p>
+<p>separate the letters from the vowels, in arabic word, if a letter hasn't a haraka, the not definited haraka is attributed. return ( letters, vowels)</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; araby.separate(text)
+(<span class="st">u&#39;\u0627\u0644\u0639\u0631\u0628\u064a\u0629&#39;</span>, <span class="st">u&#39;\u064e\u0652\u064e\u064e\u064e\u064e\u064f&#39;</span>)
+&gt;&gt;&gt; letters, marks =araby.separate(text)
+&gt;&gt;&gt; <span class="dt">print</span> letters.encode(<span class="st">&#39;utf8&#39;</span>)
+العربية
+&gt;&gt;&gt; <span class="dt">print</span> marks.encode(<span class="st">&#39;utf8&#39;</span>)
+&gt;&gt;&gt; <span class="kw">for</span> m in marks:
+...     <span class="dt">print</span> araby.name(m)
+فتحة
+سكون
+فتحة
+فتحة
+فتحة
+فتحة
+ضمة</code></pre>
+<p>يمكن دمج الحركات والحروف في كلمة واحدة، شرط أن يكون طول السلسلتين متساويا. ينوب عن غياب الحركة حرف التطويل</p>
+<p>joint the letters with the marks the length ot letters and marks must be equal return word</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; letters = <span class="st">u&quot;العربية&quot;</span>
+&gt;&gt;&gt; marks   = <span class="st">u&#39;\u064e\u0652\u064e\u064e\u064e\u064e\u064f&#39;</span>
+&gt;&gt;&gt; word = araby.joint(letters, marks)
+&gt;&gt;&gt; <span class="dt">print</span> word.encode(<span class="st">&#39;utf8&#39;</span>)
+اَلْعَرَبَيَةُ</code></pre>
+<ul>
+<li>حساب التماثل</li>
+</ul>
+<p>التماثل في الحركات بين كلمتين يون صحيحا إذا كان للكلمتين نفس الحروف، ونفس الحركات، ولو كانت الحركات ناقصة</p>
+<p>if the two words has the same letters and the same harakats, this fuction return True. The two words can be full vocalized, or partial vocalized</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word1 = <span class="st">u&quot;ضَربٌ&quot;</span>
+&gt;&gt;&gt; word2 = <span class="st">u&quot;ضَرْبٌ&quot;</span>
+&gt;&gt;&gt; araby.vocalizedlike(word1, word2)
+<span class="ot">True</span></code></pre>
+<ul>
+<li>تماثل الوزن تتماثل كلمة مع وزن إذا كانت الحروف تتطابق مع الوزن والحركات مع الحركات، يمكن أن يكون التشكيل غير كامل</li>
+</ul>
+<p>If the word1 is like a wazn (pattern), the letters must be equal, the wazn has FEH, AIN, LAM letters. this are as generic letters. The two words can be full vocalized, or partial vocalized</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word1 = <span class="st">u&quot;ضارب&quot;</span>
+&gt;&gt;&gt; wazn =  <span class="st">u&quot;فَاعِل&quot;</span>
+&gt;&gt;&gt; araby.waznlike(word1, wazn)
+<span class="ot">True</span></code></pre>
+<ul>
+<li>تتماثل كلمتان في الشدة إذ كانت لهما نفس المكان، والحركات أيضا وقد يكون التشكيل غير كامل</li>
+</ul>
+<p>If the two words has the same letters and the same harakats, this fuction return True. The first word is partially vocalized, the second is fully if the partially contians a shadda, it must be at the same place in the fully</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word1 = <span class="st">u&quot;ردّ&quot;</span>
+&gt;&gt;&gt; word2=<span class="st">u&quot;ردَّ&quot;</span>
+&gt;&gt;&gt; araby.shaddalike(word1, word2)
+<span class="ot">True</span></code></pre>
+<ul>
+<li>حساب التماثل في الحركات</li>
+</ul>
+<p>نقيس التماثل في الحركات ، بحيث كل اختلاف ننقص 1 فنحصل على عدد سالب حسب عدد مرات الاختلاف</p>
+<p>if the two words has the same letters and the same harakats, this function return True. The two words can be full vocalized, or partial vocalized</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word1 = <span class="st">u&quot;ضَربٌ&quot;</span>
+&gt;&gt;&gt; word2 = <span class="st">u&quot;ضَرْبٌ&quot;</span>
+&gt;&gt;&gt; araby.vocalizedlike(word1, word2)
+<span class="ot">True</span>
+&gt;&gt;&gt; word1 = <span class="st">u&quot;ضَربٌ&quot;</span>
+&gt;&gt;&gt; word2 = <span class="st">u&quot;ضَرْبٍ&quot;</span>
+&gt;&gt;&gt; araby.vocalized_similarity(word1, word2)
+-<span class="dv">1</span></code></pre>
+<ul>
+<li>تفريق النص</li>
+</ul>
+<p>يمكن استعمال الدالة tokenize لتفريق النص إلى كلمات</p>
+<p>Tokenize text into words.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text = <span class="st">u&quot;العربية لغة جميلة.&quot;</span>
+&gt;&gt;&gt; tokens = araby.tokenize(text)
+&gt;&gt;&gt; <span class="dt">print</span> <span class="st">u&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(tokens)
+‎العربية
+‎لغة
+‎جميلة
+.</code></pre>
+<h4 id="وظائف-الحروف">وظائف الحروف</h4>
+<p>دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة المطلوبة</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">وصف الدالة</th>
+<th align="left">الدالة</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى سكونا يرجع صحيح</td>
+<td align="left">is_sukun(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى شدة يرجع صحيح</td>
+<td align="left">is_shadda(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى تطويلا يرجع صحيح</td>
+<td align="left">is_tatweel(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى تنوينا يرجع صحيح</td>
+<td align="left">is_tanwin(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى تشكيلا (حركة أو شدة) يرجع صحيح</td>
+<td align="left">is_tashkeel(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى حركة يرجع صحيح</td>
+<td align="left">is_haraka(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى حركة قصيرة يرجع صحيح</td>
+<td align="left">is_shortharaka(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى لام ألف يرجع صحيح</td>
+<td align="left">is_ligature(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى همزة يرجع صحيح</td>
+<td align="left">is_hamza(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى ألفا يرجع صحيح</td>
+<td align="left">is_alef(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى يماثل الياء في رسمه يرجع صحيح</td>
+<td align="left">is_yehlike(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى يماثل الواو في رسمه يرجع صحيح</td>
+<td align="left">is_wawlike(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى تاء مفتوحة أو مربوطة يرجع صحيح</td>
+<td align="left">is_teh(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى حرفا صغيرا يرجع صحيح</td>
+<td align="left">is_small(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى حرف علة يرجع صحيح</td>
+<td align="left">is_weak(archar)</td>
+</tr>
+<tr class="even">
+<td align="left">إذا كان الحرف المعطى حرفا قمريا يرجع صحيح</td>
+<td align="left">is_moon(archar)</td>
+</tr>
+<tr class="odd">
+<td align="left">إذا كان الحرف المعطى حرفا شمسيا يرجع صحيح</td>
+<td align="left">is_sun(archar)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="مثال">مثال</h3>
+<p>في نطق الأسماء يتحوّل الحرف الشمسي بعد ال التعريف إلى حرف مشدد أي أنّ &quot;الشمس&quot; تنطق &quot;أششمس&quot;،</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/python</span>
+<span class="co"># -*- coding=utf-8 -*-</span>
+<span class="ch">import</span> pyarabic.araby <span class="ch">as</span> araby
+words=[<span class="st">u&#39;الشمس&#39;</span>, <span class="st">u&#39;القمر&#39;</span>, <span class="st">u&#39;الرجل&#39;</span>, <span class="st">u&#39;بصل&#39;</span>, <span class="st">u&#39;البصل&#39;</span>]
+<span class="kw">for</span> word in words:
+    <span class="kw">if</span> word.startswith(araby.ALEF+araby.LAM) and araby.isSun(word[<span class="dv">2</span>]):
+        word=<span class="st">u&#39;&#39;</span>.join([araby.ALEF+word[<span class="dv">2</span>],word[<span class="dv">2</span>:]]);
+    <span class="dt">print</span> word.encode(<span class="st">&#39;utf8&#39;</span>);</code></pre>
+<p>في المثال، نعطي عددا من الكلمات لكتابة نطقها، بتحويل الحرف الشمسي بعد ال التعريف إلى حرف مكرر والنتيجة تكون</p>
+<pre><code>اششمس
+القمر
+اررجل
+بصل
+البصل</code></pre>
+<h1 id="وظائف-الأعداد-والأرقام">وظائف الأعداد والأرقام</h1>
+<p>number.py توفر هذه المكتبة وظائف مثل : * البحث عن مواضع العبارات العددية * تحويل الكلمات إلى أعداد، * استخلاص العبارات العددية * تشكيلها * تحويل الكلمات إلى أعداد Convert arabic text into number, for example convert تسعة وعشرون = &gt;29.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; text2number(<span class="st">u&quot;خمسمئة وثلاث وعشرون&quot;</span>)
+<span class="dv">523</span></code></pre>
+<ul>
+<li>تشكيل جملة كلمات عددية Vocalize a number words clause</li>
+</ul>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; txt = <span class="st">u&quot;خمسمئة وثلاثة وعشرين&quot;</span>
+&gt;&gt;&gt; wordlist = araby.tokenize(txt)
+&gt;&gt;&gt; vocalized =  vocalize_number(wordlist)
+&gt;&gt;&gt; <span class="dt">print</span> <span class="st">u&quot; &quot;</span>.join(vocalized)
+خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ
+&gt;&gt;&gt;</code></pre>
+<ul>
+<li>استخلاص العبارات العددية من جملة</li>
+</ul>
+<p>Extract number words in a text.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; extract_number_phrases(<span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا&quot;</span>)
+خمسمئة وثلاثة وعشرين
+ثلاثة <span class="dv">عشر</span></code></pre>
+<ul>
+<li>استخلاص العبارات العددية مع سياقها</li>
+</ul>
+<p>Extract number words in a text with context.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; extract_number_context(<span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا&quot;</span>)
+‎وجدت، خمسمئة وثلاثة وعشرين، دينا<span class="dv">ر</span>ا
+‎فا<span class="dv">ش</span>تريت، ثلاثة <span class="dv">عشر</span> ، دفت<span class="dv">ر</span></code></pre>
+<ul>
+<li>استخلاص مواضع العبارات العددية</li>
+</ul>
+<p>Detect number words in a text and return positions of each phrase.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; txt = <span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا&quot;</span>
+&gt;&gt;&gt; wordlist = araby.tokenize(txt)
+&gt;&gt;&gt; positions_phrases =  detect_number_phrases_position(wordlist)
+&gt;&gt;&gt; <span class="dt">print</span> positions_phrase
+&gt;&gt;&gt; <span class="dt">print</span> positions_phrases
+[(<span class="dv">1</span>, <span class="dv">3</span>), (<span class="dv">6</span>, <span class="dv">7</span>)]</code></pre>
+<ul>
+<li><p>استخلاص مواضع العبارات العددية باستعمال الوسوم</p></li>
+<li>DO: لاشيء</li>
+<li>DB: بداية العبارة العددية</li>
+<li><p>BI: داخل العبارة العددية</p></li>
+</ul>
+<p>Detect number words in a text and return a taglist as BIO.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; wordlist = araby.tokenize(<span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا&quot;</span>)
+&gt;&gt;&gt; detect_numbers(wordlist)
+[<span class="st">&#39;DO&#39;</span>, <span class="st">&#39;DB&#39;</span>, <span class="st">&#39;DI&#39;</span>, <span class="st">&#39;DI&#39;</span>, <span class="st">&#39;DO&#39;</span>, <span class="st">&#39;DO&#39;</span>, <span class="st">&#39;DB&#39;</span>, <span class="st">&#39;DI&#39;</span>, <span class="st">&#39;DO&#39;</span>]</code></pre>
+<ul>
+<li>استخلاص العبارات العددية وإرجاع الجمل</li>
+</ul>
+<p>Detect number words in a text, return strings.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; detect_number_words(<span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا&quot;</span>)
+خمسمئة وثلاثة وعشرين</code></pre>
+<ul>
+<li>تشكيل أولي للعبارات العددية</li>
+</ul>
+<p>Vocalized a number clauses in a text.</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; txt = <span class="st">u&quot;وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا&quot;</span>
+&gt;&gt;&gt; wordlist = araby.tokenize(txt)
+&gt;&gt;&gt; vocalized =  pre_tashkeel_number(wordlist)
+&gt;&gt;&gt; <span class="dt">print</span> <span class="st">u&quot; &quot;</span>.join(vocalized)
+وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينا<span class="dv">ر</span>ا فا<span class="dv">ش</span>تريت ثَلاثَةَ عَشَرَ دفت<span class="dv">ر</span>ا</code></pre>
+<h4 id="وظائف-قلب-النصوص">وظائف قلب النصوص</h4>
+<p>تستعمل لقلب الحروف، بسبب عدم دعم بعض البرامج للغة العربية، مما يدعونا إلى قلب الحروف.</p>
+<ul>
+<li>قلب النص</li>
+</ul>
+<p>Unshape a text</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; TEXTS = <span class="st">u&#39;لو والحيـاة مريرة   وليتك ترضى والانـــام غضاب &#39;</span>
+&gt;&gt;&gt; <span class="dt">print</span> unshaping_text(TEXTS).encode(<span class="st">&#39;utf8&#39;</span>)
+با<span class="dv">ض</span>غ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف</code></pre>
+<ul>
+<li>قلب سطر</li>
+</ul>
+<p>Unshape a line</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; line = <span class="st">u&#39;فليتك تحلو والحيـاة مريرة   وليتك ترضى والانـــام غضاب &#39;</span>
+&gt;&gt;&gt; <span class="dt">print</span> unshaping_line(line).encode(<span class="st">&#39;utf8&#39;</span>)
+با<span class="dv">ض</span>غ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف</code></pre>
+<ul>
+<li>قلب كلمة</li>
+</ul>
+<p>Unshape a word</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word = <span class="st">u&#39;العربية&#39;</span>
+&gt;&gt;&gt; <span class="dt">print</span> unshaping_word(word).encode(<span class="st">&#39;utf8&#39;</span>)
+ةيبرعلا</code></pre>
+<h3 id="وظيفة-العرض-للنصوص-العربية-في-كائنات-بيثون">وظيفة العرض للنصوص العربية في كائنات بيثون</h3>
+<p>عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه الدالة لتحسين هذا العرض</p>
+<p>A redifinition of repr fucntion, you can use it like this</p>
+<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; <span class="ch">import</span> pyarabic.arabrepr <span class="ch">as</span> arabrepr
+&gt;&gt;&gt; arepr = arabrepr.ArabicRepr()
+&gt;&gt;&gt; <span class="dt">repr</span> = arepr.<span class="dt">repr</span>
+&gt;&gt;&gt; word = <span class="st">u&quot;السلام عليكم ورحمة الله&quot;</span>
+&gt;&gt;&gt; wordlist = word.split(<span class="st">&quot; &quot;</span>)
+&gt;&gt;&gt; <span class="dt">print</span> wordlist
+[<span class="st">u&#39;\u0627\u0644\u0633\u0644\u0627\u0645&#39;</span>, <span class="st">u&#39;\u0639\u0644\u064a\u0643\u0645&#39;</span>, <span class="st">u&#39;\u0648\u0631\u062d\u0645\u0629&#39;</span>, <span class="st">u&#39;\u0627\u0644\u0644\u0647&#39;</span>]
+&gt;&gt;&gt; <span class="dt">print</span> <span class="dt">repr</span>(wordlist)
+[<span class="st">u&#39;السلام&#39;</span>, <span class="st">u&#39;عليكم&#39;</span>, <span class="st">u&#39;ورحمة&#39;</span>, <span class="st">u&#39;الله&#39;</span>]</code></pre>
+</body>
+</html>
