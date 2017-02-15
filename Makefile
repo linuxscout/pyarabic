@@ -8,7 +8,7 @@ clean:
 backup: 
 	
 #create all files 
-all: ods verb noun release
+all: 
 
 # Publish to github
 publish:

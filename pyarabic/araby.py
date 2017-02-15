@@ -2,6 +2,18 @@
 # -*- coding=utf-8 -*-
 """
 Arabic module
+
+Features:
+=========
+
+    * Arabic letters classification
+    * Text tokenization
+    * Strip Harakat ( all, except Shadda, tatweel, last_haraka)
+    * Sperate and  join Letters and Harakat
+    * Reduce tashkeel
+    * Mesure tashkeel similarity ( Harakats, fully or partially vocalized, similarity with a template)
+    * Letters normalization ( Ligatures and Hamza)
+    
 @author: Taha Zerrouki
 @contact: taha dot zerrouki at gmail dot com
 @copyright: Arabtechies,  Arabeyes,   Taha Zerrouki

@@ -13,6 +13,7 @@ setup (name='PyArabic', version='0.6',
       url='http://pyarabic.sourceforge.net/',
       license='GPL',
       description="Arabic text tools for Python",
+      long_description = readme(),
       package_dir={'pyarabic': 'pyarabic',},
       packages=['pyarabic'],
       package_data = {
