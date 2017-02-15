@@ -363,16 +363,13 @@ if __name__ == '__main__':
         print positions_named    
         text1 = araby.strip_tashkeel(text1)
 
-        result1 = pretashkeel_named2(araby.tokenize(text1))    
-        print u' '.join(result1).encode('utf8')
-    
+   
         result = pretashkeel_named(araby.tokenize(text1))    
         print u' '.join(result).encode('utf8')
         
         wordlist = araby.tokenize(text1)
         taglist = detect_named(wordlist)
-        #print taglist
-        #print u" ".join(wordlist).encode('utf8')
+
         arepr = arabrepr.ArabicRepr()
         print arepr.repr(zip(taglist, wordlist)).encode('utf8')  
    
