@@ -10,15 +10,18 @@ Arabic Named enteties recognation pyarabic.named
 @date:2017/02/14
 @version: 0.3
 """
-
+from __future__ import absolute_import
 import sys
+
 if __name__  ==  '__main__':
     sys.path.append('../')
-    import pyarabic.arabrepr as arabrepr
-sys.path.append('../../lib')
-import pyarabic.araby as araby
-import pyarabic.named_const as named_const
-import pyarabic.propernouns as propernouns
+    import pyarabic.araby as araby
+    import pyarabic.named_const as named_const
+    import pyarabic.propernouns as propernouns
+else:
+    from . import araby
+    from . import named_const
+    from . import propernouns
 # from number import *
 DINENAMED = (
 u'شمس',
@@ -38,7 +41,7 @@ def is_proper_noun(word):
     @rtype: Boolean
     """
     # return word in named_const.ProperNouns    
-    return propernouns.ProperNouns.has_key(word)       
+    return word in propernouns.ProperNouns
 
 def detect_named_position(wordlist):
     """
@@ -58,7 +61,6 @@ def detect_named_position(wordlist):
     positions = []    
     startnamed = -1    
     endnamed   = False    
-    # print u":".join(wordlist).encode('utf8')    
     for i in range(len(wordlist)):
         word = wordlist[i]    
         if i+1 < len(wordlist):
@@ -155,7 +157,6 @@ def extract_named_within_context(text):
     wordlist = araby.tokenize(text)    
     positions =  detect_named_position(wordlist)       
     for pos in positions:
-        # print pos    
         if len(pos) >= 2:
             if pos[0] <= len(wordlist) and pos[1] <= len(wordlist):
                 if pos[0]-1 >= 0: 
@@ -255,7 +256,6 @@ def detect_named(wordlist):
 
     """
     #~ wordlist#=text.split(u' ')    
-    #print words    
     positions = []    
     startnamed = False
     taglist = []    
@@ -360,17 +360,18 @@ if __name__ == '__main__':
     ]    
     for text1 in TEXTS:
         positions_named = detect_named_position(text1.split(' '))    
-        print positions_named    
+        print (positions_named)
         text1 = araby.strip_tashkeel(text1)
 
    
         result = pretashkeel_named(araby.tokenize(text1))    
-        print u' '.join(result).encode('utf8')
+        print (u' '.join(result))
         
         wordlist = araby.tokenize(text1)
         taglist = detect_named(wordlist)
 
-        arepr = arabrepr.ArabicRepr()
-        print arepr.repr(zip(taglist, wordlist)).encode('utf8')  
+        tuples = (zip(taglist, wordlist))
+        for tup in tuples:
+            print(tup)
    
 

@@ -10,14 +10,14 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 Features |   value
 ---------|---------------------------------------------------------------------------------
 Authors  | Taha Zerrouki: http://tahadz.com,  taha dot zerrouki at gmail dot com
-Release  | 0.6.1
+Release  | 0.6.2
 License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
 Doc  |[package Documentaion](http://pythonhosted.org/pyarabic/)
 Source  |[Github](http://github.com/linuxscout/pyarabic)
 Download  |[pypi.python.org](https://pypi.python.org/pypi/pyarabic)
-Feedbacks  |[Comments](http://tahadz.com/pyarabic/contact)
+Feedbacks  |[Comments](https://github.com/linuxscout/pyarabic/issues)
 Accounts  |[@Twitter](https://twitter.com/linuxscout)  [@Sourceforge](http://sourceforge.net/projects/pyarabic/)
 
 
@@ -52,7 +52,6 @@ or in bibtex format
 * استخلاص العبارات العددية من النص
 * تشكيل أولي للعبارات العددية
 * قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف
-* عرض أفضل للكائنات بترميز يونيكود
 
 ## Features
 * Arabic letters classification
@@ -66,7 +65,6 @@ or in bibtex format
 * Extract numerical phrases
 * Pre-vocalization of numerical phrases
 * Unshiping texts
-* Improve repr built-in function, to display unicode objects.
 
 
 Applications
@@ -97,8 +95,6 @@ Files
 =====
 * file/directory    category    description 
  * araby.py: arabic routins.
- * arabrepr: improve repr for unicode coded objects.
- * number.py: handle numerical phrases.
  * named.py: handle named enteties recognation.
  * unshape.py: unshaping arabic text
 
@@ -556,20 +552,3 @@ Unshape a word
 ةيبرعلا
 ```
 
-
-###  وظيفة العرض للنصوص العربية في كائنات بيثون
-عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه الدالة لتحسين هذا العرض
-
-A redifinition of repr fucntion, you can use it like this
-
-```python
->>> import pyarabic.arabrepr as arabrepr
->>> arepr = arabrepr.ArabicRepr()
->>> repr = arepr.repr
->>> word = u"السلام عليكم ورحمة الله"
->>> wordlist = word.split(" ")
->>> print wordlist
-[u'\u0627\u0644\u0633\u0644\u0627\u0645', u'\u0639\u0644\u064a\u0643\u0645', u'\u0648\u0631\u062d\u0645\u0629', u'\u0627\u0644\u0644\u0647']
->>> print repr(wordlist)
-[u'السلام', u'عليكم', u'ورحمة', u'الله']
-```

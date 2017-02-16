@@ -1,3 +1,16 @@
+/tests/testunicode.py
+/pyarabic/__pycache__/__init__.cpython-34.pyc
+/pyarabic/__pycache__/arabrepr.cpython-34.pyc
+/pyarabic/__pycache__/araby.cpython-34.pyc
+/pyarabic/__pycache__/named_const.cpython-34.pyc
+/pyarabic/__pycache__/number_const.cpython-34.pyc
+/pyarabic/__pycache__/propernouns.cpython-34.pyc
+/pyarabic/__pycache__/stack.cpython-34.pyc
+/tests/output/2to3.report
+/dist/PyArabic-0.6-py2-none-any.whl
+/dist/PyArabic-0.6.1-py2-none-any.whl
+/dist/PyArabic-0.6.1-py2.7.egg
+/dist/PyArabic-0.6.1.tar.gz
 /doc/html/api-objects.txt
 /doc/html/class-tree.html
 /doc/html/crarr.png

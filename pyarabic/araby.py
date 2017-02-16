@@ -21,12 +21,13 @@ Features:
 @date:2010/03/01
 @version: 0.1
 """
+from __future__ import absolute_import
 import re
 
 if __name__ == "__main__":
     import stack
 else:
-    import pyarabic.stack as stack
+    from . import stack
 
 COMMA            = u'\u060C'
 SEMICOLON        = u'\u061B'
@@ -249,24 +250,24 @@ NAMES  = {
                 }
 # regular expretion
 
-HARAKAT_PATTERN  = re.compile(ur"["+u"".join(HARAKAT)+u"]",  re.UNICODE)
+HARAKAT_PATTERN  = re.compile(u"["+u"".join(HARAKAT)+u"]",  re.UNICODE)
 #~ """ pattern to strip Harakat"""
 LASTHARAKA_PATTERN  = \
-    re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
+    re.compile(u"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
 #~ """ Pattern to strip only the last haraka """
 SHORTHARAKAT_PATTERN  = \
-    re.compile(ur"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
+    re.compile(u"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
 #~ Pattern to lookup Short Harakat(Fatha, Damma, Kasra, sukun, tanwin),
 # but not shadda
-TASHKEEL_PATTERN  = re.compile(ur"["+u"".join(TASHKEEL)+u"]",  re.UNICODE)
+TASHKEEL_PATTERN  = re.compile(u"["+u"".join(TASHKEEL)+u"]",  re.UNICODE)
 #~ """ Harakat and shadda pattern  """
-HAMZAT_PATTERN  = re.compile(ur"["+u"".join(HAMZAT)+u"]",  re.UNICODE)
+HAMZAT_PATTERN  = re.compile(u"["+u"".join(HAMZAT)+u"]",  re.UNICODE)
 #~ """ all hamzat pattern"""
-ALEFAT_PATTERN  = re.compile(ur"["+u"".join(ALEFAT)+u"]",  re.UNICODE)
+ALEFAT_PATTERN  = re.compile(u"["+u"".join(ALEFAT)+u"]",  re.UNICODE)
 #~ """ all alef like letters """
-LIGUATURES_PATTERN  = re.compile(ur"["+u"".join(LIGUATURES)+u"]",  re.UNICODE)
+LIGUATURES_PATTERN  = re.compile(u"["+u"".join(LIGUATURES)+u"]",  re.UNICODE)
 #~ """ all liguatures pattern """
-TOKEN_PATTERN =  re.compile(ur"([\w%s]+)" % u"".join(TASHKEEL), re.UNICODE)
+TOKEN_PATTERN =  re.compile(u"([\w%s]+)" % u"".join(TASHKEEL), re.UNICODE)
 TOKEN_REPLACE = re.compile('\t|\r|\f|\v| ')
 #~ """ pattern to tokenize a text"""
 ################################################
@@ -471,6 +472,9 @@ def arabicrange():
     for i in range(0x0600,  0x00653):
         try :
             mylist.append(unichr(i))
+        except NameError:
+            # python 3 compatible
+            mylist.append(chr(i))            
         except ValueError:
             pass
     return mylist
@@ -527,7 +531,7 @@ def is_arabicstring(text):
     @return: True if all charaters are in Arabic block
     @rtype: Boolean
     """
-    if re.search(ur"([^\u0600-\u0652%s%s%s\s\d])"\
+    if re.search(u"([^\u0600-\u0652%s%s%s\s\d])"\
       %(LAM_ALEF,  LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), text):
         return False
     return True
@@ -830,7 +834,7 @@ def separate(word,  extract_shadda = False):
         # the shadda is considered as letter
         wordletters =    u''.join(letters.items)
         # print wordletters.encode('utf8')
-        shaddaplaces = re.sub(ur'[^%s]'%SHADDA,  TATWEEL, wordletters)
+        shaddaplaces = re.sub(u'[^%s]'%SHADDA,  TATWEEL, wordletters)
         shaddaplaces = re.sub(u'%s%s'%(TATWEEL, SHADDA), SHADDA, shaddaplaces)
         # print wordletters.encode('utf8')        
         wordletters = strip_shadda(wordletters)
@@ -1042,7 +1046,7 @@ def reduce_tashkeel(text):
     #  and waw maftouha before alef.
     u"%s(?=%s)" % (FATHA,  ALEF), 
     #delete fatha from yeh and waw if they are in the word begining.
-    ur"(?<=\s(%s|%s))%s" % (WAW,  YEH,  FATHA), 
+    u"(?<=\s(%s|%s))%s" % (WAW,  YEH,  FATHA), 
     #delete kasra if preceded by Hamza below alef.
     u"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), 
     ]
@@ -1141,10 +1145,10 @@ if __name__ == "__main__":
         #~newword =  joint(l, m)
         #~assert (newword != wrd)
         
-    print "like: ", vocalizedlike(u'مُتَوَهِّمًا', u'متوهمًا')
-    print "sim: ", vocalized_similarity(u'ثمّ', u'ثُمَّ')
-    print "like: ", vocalizedlike(u'ثمّ', u'ثُمَّ')
-    print "sim: ", vocalized_similarity(u'ثم', u'ثُمَّ')
-    print "like: ", vocalizedlike(u'ثم', u'ثُمَّ')
-    print "sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا')
-    print "sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا')
+    print ("like: ", vocalizedlike(u'مُتَوَهِّمًا', u'متوهمًا'))
+    print ("sim: ", vocalized_similarity(u'ثمّ', u'ثُمَّ'))
+    print ("like: ", vocalizedlike(u'ثمّ', u'ثُمَّ'))
+    print ("sim: ", vocalized_similarity(u'ثم', u'ثُمَّ'))
+    print ("like: ", vocalizedlike(u'ثم', u'ثُمَّ'))
+    print ("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))
+    print ("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))

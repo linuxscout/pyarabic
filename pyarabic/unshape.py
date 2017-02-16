@@ -205,12 +205,12 @@ if __name__  ==  '__main__':
     TEXTS = u"""فليتك تحلو والحيـاة مريرة * وليتك ترضى والانـــام غضاب 
 وليت الذي بيني وبينك عامر * وبيني وبين العـالمين خراب
 اذا صح الود فيك فالكل هين * وكل الي فــوق التراب تراب    """
-    print unshaping_text(TEXTS).encode('utf8')
-    print "--line--"
+    print (unshaping_text(TEXTS))
+    print ("--line--")
     line = u'فليتك تحلو والحيـاة مريرة * وليتك ترضى والانـــام غضاب '
-    print unshaping_line(line).encode('utf8')
-    print "--word--"
+    print (unshaping_line(line))
+    print ("--word--")
     word = u'العربية'
-    print unshaping_word(word).encode('utf8')
+    print (unshaping_word(word))
 
 

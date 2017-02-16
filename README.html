@@ -45,7 +45,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tr>
 <tr class="even">
 <td align="left">Release</td>
-<td align="left">0.6.1</td>
+<td align="left">0.6.2</td>
 </tr>
 <tr class="odd">
 <td align="left">License</td>
@@ -73,7 +73,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tr>
 <tr class="odd">
 <td align="left">Feedbacks</td>
-<td align="left"><a href="http://tahadz.com/pyarabic/contact">Comments</a></td>
+<td align="left"><a href="https://github.com/linuxscout/pyarabic/issues">Comments</a></td>
 </tr>
 <tr class="even">
 <td align="left">Accounts</td>
@@ -105,7 +105,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>استخلاص العبارات العددية من النص</li>
 <li>تشكيل أولي للعبارات العددية</li>
 <li>قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف</li>
-<li>عرض أفضل للكائنات بترميز يونيكود</li>
 </ul>
 <h2 id="features">Features</h2>
 <ul>
@@ -120,7 +119,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Extract numerical phrases</li>
 <li>Pre-vocalization of numerical phrases</li>
 <li>Unshiping texts</li>
-<li>Improve repr built-in function, to display unicode objects.</li>
 </ul>
 <h1 id="applications">Applications</h1>
 <ul>
@@ -137,8 +135,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>file/directory category description</li>
 <li>araby.py: arabic routins.</li>
-<li>arabrepr: improve repr for unicode coded objects.</li>
-<li>number.py: handle numerical phrases.</li>
 <li>named.py: handle named enteties recognation.</li>
 <li>unshape.py: unshaping arabic text</li>
 </ul>
@@ -612,17 +608,5 @@ words=[<span class="st">u&#39;الشمس&#39;</span>, <span class="st">u&#39;ا�
 <pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; word = <span class="st">u&#39;العربية&#39;</span>
 &gt;&gt;&gt; <span class="dt">print</span> unshaping_word(word).encode(<span class="st">&#39;utf8&#39;</span>)
 ةيبرعلا</code></pre>
-<h3 id="وظيفة-العرض-للنصوص-العربية-في-كائنات-بيثون">وظيفة العرض للنصوص العربية في كائنات بيثون</h3>
-<p>عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه الدالة لتحسين هذا العرض</p>
-<p>A redifinition of repr fucntion, you can use it like this</p>
-<pre class="sourceCode python"><code class="sourceCode python">&gt;&gt;&gt; <span class="ch">import</span> pyarabic.arabrepr <span class="ch">as</span> arabrepr
-&gt;&gt;&gt; arepr = arabrepr.ArabicRepr()
-&gt;&gt;&gt; <span class="dt">repr</span> = arepr.<span class="dt">repr</span>
-&gt;&gt;&gt; word = <span class="st">u&quot;السلام عليكم ورحمة الله&quot;</span>
-&gt;&gt;&gt; wordlist = word.split(<span class="st">&quot; &quot;</span>)
-&gt;&gt;&gt; <span class="dt">print</span> wordlist
-[<span class="st">u&#39;\u0627\u0644\u0633\u0644\u0627\u0645&#39;</span>, <span class="st">u&#39;\u0639\u0644\u064a\u0643\u0645&#39;</span>, <span class="st">u&#39;\u0648\u0631\u062d\u0645\u0629&#39;</span>, <span class="st">u&#39;\u0627\u0644\u0644\u0647&#39;</span>]
-&gt;&gt;&gt; <span class="dt">print</span> <span class="dt">repr</span>(wordlist)
-[<span class="st">u&#39;السلام&#39;</span>, <span class="st">u&#39;عليكم&#39;</span>, <span class="st">u&#39;ورحمة&#39;</span>, <span class="st">u&#39;الله&#39;</span>]</code></pre>
 </body>
 </html>

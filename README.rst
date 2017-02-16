@@ -17,7 +17,7 @@ dot com
 +=============+========================================================================================================+
 | Authors     | Taha Zerrouki: http://tahadz.com, taha dot zerrouki at gmail dot com                                   |
 +-------------+--------------------------------------------------------------------------------------------------------+
-| Release     | 0.6.1                                                                                                  |
+| Release     | 0.6.2                                                                                                  |
 +-------------+--------------------------------------------------------------------------------------------------------+
 | License     | `GPL <https://github.com/linuxscout/pyarabic/master/LICENSE>`__                                        |
 +-------------+--------------------------------------------------------------------------------------------------------+
@@ -31,7 +31,7 @@ dot com
 +-------------+--------------------------------------------------------------------------------------------------------+
 | Download    | `pypi.python.org <https://pypi.python.org/pypi/pyarabic>`__                                            |
 +-------------+--------------------------------------------------------------------------------------------------------+
-| Feedbacks   | `Comments <http://tahadz.com/pyarabic/contact>`__                                                      |
+| Feedbacks   | `Comments <https://github.com/linuxscout/pyarabic/issues>`__                                           |
 +-------------+--------------------------------------------------------------------------------------------------------+
 | Accounts    | [@Twitter](https://twitter.com/linuxscout) [@Sourceforge](http://sourceforge.net/projects/pyarabic/)   |
 +-------------+--------------------------------------------------------------------------------------------------------+
@@ -72,7 +72,6 @@ or in bibtex format
 -  استخلاص العبارات العددية من النص
 -  تشكيل أولي للعبارات العددية
 -  قلب النصوص العربية للأنظمة التي لا تدعم تشبيك الحروف
--  عرض أفضل للكائنات بترميز يونيكود
 
 Features
 --------
@@ -89,7 +88,6 @@ Features
 -  Extract numerical phrases
 -  Pre-vocalization of numerical phrases
 -  Unshiping texts
--  Improve repr built-in function, to display unicode objects.
 
 Applications
 ============
@@ -121,8 +119,6 @@ Files
 
 -  file/directory category description
 -  araby.py: arabic routins.
--  arabrepr: improve repr for unicode coded objects.
--  number.py: handle numerical phrases.
 -  named.py: handle named enteties recognation.
 -  unshape.py: unshaping arabic text
 
@@ -665,23 +661,3 @@ Unshape a word
     >>> word = u'العربية'
     >>> print unshaping_word(word).encode('utf8')
     ةيبرعلا
-
-وظيفة العرض للنصوص العربية في كائنات بيثون
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-عند عرض الكائنات المرمزة باليونيكود بعرضها على شكل أكواد، لذا تأتي هذه
-الدالة لتحسين هذا العرض
-
-A redifinition of repr fucntion, you can use it like this
-
-.. code:: python
-
-    >>> import pyarabic.arabrepr as arabrepr
-    >>> arepr = arabrepr.ArabicRepr()
-    >>> repr = arepr.repr
-    >>> word = u"السلام عليكم ورحمة الله"
-    >>> wordlist = word.split(" ")
-    >>> print wordlist
-    [u'\u0627\u0644\u0633\u0644\u0627\u0645', u'\u0639\u0644\u064a\u0643\u0645', u'\u0648\u0631\u062d\u0645\u0629', u'\u0627\u0644\u0644\u0647']
-    >>> print repr(wordlist)
-    [u'السلام', u'عليكم', u'ورحمة', u'الله']
