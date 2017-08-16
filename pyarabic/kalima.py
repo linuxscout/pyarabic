@@ -121,7 +121,7 @@ class kalima:
 	def __iadd__(self, other):
 		self.letters+= other.letters;
 		self.marks  += other.marks;
-	def __add__(self.other):
+	def __add__(self, other):
 		return kalima(self.letters + other.letters, self.marks  + other.marks);
 
 	#####################################
