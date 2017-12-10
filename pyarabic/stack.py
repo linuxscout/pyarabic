@@ -9,41 +9,41 @@ Stack module
 @date:2010/03/01
 @version: 0.1
 """
-class Stack :
+class Stack(object):
     """
-	Stack class
+    Stack class
     """
-    def __init__(self, text="") :
+    def __init__(self, text=""):
         """
         create a stack
         """
         self.items = list(text)
 
-    def push(self, item) :
+    def push(self, item):
         """
         puch an item into the stack
         @param item: pushed item
-        @type item : mixed
-        @return : None
+        @type item: mixed
+        @return: None
         @rtype: None
         """
         self.items.append(item)
 
-    def pop(self) :
+    def pop(self):
         """
         pop an item from the stack
-        @return : poped item
-        @rtype: mixed        
+        @return: poped item
+        @rtype: mixed
         """
         if not self.is_empty():
             return self.items.pop()
-        else: 
+        else:
             return None
 
-    def is_empty(self) :
+    def is_empty(self):
         """
         test if the stack is empty
-        @return : True or False
+        @return: True or False
         @rtype: boolean
-        """        
-        return (self.items == [])
+        """
+        return self.items == []
