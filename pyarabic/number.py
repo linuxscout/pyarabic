@@ -23,9 +23,11 @@ if __name__ == '__main__':
     sys.path.append('../')
     import pyarabic.araby as araby
     import pyarabic.number_const as nbconst
+    import pyarabic.named_const as nmconst
 else:
     from . import araby
     from . import number_const as nbconst
+    from . import named_const as nmconst
 
 class ArNumbers(object):
     '''
@@ -226,8 +228,8 @@ def text2number(text):
         if word != u'واحد' and word.startswith(u'و'):
             word = word[1:]
 
-        if word in nbconst.NumberWords:
-            actualnumber = nbconst.NumberWords[word]
+        if word in nbconst.NUMBER_WORDS:
+            actualnumber = nbconst.NUMBER_WORDS[word]
             if actualnumber % 1000 == 0:
                 # the case of 1000 or 1 million
                 if partial == 0:
@@ -236,7 +238,7 @@ def text2number(text):
                 #re-initiate the partial total
                 partial = 0
             else:
-                partial += nbconst.NumberWords[word]
+                partial += nbconst.NUMBER_WORDS[word]
     # add the final partial to total
     total += partial
     return total
@@ -276,10 +278,10 @@ def vocalize_number(wordlist, syn_tags=""):
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
         # تحذب بعض الكلمات لأنها تلتبس مع أسماء الأجزاء مثل خُمس وخمس
-        if key in nbconst.NumberWords and \
+        if key in nbconst.NUMBER_WORDS and \
           key not in (u'عشر', u'خمس', u'سبع', u'تسع', u'خمسا', \
 u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'ألف'):
-            voc = prefix + nbconst.VocalizedNumberWords[key]['i']
+            voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
         return [voc, ]
     for i, word in enumerate(wordlist):
         #save the original word with possible harakat if exist
@@ -294,7 +296,7 @@ u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'
             key = word[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
-        if key in nbconst.NumberWords:
+        if key in nbconst.NUMBER_WORDS:
             if word_nm.endswith(u'ين'):
                 tags += u"مجهول" # إما مجرور أو منصوب
             elif word_nm.endswith(u'ان')  or word_nm.endswith(u'ون'):
@@ -319,41 +321,41 @@ u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'
                 prefix += u'ِ'
         else:
             prefix = u''
-        if key in nbconst.VocalizedNumberWords:
+        if key in nbconst.VOCALIZED_NUMBER_WORDS:
             voc = u''
-            if nbconst.VocalizedNumberWords[key]['s'] == "*":
-                voc = prefix + nbconst.VocalizedNumberWords[key]['i']
+            if nbconst.VOCALIZED_NUMBER_WORDS[key]['s'] == "*":
+                voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
 
             # مبني على النصب في حالة المركب العددي
             elif nextword == u'عشر' or nextword == u'عشرة':
-                voc = prefix + nbconst.VocalizedNumberWords[key]['n']
+                voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['n']
             # مبني على النصب في حالة المركب العددي
-            elif key == u'عشر' and pre_key in nbconst.NumberTenMasculinUnits:
+            elif key == u'عشر' and pre_key in nbconst.NUMBER_TEN_MASCULIN_UNITS:
                 voc = u'عَشَرَ'
-            elif key == u'عشرة' and pre_key in nbconst.NumberTenFemininUnits:
+            elif key == u'عشرة' and pre_key in nbconst.NUMBER_TEN_FEMININ_UNITS:
                 voc = u'عَشْرَةَ'
             elif u'مرفوع' in tags:
                 if nextword.startswith(u'و'):
-                    voc = prefix + nbconst.VocalizedNumberWords[key]['r2']
+                    voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['r2']
                 else:
-                    voc = prefix + nbconst.VocalizedNumberWords[key]['r']
+                    voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['r']
             elif u'مجهول' in tags:
-                voc = prefix + nbconst.VocalizedNumberWords[key]['i']
+                voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
 
             elif u'مجرور' in tags:
                 if nextword.startswith(u'و'):
-                    voc = prefix + nbconst.VocalizedNumberWords[key]['j2']
+                    voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['j2']
                 else:
-                    voc = prefix + nbconst.VocalizedNumberWords[key]['j']
+                    voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['j']
             # منصوب
             elif u'منصوب' in tags:
                 if nextword.startswith(u'و'):
-                    voc = prefix + nbconst.VocalizedNumberWords[key]['n2']
+                    voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['n2']
                 else:
                     voc = prefix + \
-                      nbconst.VocalizedNumberWords[key]['n']
+                      nbconst.VOCALIZED_NUMBER_WORDS[key]['n']
             else:
-                voc = prefix + nbconst.VocalizedNumberWords[key]['i']
+                voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
             newlist.append(voc)
         else:
             newlist.append(prefix+key)
@@ -368,7 +370,7 @@ def is_unit(word):
     @return: if word is a unit return True else False.
     @rtype: Boolean
     """
-    return word in nbconst.UnitWords
+    return word in nbconst.UNIT_WORDS
 
 def vocalize_unit(numeric, unit):
     """ Vocalize a number words
@@ -398,19 +400,19 @@ def vocalize_unit(numeric, unit):
     # مثلا ألف رجل
     elif  numeric % 100 == 0 or  numeric % 1000 == 0:
         tags = u'SingleMajrour'
-        vocalizedunit = nbconst.UnitWords[unit_nm]['a']
+        vocalizedunit = nbconst.UNIT_WORDS[unit_nm]['a']
     # العدد المفرد يتطلب
     # إضافة إلى الجمع
     elif numeric % 100 <= 10:
         tags += "Plural"
-        vocalizedunit = nbconst.UnitWords[unit_nm]['p']
+        vocalizedunit = nbconst.UNIT_WORDS[unit_nm]['p']
 
     elif numeric % 100 < 100:
         tags += 'SingleMansoub'
-        vocalizedunit = nbconst.UnitWords[unit_nm]['n']
+        vocalizedunit = nbconst.UNIT_WORDS[unit_nm]['n']
     else:
         tags = ''
-        vocalizedunit = nbconst.UnitWords[unit_nm]['i']
+        vocalizedunit = nbconst.UNIT_WORDS[unit_nm]['i']
     if not vocalizedunit:
         return 'Error' + tags
     else:
@@ -425,11 +427,11 @@ def get_previous_tag(word):
     """
     word = araby.strip_tashkeel(word)
     #~ tags = u''
-    if word in nbconst.NOUN_NASEB_LIST:
+    if word in nmconst.NOUN_NASEB_LIST:
         return u'منصوب'
-    elif word in nbconst.JAR_LIST:
+    elif word in nmconst.JAR_LIST:
         return u'مجرور'
-    elif word in nbconst.RAFE3_LIST:
+    elif word in nmconst.RAFE3_LIST:
         return u'مرفوع'
     else:
         return u''
@@ -527,7 +529,7 @@ def detect_number_phrases_position(wordlist):
             key = word_nm[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
-        if key in nbconst.NumberWords or key.isnumeric():
+        if key in nbconst.NUMBER_WORDS or key.isnumeric():
             if key not in (u'أحد', u'إحدى', u'اثنا', u'اثني', u'اثنتي', \
              u'اثنتا')  or nextword in (u'عشر', u'عشرة'):
                 if startnumber < 0:
@@ -579,7 +581,7 @@ def detect_numbers(wordlist):
             key = word_nm[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
-        if key in nbconst.NumberWords or key.isnumeric():
+        if key in nbconst.NUMBER_WORDS or key.isnumeric():
             if key not in (u'أحد', u'إحدى', u'اثنا', u'اثني', u'اثنتي', \
              u'اثنتا')  or nextword in (u'عشر', u'عشرة'):
                 if not starts:
