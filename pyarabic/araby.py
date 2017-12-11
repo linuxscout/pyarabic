@@ -216,67 +216,78 @@ HAMZAT_STRING = u"".join(HAMZAT)
 HARAKAT_STRING = u"".join(HARAKAT)
 # regular expretion
 
-HARAKAT_PATTERN = re.compile(u"["+u"".join(HARAKAT)+u"]", re.UNICODE)
+HARAKAT_PATTERN = re.compile(ur"[" + u"".join(HARAKAT) + u"]", re.UNICODE)
 #~ """ pattern to strip Harakat"""
 #~ LASTHARAKA_PATTERN =\
 # re.compile(ur"["+u"".join(HARAKAT)+u"]$|["+u''.join(TANWIN)+"]",\
- #~ re.UNICODE)
+#~ re.UNICODE)
 LASTHARAKA_PATTERN = \
-    re.compile(u"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
+    re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
 #~ """ Pattern to strip only the last haraka """
-SHORTHARAKAT_PATTERN = re.compile(u"["+u"".join(SHORTHARAKAT)+u"]", re.UNICODE)
+SHORTHARAKAT_PATTERN = re.compile(ur"[" + u"".join(SHORTHARAKAT) + u"]",
+                                  re.UNICODE)
 #~ Pattern to lookup Short Harakat(Fatha, Damma, Kasra, sukun, tanwin),
 # but not shadda
-TASHKEEL_PATTERN = re.compile(u"["+u"".join(TASHKEEL)+u"]", re.UNICODE)
+TASHKEEL_PATTERN = re.compile(ur"[" + u"".join(TASHKEEL) + u"]", re.UNICODE)
 #~ """ Harakat and shadda pattern  """
-HAMZAT_PATTERN = re.compile(u"["+u"".join(HAMZAT)+u"]", re.UNICODE)
+HAMZAT_PATTERN = re.compile(ur"[" + u"".join(HAMZAT) + u"]", re.UNICODE)
 #~ """ all hamzat pattern"""
-ALEFAT_PATTERN = re.compile(u"["+u"".join(ALEFAT)+u"]", re.UNICODE)
+ALEFAT_PATTERN = re.compile(ur"[" + u"".join(ALEFAT) + u"]", re.UNICODE)
 #~ """ all alef like letters """
-LIGUATURES_PATTERN = re.compile(u"["+u"".join(LIGUATURES)+u"]", re.UNICODE)
+LIGUATURES_PATTERN = re.compile(ur"[" + u"".join(LIGUATURES) + u"]", re.UNICODE)
 #~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(r"[^\w\u064b-\u0652']+", re.UNICODE)
+TOKEN_PATTERN = re.compile(ur"([^\w\u064b-\u0652']+)", re.UNICODE)
 #~ """ pattern to tokenize a text"""
-TOKEN_REPLACE = re.compile('\t|\r|\f|\v| ')
+TOKEN_REPLACE = re.compile(ur'\t|\r|\f|\v| ')
 
 #Arabic string
-ARABIC_STRING = re.compile(r"([^\u0600-\u0652%s%s%s\s\d])"\
+ARABIC_STRING = re.compile(ur"([^\u0600-\u0652%s%s%s\s\d])"\
 %(LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), re.UNICODE)
 #Arabic range
-ARABIC_RANGE = re.compile(u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
+ARABIC_RANGE = re.compile(
+    ur"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
+
+
 ################################################
 #{ is letter functions
 ################################################
 def is_sukun(archar):
     """Checks if the given ``archar``Sukun Mark."""
-    return  archar == SUKUN
+    return archar == SUKUN
+
 
 def is_shadda(archar):
     """Checks if the given ``archar`` is  Shadda Mark. """
     return archar == SHADDA
 
+
 def is_tatweel(archar):
     """Checks if the given ``archar`` Tatweel letter modifier."""
-    return  archar == TATWEEL
+    return archar == TATWEEL
+
 
 def is_tanwin(archar):
     """Checks if the given ``archar`` Tanwin Marks """
     return archar in TANWIN
+
 
 def is_tashkeel(archar):
     """Checks if the given ``archar`` Arabic Tashkeel Marks (
         - FATHA, DAMMA, KASRA, SUKUN,
         - SHADDA,
         - FATHATAN, DAMMATAN, KASRATAn)."""
-    return  archar in  TASHKEEL
+    return archar in TASHKEEL
+
 
 def is_haraka(archar):
     """Checks if the given ``archar`` Arabic Harakat Marks (FATHA, DAMMA, KASRA, SUKUN, TANWIN)."""
     return archar in HARAKAT
 
+
 def is_shortharaka(archar):
     """Checks if the given ``archar``  short Harakat Marks (FATHA, DAMMA, KASRA, SUKUN)."""
     return archar in SHORTHARAKAT
+
 
 def is_ligature(archar):
     """Checks for Arabic  Ligatures like LamAlef.
@@ -286,7 +297,8 @@ def is_ligature(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in LIGUATURES
+    return archar in LIGUATURES
+
 
 def is_hamza(archar):
     """Checks for Arabic  Hamza forms.
@@ -299,6 +311,7 @@ def is_hamza(archar):
     """
     return archar in HAMZAT
 
+
 def is_alef(archar):
     """Checks for Arabic Alef forms.
     ALEFAT = (ALEF, ALEF_MADDA, ALEF_HAMZA_ABOVE, ALEF_HAMZA_BELOW, ALEF_WASLA, ALEF_MAKSURA)
@@ -309,6 +322,7 @@ def is_alef(archar):
     """
     return archar in ALEFAT
 
+
 def is_yehlike(archar):
     """Checks for Arabic Yeh forms.
     Yeh forms : YEH, YEH_HAMZA, SMALL_YEH, ALEF_MAKSURA
@@ -317,7 +331,8 @@ def is_yehlike(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in YEHLIKE
+    return archar in YEHLIKE
+
 
 def is_wawlike(archar):
     """Checks for Arabic Waw like forms.
@@ -329,6 +344,7 @@ def is_wawlike(archar):
     """
     return archar in WAWLIKE
 
+
 def is_teh(archar):
     """Checks for Arabic Teh forms.
     Teh forms : TEH, TEH_MARBUTA
@@ -339,6 +355,7 @@ def is_teh(archar):
     """
     return archar in TEHLIKE
 
+
 def is_small(archar):
     """Checks for Arabic Small letters.
     SMALL Letters : SMALL ALEF, SMALL WAW, SMALL YEH
@@ -347,7 +364,8 @@ def is_small(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in SMALL
+    return archar in SMALL
+
 
 def is_weak(archar):
     """Checks for Arabic Weak letters.
@@ -357,7 +375,8 @@ def is_weak(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in WEAK
+    return archar in WEAK
+
 
 def is_moon(archar):
     """Checks for Arabic Moon letters.
@@ -367,7 +386,8 @@ def is_moon(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in MOON
+    return archar in MOON
+
 
 def is_sun(archar):
     """Checks for Arabic Sun letters.
@@ -377,7 +397,9 @@ def is_sun(archar):
     @return:
     @rtype:Boolean
     """
-    return  archar in SUN
+    return archar in SUN
+
+
 #####################################
 #{ general  letter functions
 #####################################
@@ -392,6 +414,7 @@ def order(archar):
     """
     return ALPHABETIC_ORDER.get(archar, 0)
 
+
 def name(archar):
     """return Arabic letter name in arabic.     Alef order is 1, Yeh is 28,
     Hamza is 29. Teh Marbuta has the same ordre with Teh, 3.
@@ -401,6 +424,7 @@ def name(archar):
     @rtype: unicode
     """
     return NAMES.get(archar, u'')
+
 
 def arabicrange():
     u"""return a list of arabic characteres .
@@ -418,6 +442,8 @@ def arabicrange():
         except ValueError:
             pass
     return mylist
+
+
 #####################################
 #{ Has letter functions
 #####################################
@@ -431,6 +457,8 @@ def has_shadda(word):
     if re.search(SHADDA, word):
         return True
     return False
+
+
 #####################################
 #{ word and text functions
 #####################################
@@ -451,6 +479,7 @@ def is_vocalized(word):
         return False
     return True
 
+
 def is_vocalizedtext(text):
     """Checks if the arabic text is vocalized.
     The text can contain many words and spaces
@@ -460,6 +489,7 @@ def is_vocalizedtext(text):
     @rtype:Boolean
     """
     return bool(re.search(HARAKAT_PATTERN, text))
+
 
 def is_arabicstring(text):
     """ Checks for an  Arabic standard Unicode block characters
@@ -474,6 +504,7 @@ def is_arabicstring(text):
         return False
     return True
 
+
 def is_arabicrange(text):
     """ Checks for an  Arabic Unicode block characters
     @param text: input text
@@ -484,6 +515,7 @@ def is_arabicrange(text):
     if ARABIC_RANGE.search(text):
         return False
     return True
+
 
 def is_arabicword(word):
     """ Checks for an valid Arabic  word.
@@ -496,19 +528,21 @@ def is_arabicword(word):
     """
     if len(word) == 0:
         return False
-    elif re.search(u"([^\u0600-\u0652%s%s%s])"\
+    elif re.search(ur"([^\u0600-\u0652%s%s%s])"\
        %(LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), word):
         return False
     elif is_haraka(word[0]) or word[0] in (WAW_HAMZA, YEH_HAMZA):
         return False
 #  if Teh Marbuta or Alef_Maksura not in the end
-    elif re.match(u"^(.)*[%s](.)+$"%ALEF_MAKSURA, word):
+    elif re.match(ur"^(.)*[%s](.)+$" % ALEF_MAKSURA, word):
         return False
-    elif re.match(u"^(.)*[%s]([^%s%s%s])(.)+$"%\
+    elif re.match(ur"^(.)*[%s]([^%s%s%s])(.)+$"%\
         (TEH_MARBUTA, DAMMA, KASRA, FATHA), word):
         return False
     else:
         return True
+
+
 #####################################
 #{Char functions
 #####################################
@@ -521,6 +555,8 @@ def first_char(word):
     @rtype: unicode char
     """
     return word[0]
+
+
 def second_char(word):
     """
     Return the second char
@@ -530,6 +566,8 @@ def second_char(word):
     @rtype: unicode char
     """
     return word[1:2]
+
+
 def last_char(word):
     """
     Return the last letter
@@ -540,6 +578,8 @@ def last_char(word):
     @rtype: unicode char
     """
     return word[-1:]
+
+
 def secondlast_char(word):
     """
     Return the second last letter example: zerrouki; 'k' is the second last.
@@ -549,6 +589,8 @@ def secondlast_char(word):
     @rtype: unicode char
     """
     return word[-2:-1]
+
+
 #####################################
 #{Strip functions
 #####################################
@@ -570,7 +612,7 @@ def strip_harakat(text):
     @rtype: unicode.
     """
     # if text:
-        # return  re.sub(HARAKAT_PATTERN, u'', text)
+    # return  re.sub(HARAKAT_PATTERN, u'', text)
     # return text
     if not text:
         return text
@@ -578,6 +620,8 @@ def strip_harakat(text):
         for char in HARAKAT:
             text = text.replace(char, '')
     return text
+
+
 def strip_lastharaka(text):
     """Strip the last Haraka from arabic word except Shadda.
     The striped marks are :
@@ -597,8 +641,9 @@ def strip_lastharaka(text):
     """
     if text:
         if is_vocalized(text):
-            return  re.sub(LASTHARAKA_PATTERN, u'', text)
+            return re.sub(LASTHARAKA_PATTERN, u'', text)
     return text
+
 
 def strip_tashkeel(text):
     """Strip vowels from a text, include Shadda.
@@ -624,6 +669,8 @@ def strip_tashkeel(text):
         for char in TASHKEEL:
             text = text.replace(char, '')
     return text
+
+
 def strip_tatweel(text):
     """
     Strip tatweel from a text and return a result text.
@@ -641,6 +688,7 @@ def strip_tatweel(text):
     """
     return text.replace(TATWEEL, '')
 
+
 def strip_shadda(text):
     """
     Strip Shadda from a text and return a result text.
@@ -656,6 +704,7 @@ def strip_shadda(text):
     @rtype: unicode.
     """
     return text.replace(SHADDA, '')
+
 
 def normalize_ligature(text):
     """Normalize Lam Alef ligatures into two letters (LAM and ALEF),
@@ -676,8 +725,9 @@ def normalize_ligature(text):
     @rtype: unicode.
     """
     if text:
-        return LIGUATURES_PATTERN.sub(u'%s%s'%(LAM, ALEF), text)
+        return LIGUATURES_PATTERN.sub(u'%s%s' % (LAM, ALEF), text)
     return text
+
 
 def normalize_hamza(word):
     """Standardize the Hamzat into one form of hamza,
@@ -702,9 +752,10 @@ def normalize_hamza(word):
         else:
             word = HAMZA + HAMZA + word[1:]
     # convert all Hamza from into one form
-    word = word.replace(ALEF_MADDA, HAMZA+HAMZA)
+    word = word.replace(ALEF_MADDA, HAMZA + HAMZA)
     word = HAMZAT_PATTERN.sub(HAMZA, word)
     return word
+
 
 def separate(word, extract_shadda=False):
     u"""
@@ -749,7 +800,7 @@ def separate(word, extract_shadda=False):
     # in th stack the word is inversed
     while last1 in vowels:
         last1 = stack1.pop()
-    while  last1 != None:
+    while last1 != None:
         if last1 in vowels:
             # we can't have two harakats beside.
             # the shadda is considered as a letter
@@ -771,8 +822,9 @@ def separate(word, extract_shadda=False):
         # the shadda is considered as letter
         wordletters = u''.join(letters.items)
         # print wordletters.encode('utf8')
-        shaddaplaces = re.sub(u'[^%s]'%SHADDA, TATWEEL, wordletters)
-        shaddaplaces = re.sub(u'%s%s'%(TATWEEL, SHADDA), SHADDA, shaddaplaces)
+        shaddaplaces = re.sub(u'[^%s]' % SHADDA, TATWEEL, wordletters)
+        shaddaplaces = re.sub(u'%s%s' % (TATWEEL, SHADDA), SHADDA,
+                              shaddaplaces)
         # print wordletters.encode('utf8')
         wordletters = strip_shadda(wordletters)
         # print wordletters.encode('utf8')
@@ -812,7 +864,7 @@ def joint(letters, marks):
     last_letter = stack_letter.pop()
     last_mark = stack_mark.pop()
     vowels = HARAKAT
-    while  last_letter != None and  last_mark != None:
+    while last_letter != None and last_mark != None:
         if last_letter == SHADDA:
             top = word_stack.pop()
             if top not in vowels:
@@ -854,7 +906,9 @@ def vocalizedlike(word1, word2):
     """
     if vocalized_similarity(word1, word2) < 0:
         return False
-    else: return True
+    else:
+        return True
+
 
 #-------------------------
 # Function def vaznlike(word1, wazn):
@@ -885,7 +939,7 @@ def waznlike(word1, wazn):
     last1 = stack1.pop()
     last2 = stack2.pop()
     vowels = HARAKAT
-    while  last1 != None and  last2 != None:
+    while last1 != None and last2 != None:
         if last1 == last2 and last2 not in (FEH, AIN, LAM):
             last1 = stack1.pop()
             last2 = stack2.pop()
@@ -905,7 +959,9 @@ def waznlike(word1, wazn):
     #~ print " the root is ", root.items#"".join(root.items)
     if not (stack1.is_empty() and stack2.is_empty()):
         return False
-    else: return True
+    else:
+        return True
+
 
 def shaddalike(partial, fully):
     u"""
@@ -932,7 +988,8 @@ def shaddalike(partial, fully):
     #المدخل به شدة، والنتيجة ليس بها شدة، خاطئ
     elif not has_shadda(fully) and has_shadda(partial):
         return False
- # المدخل والمخرج بهما شدة، نتأكد من موقعهما
+
+# المدخل والمخرج بهما شدة، نتأكد من موقعهما
     partial = strip_harakat(partial)
     fully = strip_harakat(fully)
     pstack = stack.Stack(partial)
@@ -940,7 +997,7 @@ def shaddalike(partial, fully):
     plast = pstack.pop()
     vlast = vstack.pop()
     # if debug: print "+0", Pstack, Vstack
-    while  plast != None and  vlast != None:
+    while plast != None and vlast != None:
         if plast == vlast:
             plast = pstack.pop()
             vlast = vstack.pop()
@@ -955,7 +1012,9 @@ def shaddalike(partial, fully):
             break
     if not (pstack.is_empty() and vstack.is_empty()):
         return False
-    else: return True
+    else:
+        return True
+
 
 def reduce_tashkeel(text):
     u"""Reduce the Tashkeel, by deleting evident cases.
@@ -974,23 +1033,30 @@ def reduce_tashkeel(text):
     """
     patterns = [
         # delete all fathat, except on waw and yeh
-        u"(?<!(%s|%s))(%s|%s)" % (WAW, YEH, SUKUN, FATHA), \
+        ur"(?<!(%s|%s))(%s|%s)" % (WAW, YEH, SUKUN, FATHA), \
         #delete damma if followed by waw.
-        u"%s(?=%s)" % (DAMMA, WAW), \
+
+        ur"%s(?=%s)" % (DAMMA, WAW), \
         #delete kasra if followed by yeh.
-        u"%s(?=%s)" % (KASRA, YEH), \
+
+        ur"%s(?=%s)" % (KASRA, YEH), \
         #delete fatha if followed by alef to reduce yeh maftouha
         #  and waw maftouha before alef.
-        u"%s(?=%s)" % (FATHA, ALEF), \
+
+
+        ur"%s(?=%s)" % (FATHA, ALEF), \
         #delete fatha from yeh and waw if they are in the word begining.
-        u"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
+
+        ur"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
         #delete kasra if preceded by Hamza below alef.
-        u"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), \
+
+        ur"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), \
     ]
     reduced = text
     for pat in patterns:
         reduced = re.sub(pat, '', reduced)
     return reduced
+
 
 def vocalized_similarity(word1, word2):
     u"""    if the two words has the same letters and the same harakats, this function return True.
@@ -1019,7 +1085,7 @@ def vocalized_similarity(word1, word2):
     last2 = stack2.pop()
     err_count = 0
     vowels = HARAKAT
-    while  last1 != None and  last2 != None:
+    while last1 != None and last2 != None:
         if last1 == last2:
             last1 = stack1.pop()
             last2 = stack2.pop()
@@ -1039,7 +1105,9 @@ def vocalized_similarity(word1, word2):
                 err_count += 1
     if err_count > 0:
         return -err_count
-    else: return True
+    else:
+        return True
+
 
 def tokenize(text=u""):
     u"""
@@ -1070,15 +1138,16 @@ def tokenize(text=u""):
         mylist = [x for x in mylist if x]
         return mylist
 
+
 if __name__ == "__main__":
     #~WORDS = [u'الْدَرَاجَةُ', u'الدّرّاجة',
-     #~u'سّلّامْ', ]
+    #~u'سّلّامْ', ]
     #~for wrd in WORDS:
-        #~l, m, s = separate(wrd, True)
-        #~l = joint(l, s)
-        #~print u'\t'.join([wrd, l, m, s]).encode('utf8')
-        #~newword = joint(l, m)
-        #~assert (newword != wrd)
+    #~l, m, s = separate(wrd, True)
+    #~l = joint(l, s)
+    #~print u'\t'.join([wrd, l, m, s]).encode('utf8')
+    #~newword = joint(l, m)
+    #~assert (newword != wrd)
 
     print("like: ", vocalizedlike(u'مُتَوَهِّمًا', u'متوهمًا'))
     print("sim: ", vocalized_similarity(u'ثمّ', u'ثُمَّ'))
@@ -1087,3 +1156,19 @@ if __name__ == "__main__":
     print("like: ", vocalizedlike(u'ثم', u'ثُمَّ'))
     print("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))
     print("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))
+    text1 = u"العربية: لغة جميلة."
+    wordlist = [u'العربية',u":", u"لغة", u"جميلة", u"."]
+    wl = tokenize(text1)
+    
+
+    
+    print (repr(wl)).decode('unicode-escape'), (repr(wordlist)).decode('unicode-escape')
+    TOKEN_PATTERN2 = re.compile(ur"[^\w\u064b-\u0652']+", re.UNICODE)
+    words = TOKEN_PATTERN2.split(text1)
+    print " first"
+    print (repr(words)).decode('unicode-escape')
+    TOKEN_PATTERN2 = re.compile(ur"([^\w\u064b-\u0652']+)", re.UNICODE)
+    words = TOKEN_PATTERN2.split(text1)
+    print " modified"
+    print (repr(words)).decode('unicode-escape')
+    
