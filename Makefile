@@ -26,3 +26,5 @@ sdist:
 upload:
 	echo "use twine upload dist/PyArabic-0.6.1.tar.gz"
 	
+test:
+	pytest pyarabic/test_araby.py
