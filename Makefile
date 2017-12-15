@@ -10,6 +10,8 @@ backup:
 #create all files 
 all: 
 
+install:
+	sudo python setup.py install
 # Publish to github
 publish:
 	git push origin master 
