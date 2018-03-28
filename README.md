@@ -10,7 +10,7 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 Features |   value
 ---------|---------------------------------------------------------------------------------
 Authors  | Taha Zerrouki: http://tahadz.com,  taha dot zerrouki at gmail dot com
-Release  | 0.6.2
+Release  | 0.6.3
 License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
@@ -375,7 +375,22 @@ Tokenize text into words.
 ‎لغة
 ‎جميلة
 .
+
 ```
+You can use it with conditions (restrict Arabic, keep or remove numbers, exclude stop words ...etc).
+
+To remove tashkeel and filter out non-Arabic words:
+```python
+>>> text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
+>>> tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
+        ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
+```
+This structure will enable us to create functions on the fly and pass them:       
+```python
+>>> text = u"طلع البدر علينا من ثنيات الوداع"
+>>>tokenize(text, conditions=lambda x: x.startswith(u'ال'))
+        ['البدر', 'الوداع']
+```    
 
 
 

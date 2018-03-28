@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# -*- coding=utf-8 -*-
 """
 Arabic numbers routins
 @author: Taha Zerrouki
@@ -121,8 +121,8 @@ class ArNumbers(object):
     def _int2str(self, number_str):
         """
         Spell integer number in Arabic idiom
-        @param number: The number you want to spell in Arabic idiom
-        @type number: integer.
+        @param number_str: The number you want to spell in Arabic idiom
+        @type number_str: integer.
         @return: The Arabic idiom that spells inserted number
         @rtype:string
         """
@@ -668,7 +668,10 @@ def pre_tashkeel_number(wordlist):
                 chunk = []
             vocalized_list.append(word)
             previous = word
-
+    if chunk:
+        vocalized = vocalize_number(chunk, previous_tag)
+        vocalized_list.extend(vocalized)
+        chunk = []
     return vocalized_list
 
 
@@ -684,6 +687,7 @@ if __name__ == '__main__':
              u'من ثلاثمئة وخمسين بلدا ',
              u'من ثلاثمئة وخمسين بلدا ',
              u'من أربعمئة وخمسين بلدا ',
+             u'السلام عليكم 2014',
             ]
     #~ arepr = arabrepr.ArabicRepr()
     for txt in TEXTS:
@@ -696,7 +700,8 @@ if __name__ == '__main__':
         print(u" ".join(word_list))
         #~ print(arepr.repr(zip(taglist, wordlist)))
         print(zip(tag_list, word_list))
-        print("tashkeel", u" ".join(pre_tashkeel_number(word_list)))
+        
+        print "tashkeel", repr(pre_tashkeel_number(word_list)).decode('unicode-escape').encode('utf8')
         print(txt)
         print(u'\t'.join(nb_phrases))
         print("detect number word")

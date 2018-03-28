@@ -30,3 +30,5 @@ upload:
 	
 test:
 	pytest pyarabic/test_araby.py
+doc:
+	epydoc --config epydoc.conf

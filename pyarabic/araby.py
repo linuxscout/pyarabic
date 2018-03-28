@@ -5,13 +5,13 @@ Arabic module
 
 Features:
 =========
- * Arabic letters classification
- * Text tokenization
- * Strip Harakat (all, except Shadda, tatweel, last_haraka)
- * Sperate and  join Letters and Harakat
- * Reduce tashkeel
- * Mesure tashkeel similarity (Harakats, fully or partially vocalized, similarity with a template)
- * Letters normalization (Ligatures and Hamza)
+ - Arabic letters classification
+ - Text tokenization
+ - Strip Harakat (all, except Shadda, tatweel, last_haraka)
+ - Sperate and  join Letters and Harakat
+ - Reduce tashkeel
+ - Mesure tashkeel similarity (Harakats, fully or partially vocalized, similarity with a template)
+ - Letters normalization (Ligatures and Hamza)
 
 @author: Taha Zerrouki
 @contact: taha dot zerrouki at gmail dot com
@@ -1109,7 +1109,37 @@ def vocalized_similarity(word1, word2):
         return True
 
 
-def tokenize(text=u""):
+#~ def tokenize(text=u""):
+    #~ u"""
+    #~ Tokenize text into words.
+
+    #~ Example:
+        #~ >>> text = u"العربية لغة جميلة."
+        #~ >>> tokens = araby.tokenize(text)
+        #~ >>> print u"\\n".join(tokens)
+        #~ ‎العربية
+        #~ ‎لغة
+        #~ ‎جميلة
+        #~ .
+
+    #~ @param text: the input text.
+    #~ @type text: unicode.
+    #~ @return: list of words.
+    #~ @rtype: list.
+    #~ """
+    #~ if text == u'':
+        #~ return []
+    #~ else:
+        #~ #split tokens
+        #~ mylist = TOKEN_PATTERN.split(text)
+        #~ # don't remove newline \n
+        #~ mylist = [TOKEN_REPLACE.sub('', x) for x in mylist if x]
+        #~ # remove empty substring
+        #~ mylist = [x for x in mylist if x]
+        #~ return mylist
+
+
+def tokenize(text="", conditions=[], morphs=[]):
     u"""
     Tokenize text into words.
 
@@ -1121,23 +1151,46 @@ def tokenize(text=u""):
         ‎لغة
         ‎جميلة
         .
-
+        
+    Example 2 (To remove tashkeel and filter out non-Arabic words:):
+        >>> text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
+        >>> tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
+        ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
+        
+    Example 3 (This structure will enable us to create functions on the fly and pass them:):
+        >>> text = u"طلع البدر علينا من ثنيات الوداع"
+        >>>tokenize(text, conditions=lambda x: x.startswith(u'ال'))
+        ['البدر', 'الوداع']
+    
     @param text: the input text.
     @type text: unicode.
+    @param conditions: a list of conditions to be applied on tokens, like avoiding non arabic letters.
+    @type conditions: one or list of conditions .
+    @param morphs: a list of morphological change functions to be applied on tokens, like striping tashkeel or normalizing tokens.
+    @type morphs: one or list of morphological functions .
     @return: list of words.
     @rtype: list.
     """
-    if text == u'':
-        return []
+    if text:
+        # to be tolerant and allow for a single condition and/or morph to be passed
+        # without having to enclose it in a list
+        if type(conditions) is not list: conditions = [conditions]
+        if type(morphs) is not list: morphs = [morphs]
+        
+        tokens = TOKEN_PATTERN.split(text)
+        tokens = [TOKEN_REPLACE.sub('', tok) for tok in tokens if TOKEN_REPLACE.sub('', tok)]
+        
+        if conditions:
+            tokens = [tok for tok in tokens if all([cond(tok) for cond in conditions])]
+        if morphs:
+            def morph(tok):
+                for m in morphs:
+                    tok = m(tok)
+                return tok
+            tokens = [morph(tok) for tok in tokens]
+        return tokens
     else:
-        #split tokens
-        mylist = TOKEN_PATTERN.split(text)
-        # don't remove newline \n
-        mylist = [TOKEN_REPLACE.sub('', x) for x in mylist if x]
-        # remove empty substring
-        mylist = [x for x in mylist if x]
-        return mylist
-
+        return []
 
 if __name__ == "__main__":
     #~WORDS = [u'الْدَرَاجَةُ', u'الدّرّاجة',
@@ -1172,3 +1225,13 @@ if __name__ == "__main__":
     print " modified"
     print (repr(words)).decode('unicode-escape')
     
+    text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
+    words = tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
+    print (repr(words)).decode('unicode-escape')
+
+    #>> ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
+        
+    text = u"طلع البدر علينا من ثنيات الوداع"
+    words = tokenize(text, conditions=lambda x: x.startswith(u'ال'))
+    # >> ['البدر', 'الوداع']
+    print (repr(words)).decode('unicode-escape')
