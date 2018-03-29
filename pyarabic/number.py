@@ -136,10 +136,11 @@ class ArNumbers(object):
         except  ValueError:
             number = 0
         if int(number) > 0:
-            while len(number) > 3:
-                blocks.append(number[-3:])
-                number = number[:len(number) - 3]
-            blocks.append(number)
+            number_part = ""
+            while len(number_str) > 3:
+                blocks.append(number_str[-3:])
+                number_str = number_str[:len(number_str) - 3]
+            blocks.append(number_str)
             blocks_num = len(blocks) - 1
             i = blocks_num
             while i >= 0:#(i = blocks_num i > = 0 i--):
