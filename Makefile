@@ -12,6 +12,8 @@ all:
 
 install:
 	sudo python setup.py install
+install3:
+	sudo python3 setup.py install
 # Publish to github
 publish:
 	git push origin master 
