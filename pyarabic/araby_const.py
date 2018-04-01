@@ -24,6 +24,8 @@ Arabic module
 @date:2010/03/01
 @version: 0.1
 """
+from __future__ import unicode_literals    # at top of module
+
 import re
 import pyarabic.stack
 import pyarabic.araby_const
@@ -246,24 +248,24 @@ HAMZAT_STRING = u"".join(HAMZAT)
 HARAKAT_STRING = u"".join(HARAKAT)
 # regular expretion
 
-HARAKAT_PATTERN  = re.compile(ur"["+u"".join(HARAKAT)+u"]",  re.UNICODE)
+HARAKAT_PATTERN  = re.compile(u"["+u"".join(HARAKAT)+u"]",  re.UNICODE)
 #~ """ pattern to strip Harakat"""
 #~ LASTHARAKA_PATTERN  =\
-# re.compile(ur"["+u"".join(HARAKAT)+u"]$|["+u''.join(TANWIN)+"]",\
+# re.compile(u"["+u"".join(HARAKAT)+u"]$|["+u''.join(TANWIN)+"]",\
  #~ re.UNICODE)
 LASTHARAKA_PATTERN  = \
-    re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
+    re.compile(u"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
 #~ """ Pattern to strip only the last haraka """
 SHORTHARAKAT_PATTERN  = \
-    re.compile(ur"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
+    re.compile(u"["+u"".join(SHORTHARAKAT)+u"]",  re.UNICODE)
 #~ Pattern to lookup Short Harakat(Fatha, Damma, Kasra, sukun, tanwin),
 # but not shadda
-TASHKEEL_PATTERN  = re.compile(ur"["+u"".join(TASHKEEL)+u"]",  re.UNICODE)
+TASHKEEL_PATTERN  = re.compile(u"["+u"".join(TASHKEEL)+u"]",  re.UNICODE)
 #~ """ Harakat and shadda pattern  """
-HAMZAT_PATTERN  = re.compile(ur"["+u"".join(HAMZAT)+u"]",  re.UNICODE)
+HAMZAT_PATTERN  = re.compile(u"["+u"".join(HAMZAT)+u"]",  re.UNICODE)
 #~ """ all hamzat pattern"""
-ALEFAT_PATTERN  = re.compile(ur"["+u"".join(ALEFAT)+u"]",  re.UNICODE)
+ALEFAT_PATTERN  = re.compile(u"["+u"".join(ALEFAT)+u"]",  re.UNICODE)
 #~ """ all alef like letters """
-LIGUATURES_PATTERN  = re.compile(ur"["+u"".join(LIGUATURES)+u"]",  re.UNICODE)
+LIGUATURES_PATTERN  = re.compile(u"["+u"".join(LIGUATURES)+u"]",  re.UNICODE)
 #~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(ur"[^\w\u064b-\u0652']+", re.UNICODE)
+TOKEN_PATTERN = re.compile(u"[^\w\u064b-\u0652']+", re.UNICODE)

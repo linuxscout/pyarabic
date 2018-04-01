@@ -10,7 +10,17 @@ Unicode represention texts
 @date:2014/03/01
 @version: 0.1
 """
-import repr as reprlib
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
+import sys
+if sys.version_info < (3, 0):
+    import repr as reprlib
+else:
+    import reprlib
 class ArabicRepr(reprlib.Repr):
     """ A redifinition of repr fucntion,
     you can use it like this

@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding=utf-8 -*-
+from __future__ import unicode_literals 
+
 import unittest
 
 import pyarabic.araby as Araby
@@ -97,7 +101,7 @@ class TestSequenceFunctions(unittest.TestCase):
         self.assertFalse(Araby.is_arabicword(u'ئكل')) # start with waw hamza above4
         self.assertFalse(Araby.is_arabicword(u'ةدخل')) # start with teh_marbuta
 
-        self.assertTrue(Araby.is_arabicword("العربية"))
+        self.assertTrue(Araby.is_arabicword(u"العربية"))
 
     def test_char(self):
 

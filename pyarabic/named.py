@@ -10,7 +10,12 @@ Arabic Named enteties recognation pyarabic.named
 @date:2017/02/14
 @version: 0.3
 """
-from __future__ import absolute_import
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
 import sys
 
 if __name__ == '__main__':

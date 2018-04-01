@@ -18,6 +18,12 @@
 """
 Kalima : Arabic word module
 """
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
 import araby
 class Kalima(object):
     """

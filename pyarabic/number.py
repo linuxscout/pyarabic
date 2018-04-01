@@ -15,19 +15,28 @@ category  Text
 author    Khaled Al-Shamaa <khaled.alshamaa@gmail.com>
 copyright 2009 Khaled Al-Shamaa
 """
-from __future__ import absolute_import
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
 
 import math
+import sys
 if __name__ == '__main__':
-    import sys
+
     sys.path.append('../')
     import pyarabic.araby as araby
     import pyarabic.number_const as nbconst
     import pyarabic.named_const as nmconst
+    import pyarabic.arabrepr as arabrepr
+
 else:
     from . import araby
     from . import number_const as nbconst
     from . import named_const as nmconst
+    from . import arabrepr   
 
 class ArNumbers(object):
     '''
@@ -699,11 +708,13 @@ if __name__ == '__main__':
         tag_list = detect_numbers(word_list)
         print(tag_list)
         print(u" ".join(word_list))
-        #~ print(arepr.repr(zip(taglist, wordlist)))
         print(zip(tag_list, word_list))
-        
-        print "tashkeel", repr(pre_tashkeel_number(word_list)).decode('unicode-escape').encode('utf8')
-        print(txt)
+        print('tashkeel')
+        tashkeel = u" ".join(pre_tashkeel_number(word_list))
+        if sys.version_info < (3, 0):
+            print(tashkeel.encode('utf8'))
+        else:
+            print(tashkeel)
         print(u'\t'.join(nb_phrases))
         print("detect number word")
-        detect_number_words(txt)
+        print(arabrepr.arepr(detect_number_words(txt)))

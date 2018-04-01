@@ -20,7 +20,12 @@ Features:
 @date:2010/03/01
 @version: 0.1
 """
-from __future__ import absolute_import
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
 import re
 
 if __name__ == "__main__":
@@ -216,36 +221,33 @@ HAMZAT_STRING = u"".join(HAMZAT)
 HARAKAT_STRING = u"".join(HARAKAT)
 # regular expretion
 
-HARAKAT_PATTERN = re.compile(ur"[" + u"".join(HARAKAT) + u"]", re.UNICODE)
+HARAKAT_PATTERN = re.compile(u"[" + u"".join(HARAKAT) + u"]", re.UNICODE)
 #~ """ pattern to strip Harakat"""
-#~ LASTHARAKA_PATTERN =\
-# re.compile(ur"["+u"".join(HARAKAT)+u"]$|["+u''.join(TANWIN)+"]",\
-#~ re.UNICODE)
 LASTHARAKA_PATTERN = \
-    re.compile(ur"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
+    re.compile(u"[%s]$|[%s]"%(u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
 #~ """ Pattern to strip only the last haraka """
-SHORTHARAKAT_PATTERN = re.compile(ur"[" + u"".join(SHORTHARAKAT) + u"]",
+SHORTHARAKAT_PATTERN = re.compile(u"[" + u"".join(SHORTHARAKAT) + u"]",
                                   re.UNICODE)
 #~ Pattern to lookup Short Harakat(Fatha, Damma, Kasra, sukun, tanwin),
 # but not shadda
-TASHKEEL_PATTERN = re.compile(ur"[" + u"".join(TASHKEEL) + u"]", re.UNICODE)
+TASHKEEL_PATTERN = re.compile(u"[" + u"".join(TASHKEEL) + u"]", re.UNICODE)
 #~ """ Harakat and shadda pattern  """
-HAMZAT_PATTERN = re.compile(ur"[" + u"".join(HAMZAT) + u"]", re.UNICODE)
+HAMZAT_PATTERN = re.compile(u"[" + u"".join(HAMZAT) + u"]", re.UNICODE)
 #~ """ all hamzat pattern"""
-ALEFAT_PATTERN = re.compile(ur"[" + u"".join(ALEFAT) + u"]", re.UNICODE)
+ALEFAT_PATTERN = re.compile(u"[" + u"".join(ALEFAT) + u"]", re.UNICODE)
 #~ """ all alef like letters """
-LIGUATURES_PATTERN = re.compile(ur"[" + u"".join(LIGUATURES) + u"]", re.UNICODE)
+LIGUATURES_PATTERN = re.compile(u"[" + u"".join(LIGUATURES) + u"]", re.UNICODE)
 #~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(ur"([^\w\u064b-\u0652']+)", re.UNICODE)
+TOKEN_PATTERN = re.compile(u"([^\w\u064b-\u0652']+)", re.UNICODE)
 #~ """ pattern to tokenize a text"""
-TOKEN_REPLACE = re.compile(ur'\t|\r|\f|\v| ')
+TOKEN_REPLACE = re.compile(u'\t|\r|\f|\v| ')
 
 #Arabic string
-ARABIC_STRING = re.compile(ur"([^\u0600-\u0652%s%s%s\s\d])"\
+ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])"\
 %(LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), re.UNICODE)
 #Arabic range
 ARABIC_RANGE = re.compile(
-    ur"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
+    u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
 
 
 ################################################
@@ -528,15 +530,15 @@ def is_arabicword(word):
     """
     if len(word) == 0:
         return False
-    elif re.search(ur"([^\u0600-\u0652%s%s%s])"\
+    elif re.search(u"([^\u0600-\u0652%s%s%s])"\
        %(LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), word):
         return False
     elif is_haraka(word[0]) or word[0] in (WAW_HAMZA, YEH_HAMZA):
         return False
 #  if Teh Marbuta or Alef_Maksura not in the end
-    elif re.match(ur"^(.)*[%s](.)+$" % ALEF_MAKSURA, word):
+    elif re.match(u"^(.)*[%s](.)+$" % ALEF_MAKSURA, word):
         return False
-    elif re.match(ur"^(.)*[%s]([^%s%s%s])(.)+$"%\
+    elif re.match(u"^(.)*[%s]([^%s%s%s])(.)+$"%\
         (TEH_MARBUTA, DAMMA, KASRA, FATHA), word):
         return False
     else:
@@ -1033,24 +1035,24 @@ def reduce_tashkeel(text):
     """
     patterns = [
         # delete all fathat, except on waw and yeh
-        ur"(?<!(%s|%s))(%s|%s)" % (WAW, YEH, SUKUN, FATHA), \
+        u"(?<!(%s|%s))(%s|%s)" % (WAW, YEH, SUKUN, FATHA), \
         #delete damma if followed by waw.
 
-        ur"%s(?=%s)" % (DAMMA, WAW), \
+        u"%s(?=%s)" % (DAMMA, WAW), \
         #delete kasra if followed by yeh.
 
-        ur"%s(?=%s)" % (KASRA, YEH), \
+        u"%s(?=%s)" % (KASRA, YEH), \
         #delete fatha if followed by alef to reduce yeh maftouha
         #  and waw maftouha before alef.
 
 
-        ur"%s(?=%s)" % (FATHA, ALEF), \
+        u"%s(?=%s)" % (FATHA, ALEF), \
         #delete fatha from yeh and waw if they are in the word begining.
 
-        ur"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
+        u"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
         #delete kasra if preceded by Hamza below alef.
 
-        ur"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), \
+        u"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), \
     ]
     reduced = text
     for pat in patterns:
@@ -1209,29 +1211,36 @@ if __name__ == "__main__":
     print("like: ", vocalizedlike(u'ثم', u'ثُمَّ'))
     print("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))
     print("sim: ", vocalized_similarity(u'مُتَوَهِّمًا', u'متوهمًا'))
-    text1 = u"العربية: لغة جميلة."
+    text1 = "العربية: لغة جميلة."
     wordlist = [u'العربية',u":", u"لغة", u"جميلة", u"."]
     wl = tokenize(text1)
     
 
+    print (" use tokenize")
+    print(wl)
+    #~ print((repr(wl)).decode('unicode-escape'))
+    #~ print((repr(wordlist)).decode('unicode-escape'))
+    #~ TOKEN_PATTERN2 = re.compile(u"[^\w\u064b-\u0652']+", re.UNICODE)
+    #~ words = TOKEN_PATTERN2.split(text1)
+    #~ print(" first")
+    #~ print((repr(words)).decode('unicode-escape'))
+    #~ TOKEN_PATTERN3 = re.compile(u"([^\w\u064b-\u0652']+)", re.UNICODE)
+    #~ words = TOKEN_PATTERN3.split(text1)
+    #~ print(" modified")
+    #~ print (repr(words)).decode('unicode-escape')
     
-    print (repr(wl)).decode('unicode-escape'), (repr(wordlist)).decode('unicode-escape')
-    TOKEN_PATTERN2 = re.compile(ur"[^\w\u064b-\u0652']+", re.UNICODE)
-    words = TOKEN_PATTERN2.split(text1)
-    print " first"
-    print (repr(words)).decode('unicode-escape')
-    TOKEN_PATTERN2 = re.compile(ur"([^\w\u064b-\u0652']+)", re.UNICODE)
-    words = TOKEN_PATTERN2.split(text1)
-    print " modified"
-    print (repr(words)).decode('unicode-escape')
+    #~ TOKEN_PATTERN4 = re.compile(u"([^\w\u064b-\u0652']+)", re.UNICODE)
+    #~ words = TOKEN_PATTERN4.split(text1)
+    #~ print(" modified without r-prefix")
+    #~ print((repr(words)).decode('unicode-escape'))
     
-    text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
-    words = tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
-    print (repr(words)).decode('unicode-escape')
+    #~ text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
+    #~ words = tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
+    #~ print((repr(words)).decode('unicode-escape'))
 
-    #>> ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
+    #~ #>> ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
         
-    text = u"طلع البدر علينا من ثنيات الوداع"
-    words = tokenize(text, conditions=lambda x: x.startswith(u'ال'))
-    # >> ['البدر', 'الوداع']
-    print (repr(words)).decode('unicode-escape')
+    #~ text = u"طلع البدر علينا من ثنيات الوداع"
+    #~ words = tokenize(text, conditions=lambda x: x.startswith(u'ال'))
+    #~ # >> ['البدر', 'الوداع']
+    #~ print((repr(words)).decode('unicode-escape'))

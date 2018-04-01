@@ -3,6 +3,8 @@
 """
 Constants for named module
 """
+from __future__ import unicode_literals    # at top of module
+
 RAFE3_LIST = set([
     u'أنه',
     u'أنك',

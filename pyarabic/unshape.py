@@ -10,6 +10,7 @@ Allow to convert standard text to forms in programs which doesn't support arabic
 @date:2017/02/14
 @version: 0.3
 """
+from __future__ import unicode_literals    # at top of module
 UNSHAPING_TABLE = {
     u'\uFEA1':u'\u062D',
     u'\uFEA3':u'\u062D',

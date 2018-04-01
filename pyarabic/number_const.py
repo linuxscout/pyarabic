@@ -3,6 +3,8 @@
 """
 Constants used for number module
 """
+from __future__ import unicode_literals    # at top of module
+
 THAOUSAND_MULTIPLE = ()
 NUMBER_TEN_MASCULIN_UNITS = (
     u'اثني',
