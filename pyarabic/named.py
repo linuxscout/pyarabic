@@ -342,6 +342,11 @@ def pretashkeel_named(wordlist):
                 chunk = []
             vocalized_list.append(word)
             previous = word
+    if chunk:
+        #get the tag of previous word
+        previous_tag = get_previous_tag(previous)
+        vocalized = vocalize_named(chunk, previous_tag)
+        vocalized_list.extend(vocalized)            
 
     return vocalized_list
 
