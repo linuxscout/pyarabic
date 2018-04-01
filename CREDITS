@@ -14,6 +14,9 @@ CONTRIBUTORS
 
   Significant contributions have been incorporated with thanks to:
 
+      tahoar <https://github.com/tahoar>:
+        2018/04/01: 
+          - improve compatibility with python 3
       D7eame <https://github.com/d7eame>:
         2018/02/23: araby.py
           - Add new options to tokenize function.
@@ -21,16 +24,12 @@ CONTRIBUTORS
       Shcherbina Iryna <shcherbina.iryna@gmail.com>:
         2017/08/16: kalima.py
           - Fix error.
-	  Khaldoun Mohsen	<khaldoun.mohsen@gmail.com>:
-		 2014/11/06: readme.txt
-		  - Spellcheck
-	  Lakhdar Benzahia	<lakhdar.benzahia@gmail.com>:
-		 2017/07/05:
-		  - Add unit testing for araby functions
+      Khaldoun Mohsen   <khaldoun.mohsen@gmail.com>:
+         2014/11/06: readme.txt
+          - Spellcheck
+      Lakhdar Benzahia  <lakhdar.benzahia@gmail.com>:
+         2017/07/05:
+          - Add unit testing for araby functions
 
-
-
-
-shcherbina.iryna@gmail.com
 ===============================================================================
 
