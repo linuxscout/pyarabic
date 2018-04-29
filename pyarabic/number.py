@@ -252,6 +252,37 @@ def text2number(text):
     # add the final partial to total
     total += partial
     return total
+
+def number2text(anumber):
+    """
+    Convert number to arabic words, for example convert 25 --> خمسة و عشرون
+
+    Example:
+        >>> number2text(523)
+        خمسمئة وثلاث وعشرون
+
+    @param number: input number
+    @type number: int
+    @return: number words
+    @rtype: unicode
+    """
+    # test if the given type is numeric(float or int
+    # if ok, convert it to string
+    if type(anumber) is int or type(anumber) is float:
+        anumber = str(anumber)
+    # if the given type is str/unicode, test if it's a valid number
+    elif type(anumber) is str or type(anumber) is unicode:
+        try:
+            a = float(anumber);
+        except ValueError:
+            return u"صفر"
+    # if the given number not a valid return 0
+    else:
+        return u"صفر"
+    arbn = ArNumbers()
+    return arbn.int2str(anumber)
+    
+    return total
 def vocalize_number(wordlist, syn_tags=""):
     """ Vocalize a number words clause
 
