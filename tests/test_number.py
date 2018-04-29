@@ -3,17 +3,10 @@
 import unittest
 import sys
 import pyarabic.number as nb
-import pyarabic.araby as ar
 
 class NumberTestCase(unittest.TestCase):
     """Tests for `number.py`."""
 
-    def test_strip_tashkeel(self):
-        """Test striped tashkeel for العربية?"""
-        word = u"الْعَرَبِيَّةُ"
-        word_nm = u'العربية'
-        self.assertEqual(ar.strip_tashkeel(word), word_nm)
-        self.assertNotEqual(ar.strip_tashkeel(word), word)
     def test_int2_str(self):
         an = nb.ArNumbers()
         self.assertEqual(an.int2str('125'), u"مئة و خمس و عشرون")
