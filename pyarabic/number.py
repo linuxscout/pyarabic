@@ -261,8 +261,8 @@ def number2text(anumber):
         >>> number2text(523)
         خمسمئة وثلاث وعشرون
 
-    @param number: input number
-    @type number: int
+    @param anumber: input number
+    @type anumber: int
     @return: number words
     @rtype: unicode
     """
