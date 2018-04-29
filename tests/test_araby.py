@@ -1,9 +1,15 @@
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+    )
 import unittest
 import sys
 sys.path.append('../pyarabic')
-import araby as ar
+import pyarabic.araby as ar
 
 class ArabyTestCase(unittest.TestCase):
     """Tests for `araby.py`."""
