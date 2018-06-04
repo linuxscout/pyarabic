@@ -18,8 +18,6 @@ install3:
 publish:
 	git push origin master 
 
-md2rst:
-	pandoc -s -r markdown -w rst README.md -o README.rst
 md2html:
 	pandoc -s -r markdown -w html README.md -o README.html
 	
