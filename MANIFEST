@@ -10,3 +10,5 @@ pyarabic/number.py
 pyarabic/propernouns.py
 pyarabic/stack.py
 pyarabic/unshape.py
+README.md
+LICENSE

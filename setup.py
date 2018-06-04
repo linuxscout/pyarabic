@@ -4,7 +4,7 @@ from setuptools import setup
 # to install type:
 # python setup.py install --root=/
 def readme():
-    with open('README.rst') as f:
+    with open('README.md') as f:
         return f.read()
         
 setup (name='PyArabic', version='0.6.4',
@@ -14,6 +14,7 @@ setup (name='PyArabic', version='0.6.4',
       license='GPL',
       description="Arabic text tools for Python",
       long_description = readme(),
+      long_description_content_type='text/markdown',
       package_dir={'pyarabic': 'pyarabic',},
       packages=['pyarabic'],
       package_data = {
