@@ -541,6 +541,8 @@ def is_arabicword(word):
     elif re.match(u"^(.)*[%s]([^%s%s%s])(.)+$"%\
         (TEH_MARBUTA, DAMMA, KASRA, FATHA), word):
         return False
+    elif re.search(SHADDA+SHADDA, word):
+        return False
     else:
         return True
 
