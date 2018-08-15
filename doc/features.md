@@ -213,7 +213,7 @@ This structure will enable us to create functions on the fly and pass them:
 
 
 
-
+<a name="harf'></a>
 #### وظائف الحروف
 دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة المطلوبة
 

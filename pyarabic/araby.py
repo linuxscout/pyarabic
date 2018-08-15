@@ -915,8 +915,8 @@ def vocalizedlike(word1, word2):
 #-------------------------
 # Function def vaznlike(word1, wazn):
 #-------------------------
-def waznlike(word1, wazn):
-    u"""If the  word1 is like a wazn (pattern),
+def waznlike(word1, wazn, extract_root = False):
+    u"""If the  word1 is like a wazn (pattern), and can return root
     the letters must be equal,
     the wazn has FEH, AIN, LAM letters.
     this are as generic letters.
@@ -932,6 +932,8 @@ def waznlike(word1, wazn):
     @type word1: unicode
     @param wazn: given word template  وزن
     @type wazn: unicode
+    @param extract_root: return root if True
+    @type extract_root: boolean
     @return: if two words have similar vocalization
     @rtype: Boolean
     """
@@ -961,9 +963,14 @@ def waznlike(word1, wazn):
     #~ print " the root is ", root.items#"".join(root.items)
     if not (stack1.is_empty() and stack2.is_empty()):
         return False
+    # if one letter is remind after pop in one stack
+    elif last1 != None or last2 != None:
+        return False        
     else:
-        return True
-
+        if extract_root:
+            return "".join(root.items)
+        else:
+            return True
 
 def shaddalike(partial, fully):
     u"""
