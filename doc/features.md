@@ -19,6 +19,7 @@ Strip Harakat from arabic word except Shadda. The striped marks are :
 Example:
 
 ```python
+>>> from pyarabic.araby import strip_harakat
 >>> text = u"الْعَرَبِيّةُ"
 >>> strip_harakat(text)
 >>> العربيّة
@@ -28,6 +29,7 @@ Example:
 Strip vowels from a text, include Shadda. The striped marks are :
 
 ```python
+>>> from pyarabic.araby import strip_tashkeel
 >>> text = u"الْعَرَبِيّةُ"
 >>> strip_tashkeel(text)
 العربية
@@ -38,6 +40,7 @@ Strip vowels from a text, include Shadda. The striped marks are :
 
 Strip the last Haraka from arabic word except Shadda. The striped marks are :
 ```python
+>>> from pyarabic.araby import strip_lastharaka
 >>> text = u"الْعَرَبِيّةُ"
 >>> strip_lastharaka(text)
 الْعَرَبِيّة
@@ -47,9 +50,10 @@ Strip the last Haraka from arabic word except Shadda. The striped marks are :
 Reduce the Tashkeel, by deleting evident cases.
 
 ```python
+>>> from pyarabic import araby
 >>> word = u"يُتَسََلَّمْنَ"
 >>> reduced = araby.reduce_tashkeel(word)
->>> print reduced.encode('utf8')
+>>> print(reduced.encode('utf8'))
 يُتسلّمن
 ```
 
@@ -58,6 +62,7 @@ Reduce the Tashkeel, by deleting evident cases.
 Strip tatweel or Shadda from a text.
 
 ```python
+>>> from pyarabic.araby import strip_tatweel, strip_shadda
 >>> text = u"العـــــربية"
 >>> strip_tatweel(text)
 العربية
@@ -73,6 +78,7 @@ Strip tatweel or Shadda from a text.
 Normalize Lam Alef ligatures into two letters (LAM and ALEF)
     LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_HAMZA_BELOW, LAM_ALEF_MADDA_ABOVE
 ```python
+>>> from pyarabic.araby import normalize_ligature
 >>> text = u"لانها لالء الاسلام"
 >>> normalize_ligature(text)
 لانها لالئ الاسلام
@@ -83,6 +89,7 @@ Normalize Lam Alef ligatures into two letters (LAM and ALEF)
 Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. Replace the LamAlefs by simplified letters.
 
 ```python
+>>> from pyarabic.araby import normalize_hamza
 >>> text = u"سئل أحد الأئمة"
 >>> normalize_hamza(text)
  سءل ءحد الءءمة
@@ -95,14 +102,15 @@ Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. 
 separate the letters from the vowels, in arabic word, if a letter hasn't a haraka, the not definited haraka is attributed. return ( letters, vowels)
 
 ```python
+>>> from pyarabic import araby
 >>> araby.separate(text)
 (u'\u0627\u0644\u0639\u0631\u0628\u064a\u0629', u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f')
 >>> letters, marks =araby.separate(text)
->>> print letters.encode('utf8')
+>>> print(letters.encode('utf8'))
 العربية
->>> print marks.encode('utf8')
+>>> print(marks.encode('utf8'))
 >>> for m in marks:
-...     print araby.name(m)
+...     print(araby.name(m))
 فتحة
 سكون
 فتحة
@@ -117,10 +125,11 @@ separate the letters from the vowels, in arabic word, if a letter hasn't a harak
 joint the letters with the marks the length ot letters and marks must be equal return word
 
 ```python
+>>> from pyarabic import araby
 >>> letters = u"العربية"
 >>> marks   = u'\u064e\u0652\u064e\u064e\u064e\u064e\u064f'
 >>> word = araby.joint(letters, marks)
->>> print word.encode('utf8')
+>>> print(word.encode('utf8'))
 اَلْعَرَبَيَةُ
 ```
 
@@ -132,6 +141,7 @@ joint the letters with the marks the length ot letters and marks must be equal r
 if the two words has the same letters and the same harakats, this fuction return True. The two words can be full vocalized, or partial vocalized
 
 ```python
+>>> from pyarabic import araby
 >>> word1 = u"ضَربٌ"
 >>> word2 = u"ضَرْبٌ"
 >>> araby.vocalizedlike(word1, word2)
@@ -144,6 +154,7 @@ True
 If the word1 is like a wazn (pattern), the letters must be equal, the wazn has FEH, AIN, LAM letters. this are as generic letters. The two words can be full vocalized, or partial vocalized
 
 ```python
+>>> from pyarabic import araby
 >>> word1 = u"ضارب"
 >>> wazn =  u"فَاعِل"
 >>> araby.waznlike(word1, wazn)
@@ -156,6 +167,7 @@ True
 If the two words has the same letters and the same harakats, this fuction return True. The first word is partially vocalized, the second is fully if the partially contians a shadda, it must be at the same place in the fully
 
 ```python
+>>> from pyarabic import araby
 >>> word1 = u"ردّ"
 >>> word2=u"ردَّ"
 >>> araby.shaddalike(word1, word2)
@@ -170,6 +182,7 @@ True
 if the two words has the same letters and the same harakats, this function return True. The two words can be full vocalized, or partial vocalized
 
 ```python
+>>> from pyarabic import araby
 >>> word1 = u"ضَربٌ"
 >>> word2 = u"ضَرْبٌ"
 >>> araby.vocalizedlike(word1, word2)
@@ -187,9 +200,10 @@ True
 Tokenize text into words.
 
 ```python 
+>>> from pyarabic import araby
 >>> text = u"العربية لغة جميلة."
 >>> tokens = araby.tokenize(text)
->>> print u"\n".join(tokens)
+>>> print(u"\n".join(tokens))
 ‎العربية
 ‎لغة
 ‎جميلة
@@ -200,14 +214,16 @@ You can use it with conditions (restrict Arabic, keep or remove numbers, exclude
 
 To remove tashkeel and filter out non-Arabic words:
 ```python
+>>> from pyarabic.araby import tokenize, is_arabicrange, strip_tashkeel
 >>> text = u"ِاسمٌ الكلبِ في اللغةِ الإنجليزية Dog واسمُ الحمارِ Donky"
 >>> tokenize(text, conditions=is_arabicrange, morphs=strip_tashkeel)
         ['اسم', 'الكلب', 'في', 'اللغة', 'الإنجليزية', 'واسم', 'الحمار']
 ```
 This structure will enable us to create functions on the fly and pass them:       
 ```python
+>>> from pyarabic.araby import tokenize
 >>> text = u"طلع البدر علينا من ثنيات الوداع"
->>>tokenize(text, conditions=lambda x: x.startswith(u'ال'))
+>>> tokenize(text, conditions=lambda x: x.startswith(u'ال'))
         ['البدر', 'الوداع']
 ```    
 
@@ -240,6 +256,7 @@ This structure will enable us to create functions on the fly and pass them:
 ### مثال
 
 في نطق الأسماء يتحوّل الحرف الشمسي بعد ال التعريف إلى حرف مشدد أي أنّ "الشمس" تنطق "أششمس"، 
+
 ```python
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
@@ -248,7 +265,7 @@ words=[u'الشمس', u'القمر', u'الرجل', u'بصل', u'البصل']
 for word in words:
     if word.startswith(araby.ALEF+araby.LAM) and araby.isSun(word[2]):
         word=u''.join([araby.ALEF+word[2],word[2:]]);
-    print word.encode('utf8');
+    print(word.encode('utf8');)
 ```
 في المثال، نعطي عددا من الكلمات لكتابة نطقها، بتحويل الحرف الشمسي بعد ال التعريف إلى حرف مكرر والنتيجة تكون 
 ```
@@ -270,10 +287,11 @@ number.py
  
 * تحويل عدد إلى كلمات
 Convert number to words
+
 ```python
->>>import pyarabic.number
->>>an = pyarabic.number.ArNumbers()
->>>an.int2str('125')
+>>> import pyarabic.number
+>>> an = pyarabic.number.ArNumbers()
+>>> an.int2str('125')
 مئة و خمسة وعشرون
 
 ```
@@ -281,6 +299,7 @@ Convert number to words
 Convert arabic text into number, for example convert تسعة وعشرون = >29.
 
 ```python
+>>> from pyarabic.number import text2number
 >>> text2number(u"خمسمئة وثلاث وعشرون")
 523
 ```
@@ -289,10 +308,12 @@ Convert arabic text into number, for example convert تسعة وعشرون = >29
 Vocalize a number words clause
 
 ```python
+>>> from pyarabic import araby
+>>> from pyarabic.number import vocalize_number
 >>> txt = u"خمسمئة وثلاثة وعشرين"
 >>> wordlist = araby.tokenize(txt)
 >>> vocalized =  vocalize_number(wordlist)
->>> print u" ".join(vocalized)
+>>> print(u" ".join(vocalized))
 خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ
 >>>
 ```
@@ -302,6 +323,7 @@ Vocalize a number words clause
 Extract number words in a text.
 
 ```python
+>>> from pyarabic.number import extract_number_phrases
 >>> extract_number_phrases(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
 خمسمئة وثلاثة وعشرين
 ثلاثة عشر
@@ -312,6 +334,7 @@ Extract number words in a text.
 Extract number words in a text with context.
 
 ```python
+>>> from pyarabic.number import extract_number_context
 >>> extract_number_context(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
 ‎وجدت، خمسمئة وثلاثة وعشرين، دينارا
 ‎فاشتريت، ثلاثة عشر ، دفتر
@@ -322,11 +345,12 @@ Extract number words in a text with context.
 Detect number words in a text and return positions of each phrase.
 
 ```python
+>>> from pyarabic import araby
+>>> from pyarabic.number import detect_number_phrases_position
 >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
 >>> wordlist = araby.tokenize(txt)
 >>> positions_phrases =  detect_number_phrases_position(wordlist)
->>> print positions_phrase
->>> print positions_phrases
+>>> print(positions_phrases)
 [(1, 3), (6, 7)]
 ```
 
@@ -339,6 +363,8 @@ Detect number words in a text and return positions of each phrase.
 Detect number words in a text and return a taglist as BIO.
 
 ```python
+>>> from pyarabic import araby
+>>> from pyarabic.number import detect_numbers
 >>> wordlist = araby.tokenize(u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا")
 >>> detect_numbers(wordlist)
 ['DO', 'DB', 'DI', 'DI', 'DO', 'DO', 'DB', 'DI', 'DO']
@@ -349,6 +375,7 @@ Detect number words in a text and return a taglist as BIO.
 Detect number words in a text, return strings.
 
 ```python
+>>> from pyarabic.number import detect_number_words
 >>> detect_number_words(u"وجدت خمسمئة وثلاثة وعشرين دينارا")
 خمسمئة وثلاثة وعشرين
 ```
@@ -357,10 +384,12 @@ Detect number words in a text, return strings.
 Vocalized a number clauses in a text.
 
 ```python
+>>> from pyarabic import araby
+>>> from pyarabic.number import pre_tashkeel_number
 >>> txt = u"وجدت خمسمئة وثلاثة وعشرين دينارا فاشتريت ثلاثة عشر دفترا"
 >>> wordlist = araby.tokenize(txt)
 >>> vocalized =  pre_tashkeel_number(wordlist)
->>> print u" ".join(vocalized)
+>>> print(u" ".join(vocalized))
 وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينارا فاشتريت ثَلاثَةَ عَشَرَ دفترا
 ```
 
@@ -373,8 +402,9 @@ Vocalized a number clauses in a text.
 Unshape a text
 
 ```python 
+>>> from pyarabic.unshape import unshaping_text
 >>> TEXTS = u'لو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
->>> print unshaping_text(TEXTS).encode('utf8')
+>>> print(unshaping_text(TEXTS).encode('utf8'))
 باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
 
 ```
@@ -383,8 +413,9 @@ Unshape a text
 Unshape a line
 
 ```python
+>>> from pyarabic.unshape import unshaping_line
 >>> line = u'فليتك تحلو والحيـاة مريرة   وليتك ترضى والانـــام غضاب '
->>> print unshaping_line(line).encode('utf8')
+>>> print(unshaping_line(line).encode('utf8'))
 باضغ ماـــنالاو ىضرت كتيلو   ةريرم ةاـيحلاو ولحت كتيلف
 
 ```
@@ -392,8 +423,9 @@ Unshape a line
 
 Unshape a word
 ```python
+>>> from pyarabic.unshape import unshaping_word
 >>> word = u'العربية'
->>> print unshaping_word(word).encode('utf8')
+>>> print(unshaping_word(word).encode('utf8'))
 ةيبرعلا
 ```
 
