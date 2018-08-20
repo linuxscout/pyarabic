@@ -430,3 +430,39 @@ Unshape a word
 ```
 
 
+
+#### وظائف نقل حرفي
+تستعمل في تحويل ترميز النص من العربية يونيكود إلى ترميز Tim buckwalter أو sampa
+
+Transliterate
+
+Unshape a text
+
+```python 
+>>> import pyarabic.trans
+>>> worda = u"العربية"
+>>> wordb=u"Al'rabiya"
+>>> pyarabic.trans.convert(worda,'arabic','tim')
+u'AlErbyp'
+>>> pyarabic.trans.convert(wordb,'tim','arabic')
+الءرَبِيَ
+```
+#### وظائف كشف اللغة
+كشف اللغة العربية بواسطة
+segment_language
+وضع علامات على لغة معينة
+delimite_language
+```python
+>>> import pyarabic.trans
+>>> text =u"""السلام عليكم how are you, لم اسمع أخبارك منذ مدة, where are you going"""
+>>> pyarabic.trans.segment_language(text)
+[(u'arabic', u'السلام عليكم'), (u'latin', u' how are you, '), (u'arabic', u'لم اسمع أخبارك منذ مدة'), (u'latin', u', where are young')]
+>>> pyarabic.trans.delimite_language(text, start='\RL{', end="}")
+\RL{السلام عليكم}  how are you,  \RL{لم اسمع أخبارك منذ مدة} , where are you going
+>>> pyarabic.trans.delimite_language(text, start="<arabic>", end="</arabic>")
+<arabic>السلام عليكم</arabic>  how are you,  <arabic>لم اسمع أخبارك منذ مدة</arabic> , where are you going
+
+>>> pyarabic.trans.delimite_language(text, language="latin")
+السلام عليكم < how are you, > لم اسمع أخبارك منذ مدة <, where are you going>
+
+```

@@ -195,7 +195,56 @@ def convert(text, code_from, code_to):
             return text
     
     
+def segment_language(text):
+    """
+    Detect language
+    """
+    if not text: return text
+    resultlist = []
+    #~ if re.search(u"[\u0600-\u06ff]", text[0]):
+    if re.search(u"[\u0600-\u06ff]", text):
+        arabic = True
+    else:
+        arabic = False
+    actual_text = u""
+    for  k in text:
+        if re.search(u"[\u0600-\u06ff]", k):
+            if arabic:
+                actual_text += k
+            else:
+                resultlist.append(('latin', actual_text))
+                arabic = True
+                actual_text = k
+        elif re.search(u"[\s\d\?, :\!\(\)]", k):
+            actual_text += k
+        else:
+            if arabic:
+                i = len(actual_text)
+                temp_text = u""
+                while not re.search(u"[\u0600-\u06ff]", actual_text[i:i+1]):
+                    i -= 1
+                temp_text = actual_text[i+1:]
+                actual_text = actual_text[:i+1]
+                resultlist.append(('arabic', actual_text))
+                arabic = False
+                actual_text = temp_text+k
+            else:
+                actual_text += k
+    if arabic:
+        resultlist.append(('arabic', actual_text))
+    else:
+        resultlist.append(('latin', actual_text))
+    return resultlist
     
+def delimite_language(text, language = "arabic", start="<", end=">"):
+    new_chunks_list = [] 
+    chunks = segment_language(text)
+    for (lang, chunk) in chunks:
+        if lang == language:
+             new_chunks_list.append("%s%s%s"%(start,chunk, end))
+        else:
+            new_chunks_list.append(chunk)
+    return u" ".join(new_chunks_list)    
     
     
 if __name__ == '__main__':
@@ -242,3 +291,12 @@ n~aAsi""".split('\n')
         
     utf2tim_table = {v: k for k, v in t2a_table.iteritems()}
     print(utf2tim_table)
+    
+    from arabrepr import arepr
+    # test detect language
+    text =u"""السلام عليكم how are you, لم اسمع أخبارك منذ مدة, where are you going"""
+    print(arepr(segment_language(text)))
+    text_out= delimite_language(text, start='\RL{', end="}")
+    print(text_out.encode('utf8'))
+    text_out= delimite_language(text, start="<arabic>", end="</arabic>")
+    print(text_out.encode('utf8'))
