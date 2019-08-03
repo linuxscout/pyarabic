@@ -31,6 +31,6 @@ upload:
 	echo "use twine upload dist/PyArabic-0.6.1.tar.gz"
 	
 test:
-	pytest pyarabic/test_araby.py
+	python -m unittest discover tests
 doc:
 	epydoc -v --config epydoc.conf
