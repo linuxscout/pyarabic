@@ -28,7 +28,7 @@ dot com
 +---------+------------------------------------------------------------------+
 | Website | https://pypi.python.org/pypi/pyarabic                            |
 +---------+------------------------------------------------------------------+
-| Doc     | `package Documentaion <http://pythonhosted.org/pyarabic/>`__     |
+| Doc     | `package Documentaion <https://pyarabic.readthedocs.io/>`__      |
 +---------+------------------------------------------------------------------+
 | Source  | `Github <http://github.com/linuxscout/pyarabic>`__               |
 +---------+------------------------------------------------------------------+

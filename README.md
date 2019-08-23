@@ -14,7 +14,7 @@ Release  | 0.6.3
 License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
-Doc  |[package Documentaion](http://pythonhosted.org/pyarabic/)
+Doc  |[package Documentaion](https://pyarabic.readthedocs.io/)
 Source  |[Github](http://github.com/linuxscout/pyarabic)
 Download  |[pypi.python.org](https://pypi.python.org/pypi/pyarabic)
 Feedbacks  |[Comments](https://github.com/linuxscout/pyarabic/issues)
