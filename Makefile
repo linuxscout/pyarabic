@@ -34,5 +34,7 @@ upload:
 	
 test:
 	python -m unittest discover tests
+test3:
+	python3 -m unittest discover tests
 doc:
 	epydoc -v --config epydoc.conf
