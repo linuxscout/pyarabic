@@ -3,6 +3,7 @@
 /pyarabic/__pycache__/
 /tests/output/
 /dist/
+/docs/_build/
 /doc/html/
 /pyarabic/doc/html.zip
 /PyArabic.egg-info/

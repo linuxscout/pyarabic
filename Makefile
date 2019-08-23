@@ -20,7 +20,9 @@ publish:
 
 md2html:
 	pandoc -s -r markdown -w html README.md -o README.html
-	
+md2rst:
+	pandoc -s -r markdown -w rst doc/features.md -o docs/features.rst
+	pandoc -s -r markdown -w rst README.md -o docs/README.rst
 wheel:
 	sudo python setup.py bdist_wheel
 wheel3:
