@@ -20,10 +20,11 @@ from __future__ import (
     print_function,
     unicode_literals,
     division,
-    )
+)
 
 import math
 import sys
+
 if __name__ == '__main__':
 
     sys.path.append('../')
@@ -36,7 +37,19 @@ else:
     from . import araby
     from . import number_const as nbconst
     from . import named_const as nmconst
-    from . import arabrepr   
+    from . import arabrepr
+    from . import util
+
+if nbconst.DO_NORMALIZE:
+    normalizer = [araby.normalize_ligature,
+                  araby.normalize_alef,
+                  araby.normalize_teh,
+                  araby.strip_tashkeel,
+                  araby.strip_tatweel,
+                  ]
+    normalizer = util.Composer(normalizer)
+    nbconst.normalize_constants(normalizer)
+
 
 class ArNumbers(object):
     '''
@@ -45,12 +58,14 @@ class ArNumbers(object):
     _individual = {}
     _feminine = 1
     _format = 1
-##"""
-##     * Loads initialize values
-##"""
+
+    ##"""
+    ##     * Loads initialize values
+    ##"""
     def __init__(self):
         self._individual = nbconst.INDIVIDUALS
         self.complications = nbconst.COMPLICATIONS
+
     def set_feminine(self, value):
         """
          Set feminine flag of the counted object
@@ -83,8 +98,6 @@ class ArNumbers(object):
         else:
             flag = False
         return flag
-
-
 
     def get_feminine(self):
         """
@@ -139,7 +152,7 @@ class ArNumbers(object):
         blocks = []
         items = []
         string = u''
-        #~ number = number#trunc(int(number)) #(int)number)
+        # ~ number = number#trunc(int(number)) #(int)number)
         try:
             number = int(number_str)
         except  ValueError:
@@ -152,7 +165,7 @@ class ArNumbers(object):
             blocks.append(number_str)
             blocks_num = len(blocks) - 1
             i = blocks_num
-            while i >= 0:#(i = blocks_num i > = 0 i--):
+            while i >= 0:  # (i = blocks_num i > = 0 i--):
                 number = math.floor(int(blocks[i]))
                 text = self._written_block(number)
                 if text:
@@ -170,7 +183,6 @@ class ArNumbers(object):
         else:
             string = u'صفر'
         return string
-
 
     def _written_block(self, number):
         """
@@ -201,8 +213,8 @@ class ArNumbers(object):
             tens = int(tens)
 
             if ones == 2:
-                items.append(\
-                  self._individual[ones][self._feminine][self._format])
+                items.append( \
+                    self._individual[ones][self._feminine][self._format])
             elif ones > 0:
                 items.append(self._individual[ones][self._feminine])
             items.append(self._individual[tens][self._format])
@@ -211,6 +223,7 @@ class ArNumbers(object):
             items.remove(u'')
         string = u' و '.join(items)
         return string
+
 
 def text2number(text):
     """
@@ -225,13 +238,13 @@ def text2number(text):
     @return: number extracted from text
     @rtype: integer
     """
-    #the result total is 0
+    # the result total is 0
     total = 0
     # the partial total for the three number
     partial = 0
     text = araby.strip_tashkeel(text)
     words = text.split(u' ')
-    #print words
+    # print words
     for word in words:
         if word and word != u'واحد' and word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             word = word[1:]
@@ -244,14 +257,15 @@ def text2number(text):
                 # the case of 1000 or 1 million
                 if partial == 0:
                     partial = 1
-                total += partial* actualnumber
-                #re-initiate the partial total
+                total += partial * actualnumber
+                # re-initiate the partial total
                 partial = 0
             else:
                 partial += nbconst.NUMBER_WORDS[word]
     # add the final partial to total
     total += partial
     return total
+
 
 def number2text(anumber):
     """
@@ -281,8 +295,10 @@ def number2text(anumber):
         return u"صفر"
     arbn = ArNumbers()
     return arbn.int2str(anumber)
-    
+
     return total
+
+
 def vocalize_number(wordlist, syn_tags=""):
     """ Vocalize a number words clause
 
@@ -312,7 +328,7 @@ def vocalize_number(wordlist, syn_tags=""):
         voc = word
         # the first word can have prefixes
         if word_nm and not wordlist and word_nm != u'واحد' \
-             and word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+                and word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             if word_nm[0] in (u'ل', u'ب', u'ك'):
                 tags += u"مجرور"
             key = word[1:]
@@ -320,18 +336,18 @@ def vocalize_number(wordlist, syn_tags=""):
             key = word_nm[1:]
         # تحذب بعض الكلمات لأنها تلتبس مع أسماء الأجزاء مثل خُمس وخمس
         if key in nbconst.NUMBER_WORDS and \
-          key not in (u'عشر', u'خمس', u'سبع', u'تسع', u'خمسا', \
-u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'ألف'):
+                key not in (u'عشر', u'خمس', u'سبع', u'تسع', u'خمسا', \
+                            u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'ألف'):
             voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
         return [voc, ]
     for i, word in enumerate(wordlist):
-        #save the original word with possible harakat if exist
-        #~ word = wordlist[i]
+        # save the original word with possible harakat if exist
+        # ~ word = wordlist[i]
         word_nm = araby.strip_tashkeel(word)
         key = word_nm
         # the first word can have prefixes
-        if i == 0 and word_nm and word_nm != u'واحد' and\
-            word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+        if i == 0 and word_nm and word_nm != u'واحد' and \
+                word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             if word_nm[0] in (u'ل', u'ب', u'ك'):
                 tags += u"مجرور"
             key = word[1:]
@@ -339,26 +355,27 @@ u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'
             key = word_nm[1:]
         if key in nbconst.NUMBER_WORDS:
             if word_nm.endswith(u'ين'):
-                tags += u"مجهول" # إما مجرور أو منصوب
-            elif word_nm.endswith(u'ان')  or word_nm.endswith(u'ون'):
+                tags += u"مجهول"  # إما مجرور أو منصوب
+            elif word_nm.endswith(u'ان') or word_nm.endswith(u'ون'):
                 tags += u"مرفوع"
-    #add tashkeel
-    #wordlist = araby.stripTashkeel(u" ".join(wordlist)).split(' ')
+    # add tashkeel
+    # wordlist = araby.stripTashkeel(u" ".join(wordlist)).split(' ')
     pre_key = u''
     for i, word in enumerate(wordlist):
-        #~ word = wordlist[i]
-        if i+1 < len(wordlist):
-            nextword = wordlist[i+1]
-        else: nextword = u""
+        # ~ word = wordlist[i]
+        if i + 1 < len(wordlist):
+            nextword = wordlist[i + 1]
+        else:
+            nextword = u""
         key = word
         # the first word can have prefixes
-        if word and word != u'واحد' and\
-            word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+        if word and word != u'واحد' and \
+                word[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             key = word[1:]
             prefix = word[0]
-            if prefix in  (u'و', u'ف', u'ك'):
+            if prefix in (u'و', u'ف', u'ك'):
                 prefix += u'َ'
-            elif prefix in  (u'ل', u'ب'):
+            elif prefix in (u'ل', u'ب'):
                 prefix += u'ِ'
         else:
             prefix = u''
@@ -394,14 +411,15 @@ u'سبعا', u'تسعا', u'عشرا', u'ألفين', u'عشرة', u'صفر', u'
                     voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['n2']
                 else:
                     voc = prefix + \
-                      nbconst.VOCALIZED_NUMBER_WORDS[key]['n']
+                          nbconst.VOCALIZED_NUMBER_WORDS[key]['n']
             else:
                 voc = prefix + nbconst.VOCALIZED_NUMBER_WORDS[key]['i']
             newlist.append(voc)
         else:
-            newlist.append(prefix+key)
+            newlist.append(prefix + key)
         pre_key = key
     return newlist
+
 
 def is_unit(word):
     """
@@ -413,6 +431,7 @@ def is_unit(word):
     """
     return word in nbconst.UNIT_WORDS
 
+
 def vocalize_unit(numeric, unit):
     """ Vocalize a number words
     @param numeric: given number
@@ -422,7 +441,7 @@ def vocalize_unit(numeric, unit):
     @return: the vocalized unit, or unit word if itsnt a unit word.
     @rtype: unicode
     """
-    #detect tags
+    # detect tags
     # The given word is not a unit
     unit_nm = araby.strip_tashkeel(unit)
     if not is_unit(unit_nm):
@@ -439,7 +458,7 @@ def vocalize_unit(numeric, unit):
     # تممييز الألف والمئة والمليون والمليار
     # يتطلب إضافة إلى مفرد
     # مثلا ألف رجل
-    elif  numeric % 100 == 0 or  numeric % 1000 == 0:
+    elif numeric % 100 == 0 or numeric % 1000 == 0:
         tags = u'SingleMajrour'
         vocalizedunit = nbconst.UNIT_WORDS[unit_nm]['a']
     # العدد المفرد يتطلب
@@ -459,6 +478,7 @@ def vocalize_unit(numeric, unit):
     else:
         return vocalizedunit
 
+
 def get_previous_tag(word):
     """Get the word tags
     @param word: given word
@@ -467,7 +487,7 @@ def get_previous_tag(word):
     @rtype: unicode
     """
     word = araby.strip_tashkeel(word)
-    #~ tags = u''
+    # ~ tags = u''
     if word in nmconst.NOUN_NASEB_LIST:
         return u'منصوب'
     elif word in nmconst.JAR_LIST:
@@ -476,6 +496,7 @@ def get_previous_tag(word):
         return u'مرفوع'
     else:
         return u''
+
 
 def extract_number_phrases(text):
     """
@@ -493,16 +514,17 @@ def extract_number_phrases(text):
     """
     phrases = []
 
-    wordlist = araby.tokenize(text)#text.split(' ')
+    wordlist = araby.tokenize(text)  # text.split(' ')
     positions = detect_number_phrases_position(wordlist)
 
     for pos in positions:
         if len(pos) >= 2:
             if pos[0] <= len(wordlist) and pos[1] <= len(wordlist):
-                phrases.append(u' '.join(wordlist[pos[0]: pos[1]+1]))
+                phrases.append(u' '.join(wordlist[pos[0]: pos[1] + 1]))
     return phrases
 
-def extract_number_context(text,):
+
+def extract_number_context(text, ):
     """
     Extract number words in a text within context.
 
@@ -523,15 +545,18 @@ def extract_number_context(text,):
     for pos in positions:
         if len(pos) >= 2:
             if pos[0] <= len(wordlist) and pos[1] <= len(wordlist):
-                if pos[0]-1 >= 0:
-                    prev = wordlist[pos[0]-1]
-                else: prev = u''
-                if pos[1]+1 < len(wordlist):
-                    nextword = wordlist[pos[1]+1]
-                else: nextword = u''
-                phrases.append(\
-                      (prev, u' '.join(wordlist[pos[0]:pos[1]+1]), nextword))
+                if pos[0] - 1 >= 0:
+                    prev = wordlist[pos[0] - 1]
+                else:
+                    prev = u''
+                if pos[1] + 1 < len(wordlist):
+                    nextword = wordlist[pos[1] + 1]
+                else:
+                    nextword = u''
+                phrases.append( \
+                    (prev, u' '.join(wordlist[pos[0]:pos[1] + 1]), nextword))
     return phrases
+
 
 def detect_number_phrases_position(wordlist):
     """
@@ -550,43 +575,43 @@ def detect_number_phrases_position(wordlist):
     @return: list of numbers clause positions [(start,end),(start2,end2),]
     @rtype: list of tuple
     """
-    #~ wordlist# = text.split(u' ')
-    #print words
+    # ~ wordlist# = text.split(u' ')
+    # print words
     phrases = []
     startnumber = -1
     endnumber = False
-    #~ taglist = []
+    # ~ taglist = []
     for i, word in enumerate(wordlist):
-        #~ word = wordlist[i]
-        if i+1 < len(wordlist):
-            nextword = araby.strip_tashkeel(wordlist[i+1])
-        else: nextword = None
-        #save the original word with possible harakat if exist
+        # ~ word = wordlist[i]
+        if i + 1 < len(wordlist):
+            nextword = araby.strip_tashkeel(wordlist[i + 1])
+        else:
+            nextword = None
+        # save the original word with possible harakat if exist
         word_nm = araby.strip_tashkeel(word)
         key = word_nm
         # the first word can have prefixes
         if word_nm and not startnumber and word_nm != u'واحد' \
-            and word_nm[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+                and word_nm[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             key = word_nm[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
         if key in nbconst.NUMBER_WORDS or key.isnumeric():
             if key not in (u'أحد', u'إحدى', u'اثنا', u'اثني', u'اثنتي', \
-             u'اثنتا')  or nextword in (u'عشر', u'عشرة'):
+                           u'اثنتا') or nextword in (u'عشر', u'عشرة'):
                 if startnumber < 0:
                     startnumber = i
                 endnumber = i
             # phrase.append(word)
         else:
-            if startnumber >= 0: #There are a previous number phrase.
+            if startnumber >= 0:  # There are a previous number phrase.
                 phrases.append((startnumber, endnumber))
             startnumber = -1
     # add the final phrases
-    if startnumber >= 0: #There are a previous number phrase.
+    if startnumber >= 0:  # There are a previous number phrase.
         phrases.append((startnumber, endnumber))
 
     return phrases
-
 
 
 def detect_numbers(wordlist):
@@ -603,28 +628,28 @@ def detect_numbers(wordlist):
     @return: list of tags BIO
     @rtype: list of unicode
     """
-    #~ phrases = []
+    # ~ phrases = []
     starts = False
     taglist = []
 
     for i, word in enumerate(wordlist):
-        #~ word = wordlist[i]
-        if i+1 < len(wordlist):
-            nextword = araby.strip_tashkeel(wordlist[i+1])
+        # ~ word = wordlist[i]
+        if i + 1 < len(wordlist):
+            nextword = araby.strip_tashkeel(wordlist[i + 1])
         else:
             nextword = None
-        #save the original word with possible harakat if exist
+        # save the original word with possible harakat if exist
         word_nm = araby.strip_tashkeel(word)
         key = word_nm
         # the first word can have prefixes
         if word_nm and not starts and word_nm != u'واحد' \
-            and word_nm[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
+                and word_nm[0] in (u'و', u'ف', u'ل', u'ب', u'ك'):
             key = word_nm[1:]
         elif word_nm != u'واحد' and word_nm.startswith(u'و'):
             key = word_nm[1:]
         if key in nbconst.NUMBER_WORDS or key.isnumeric():
             if key not in (u'أحد', u'إحدى', u'اثنا', u'اثني', u'اثنتي', \
-             u'اثنتا')  or nextword in (u'عشر', u'عشرة'):
+                           u'اثنتا') or nextword in (u'عشر', u'عشرة'):
                 if not starts:
                     taglist.append("DB")
                     starts = True
@@ -637,6 +662,7 @@ def detect_numbers(wordlist):
             starts = False
             taglist.append("O")
     return taglist
+
 
 def detect_number_words(text):
     """
@@ -663,18 +689,19 @@ def detect_number_words(text):
             tags = get_previous_tag(previous)
             wordlist = araby.strip_tashkeel(numberedwords).split(' ')
             vocalized = vocalize_number(wordlist, tags)
-            #calcul  vocalization similarity:
+            # calcul  vocalization similarity:
             sim = araby.vocalized_similarity(numberedwords, vocalized)
             voc_unit = vocalize_unit(numeric, nextword)
             sim_unit = araby.vocalized_similarity(voc_unit, nextword)
 
             if sim < 0:
-                #~ print u'\t'.join([str(sim), u' '.join(numberedwords), vocalized,
-                 #~ str(numeric), u' '.join([previous, phrase, nextword]),
-                  #~ nextword, voc_unit, str(sim_unit)]).encode('utf8')
+                # ~ print u'\t'.join([str(sim), u' '.join(numberedwords), vocalized,
+                # ~ str(numeric), u' '.join([previous, phrase, nextword]),
+                # ~ nextword, voc_unit, str(sim_unit)]).encode('utf8')
                 print(u'\t'.join([str(sim), u' '.join(numberedwords), u' '.join(vocalized)]))
                 print(str(numeric), u' '.join([previous, phrase, nextword]))
                 print(u'\t'.join([nextword, voc_unit, str(sim_unit)]))
+
 
 def pre_tashkeel_number(wordlist):
     """
@@ -702,7 +729,7 @@ def pre_tashkeel_number(wordlist):
             chunk.append(word)
         else:
             if chunk:
-                #get the tag of previous word
+                # get the tag of previous word
                 previous_tag = get_previous_tag(previous)
                 vocalized = vocalize_number(chunk, previous_tag)
                 vocalized_list.extend(vocalized)
@@ -717,7 +744,7 @@ def pre_tashkeel_number(wordlist):
 
 
 if __name__ == '__main__':
-    #import number as ArabicNumberToLetters
+    # import number as ArabicNumberToLetters
     TEXTS = [u"مليونان وألفان وإثنا عشر",
              u"جاء مليونان وألفان وإثنا عشر",
              u"وجدت خمسمئة وثلاث وعشرون دينارا",
@@ -729,8 +756,8 @@ if __name__ == '__main__':
              u'من ثلاثمئة وخمسين بلدا ',
              u'من أربعمئة وخمسين بلدا ',
              u'السلام عليكم 2014',
-            ]
-    #~ arepr = arabrepr.ArabicRepr()
+             ]
+    # ~ arepr = arabrepr.ArabicRepr()
     for txt in TEXTS:
         word_list = araby.tokenize(txt)
         positions_phrases = detect_number_phrases_position(word_list)
