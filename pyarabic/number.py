@@ -38,17 +38,6 @@ else:
     from . import number_const as nbconst
     from . import named_const as nmconst
     from . import arabrepr
-    from . import util
-
-if nbconst.DO_NORMALIZE:
-    normalizer = [araby.normalize_ligature,
-                  araby.normalize_alef,
-                  araby.normalize_teh,
-                  araby.strip_tashkeel,
-                  araby.strip_tatweel,
-                  ]
-    normalizer = util.Composer(normalizer)
-    nbconst.normalize_constants(normalizer)
 
 
 class ArNumbers(object):
