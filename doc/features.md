@@ -26,7 +26,7 @@ Example:
 ```
  * حذف الحركات بما فيها الشدة
 
-Strip vowels from a text, include Shadda. The striped marks are :
+Strip vowels from a text, include Shadda. 
 
 ```python
 >>> from pyarabic.araby import strip_tashkeel
@@ -38,7 +38,7 @@ Strip vowels from a text, include Shadda. The striped marks are :
  * حذف الحركة الأخيرة فقط:
  قد تكون هي الحركة الإعرابية، لكن ليس في كل الحالات، مثلا يضربه، حركة الإعراب على الباء وليس على الهاء
 
-Strip the last Haraka from arabic word except Shadda. The striped marks are :
+Strip the last Haraka from arabic word except Shadda. 
 ```python
 >>> from pyarabic.araby import strip_lastharaka
 >>> text = u"الْعَرَبِيّةُ"
@@ -46,6 +46,16 @@ Strip the last Haraka from arabic word except Shadda. The striped marks are :
 الْعَرَبِيّة
 ```
 
+* حذف الزخرفات المختلفة على النص منها الحركات والحروف الصغيرة
+
+Strip diacritics from a text, include harakats and small lettres The striped marks are :
+
+```python
+>>> from pyarabic.araby import strip_diacritics
+>>> text = u"الرّحمٰن"
+>>> strip_diacritics(text)
+الرحمن
+```
  * اختزال التشكيل 
 Reduce the Tashkeel, by deleting evident cases.
 

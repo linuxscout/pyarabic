@@ -27,6 +27,7 @@ from __future__ import (
     division,
 )
 import re
+import unicodedata
 
 if __name__ == "__main__":
     import stack
@@ -129,7 +130,6 @@ LETTERS = u''.join([ALEF, BEH, TEH, TEH_MARBUTA, THEH, JEEM, HAH, KHAH, \
 
 TASHKEEL = (FATHATAN, DAMMATAN, KASRATAN, FATHA, DAMMA, KASRA, \
             SUKUN, SHADDA)
-
 HARAKAT = (FATHATAN, DAMMATAN, KASRATAN, FATHA, DAMMA, KASRA, SUKUN)
 
 SHORTHARAKAT = (FATHA, DAMMA, KASRA, SUKUN)
@@ -250,6 +250,58 @@ ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])" \
 ARABIC_RANGE = re.compile(
     u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
 
+DIACRITICS = [unichr(x) for x in range(0x0600, 0x06ff) if unicodedata.category(unichr(x)) == "Mn"]
+#~ \u0610   ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM
+#~ \u0611   ARABIC SIGN ALAYHE ASSALLAM
+#~ \u0612   ARABIC SIGN RAHMATULLAH ALAYHE
+#~ \u0613   ARABIC SIGN RADI ALLAHOU ANHU
+#~ \u0614   ARABIC SIGN TAKHALLUS
+#~ \u0615   ARABIC SMALL HIGH TAH
+#~ \u0616   ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH
+#~ \u0617   ARABIC SMALL HIGH ZAIN
+#~ \u0618   ARABIC SMALL FATHA
+#~ \u0619   ARABIC SMALL DAMMA
+#~ \u061a   ARABIC SMALL KASRA
+#~ \u064b   ARABIC FATHATAN
+#~ \u064c   ARABIC DAMMATAN
+#~ \u064d   ARABIC KASRATAN
+#~ \u064e   ARABIC FATHA
+#~ \u064f   ARABIC DAMMA
+#~ \u0650   ARABIC KASRA
+#~ \u0651   ARABIC SHADDA
+#~ \u0652   ARABIC SUKUN
+#~ \u0653   ARABIC MADDAH ABOVE
+#~ \u0654   ARABIC HAMZA ABOVE
+#~ \u0655   ARABIC HAMZA BELOW
+#~ \u0656   ARABIC SUBSCRIPT ALEF
+#~ \u0657   ARABIC INVERTED DAMMA
+#~ \u0658   ARABIC MARK NOON GHUNNA
+#~ \u0659   ARABIC ZWARAKAY
+#~ \u065a   ARABIC VOWEL SIGN SMALL V ABOVE
+#~ \u065b   ARABIC VOWEL SIGN INVERTED SMALL V ABOVE
+#~ \u065c   ARABIC VOWEL SIGN DOT BELOW
+#~ \u065d   ARABIC REVERSED DAMMA
+#~ \u065e   ARABIC FATHA WITH TWO DOTS
+#~ \u0670   ARABIC LETTER SUPERSCRIPT ALEF
+#~ \u06d6   ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA
+#~ \u06d7   ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA
+#~ \u06d8   ARABIC SMALL HIGH MEEM INITIAL FORM
+#~ \u06d9   ARABIC SMALL HIGH LAM ALEF
+#~ \u06da   ARABIC SMALL HIGH JEEM
+#~ \u06db   ARABIC SMALL HIGH THREE DOTS
+#~ \u06dc   ARABIC SMALL HIGH SEEN
+#~ \u06df   ARABIC SMALL HIGH ROUNDED ZERO
+#~ \u06e0   ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO
+#~ \u06e1   ARABIC SMALL HIGH DOTLESS HEAD OF KHAH
+#~ \u06e2   ARABIC SMALL HIGH MEEM ISOLATED FORM
+#~ \u06e3   ARABIC SMALL LOW SEEN
+#~ \u06e4   ARABIC SMALL HIGH MADDA
+#~ \u06e7   ARABIC SMALL HIGH YEH
+#~ \u06e8   ARABIC SMALL HIGH NOON
+#~ \u06ea   ARABIC EMPTY CENTRE LOW STOP
+#~ \u06eb   ARABIC EMPTY CENTRE HIGH STOP
+#~ \u06ec   ARABIC ROUNDED HIGH STOP WITH FILLED CENTRE
+#~ \u06ed   ARABIC SMALL LOW MEEM
 
 ################################################
 # { is letter functions
@@ -675,6 +727,28 @@ def strip_tashkeel(text):
             text = text.replace(char, '')
     return text
 
+def strip_small(text):
+    """Strip small_letters from a text
+    The striped marks are :
+        - Small Alef الألف الخنجرية, .
+        -Small WAW
+        -Small Yeh
+    Example:
+        >>> text = u"الرحمن\u0670"
+        >>> strip_small(text)
+        الرحمن
+
+    @param text: arabic text.
+    @type text: unicode.
+    @return: return a striped text.
+    @rtype: unicode.
+    """
+    if not text:
+        return text
+    for char in SMALL:
+        text = text.replace(char, '')
+    return text
+
 
 def strip_tatweel(text):
     """
@@ -710,6 +784,29 @@ def strip_shadda(text):
     """
     return text.replace(SHADDA, '')
 
+def strip_diacritics(text):
+    """Strip arabic diacritics from a text
+    The striped marks are :
+        - Small Alef الألف الخنجرية, .
+        - Harakat + Shadda
+        - Quranic marks
+        - Extended arabic diacritics
+    Example:
+        >>> text = u"الرحمن\u0670"
+        >>> strip_small(text)
+        الرحمن
+
+    @param text: arabic text.
+    @type text: unicode.
+    @return: return a striped text.
+    @rtype: unicode.
+    """
+    if not text:
+        return text
+    for char in DIACRITICS:
+        text = text.replace(char, '')
+    return text
+    
 
 def normalize_ligature(text):
     """Normalize Lam Alef ligatures into two letters (LAM and ALEF),
