@@ -1,13 +1,13 @@
 #! /usr/bin/python
 from setuptools import setup
-
+from io import open
 # to install type:
 # python setup.py install --root=/
 def readme():
     with open('README.md', encoding="utf8") as f:
         return f.read()
         
-setup (name='PyArabic', version='0.6.6',
+setup (name='PyArabic', version='0.6.7',
       author='Taha Zerrouki',
       author_email='taha_zerrouki@hotmail.com',
       url='http://pyarabic.sourceforge.net/',
