@@ -10,7 +10,7 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 Features |   value
 ---------|---------------------------------------------------------------------------------
 Authors  | Taha Zerrouki: http://tahadz.com,  taha dot zerrouki at gmail dot com
-Release  | 0.6.3
+Release  | 0.6.7
 License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
