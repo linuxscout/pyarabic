@@ -4,7 +4,7 @@ from setuptools import setup
 # to install type:
 # python setup.py install --root=/
 def readme():
-    with open('README.md') as f:
+    with open('README.md', encoding="utf8") as f:
         return f.read()
         
 setup (name='PyArabic', version='0.6.6',
