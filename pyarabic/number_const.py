@@ -3,9 +3,21 @@
 """
 Constants used for number module
 """
-from __future__ import unicode_literals  # at top of module
+# at top of module
+from __future__ import (
+    absolute_import,
+    print_function,
+    unicode_literals,
+    division,
+)
 
-from pyarabic import araby, util
+try:
+    import araby
+    import normalize
+except:
+    from . import araby
+    from . import normalize
+   
 
 THAOUSAND_MULTIPLE = ()
 NUMBER_TEN_MASCULIN_UNITS = (
@@ -566,14 +578,14 @@ COMPLICATIONS[3][3] = u'مليارات'
 COMPLICATIONS[3][4] = u'مليار'
 
 
-def __build_normalizer():
-    normalizer = [araby.normalize_ligature,
-                  araby.normalize_alef,
-                  araby.normalize_teh,
-                  araby.strip_tashkeel,
-                  araby.strip_tatweel,
-                  ]
-    return util.Composer(normalizer)
+#~ def __build_normalizer():
+    #~ normalizer = [araby.normalize_ligature,
+                  #~ araby.normalize_alef,
+                  #~ araby.normalize_teh,
+                  #~ araby.strip_tashkeel,
+                  #~ araby.strip_tatweel,
+                  #~ ]
+    #~ return util.Composer(normalizer)
 
 
 def __normalize_composite_dict(le_dict, normalizer):
@@ -594,7 +606,7 @@ def normalize_constants():
     global COMPLICATIONS, INDIVIDUALS, UNIT_WORDS, VOCALIZED_NUMBER_WORDS, NUMBER_TEN_FEMININ_UNITS, \
         NUMBER_TEN_MASCULIN_UNITS, NUMBER_WORDS
     # getting the normalizer and a helper function
-    normalizer = __build_normalizer()
+    normalizer = normalize_searchtext()
     dict_keys_normalizer = lambda dict: {normalizer(key): value
                                          for key, value in dict.items()}
 

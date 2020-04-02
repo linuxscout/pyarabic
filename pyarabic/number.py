@@ -25,15 +25,13 @@ from __future__ import (
 import math
 import sys
 
-if __name__ == '__main__':
+try:
+    import araby
+    import number_const as nbconst
+    import named_const as nmconst
+    import arabrepr
 
-    sys.path.append('../')
-    import pyarabic.araby as araby
-    import pyarabic.number_const as nbconst
-    import pyarabic.named_const as nmconst
-    import pyarabic.arabrepr as arabrepr
-
-else:
+except:
     from . import araby
     from . import number_const as nbconst
     from . import named_const as nmconst
