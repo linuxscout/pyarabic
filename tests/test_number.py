@@ -16,5 +16,6 @@ class NumberTestCase(unittest.TestCase):
         self.assertEqual(nb.number2text(125), u"مئة و خمس و عشرون")
         self.assertEqual(nb.number2text(125.5), u"مئة و خمس و عشرون فاصلة خمس")
         self.assertEqual(nb.number2text("125..5"), u"صفر")
+        self.assertEqual(nb.number2ordinal(125), u"المئة والخامس والعشرون")
 if __name__ == '__main__':
     unittest.main()

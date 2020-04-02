@@ -28,7 +28,10 @@ from __future__ import (
 )
 import re
 import unicodedata
-
+try:
+    unichr
+except NameError:
+    unichr = chr
 if __name__ == "__main__":
     import stack
 else:

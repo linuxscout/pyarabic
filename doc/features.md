@@ -305,6 +305,16 @@ Convert number to words
 مئة و خمسة وعشرون
 
 ```
+* تحويل عدد إلى كلمات ترتيبية
+Convert number to ordinal words
+
+```python
+>>> import pyarabic.number
+>>> pyarabic.number.number2ordinal(125)
+المئة والخامس والعشرون
+
+```
+
 * تحويل الكلمات إلى أعداد
 Convert arabic text into number, for example convert تسعة وعشرون = >29.
 

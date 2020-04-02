@@ -24,14 +24,14 @@ from __future__ import (
 
 import math
 import sys
-
+from six import text_type as unicode
 try:
     import araby
     import number_const as nbconst
     import named_const as nmconst
     import arabrepr
 
-except:
+except ImportError:
     from . import araby
     from . import number_const as nbconst
     from . import named_const as nmconst
@@ -729,6 +729,80 @@ def pre_tashkeel_number(wordlist):
         chunk = []
     return vocalized_list
 
+
+def number2ordinal(anumber, feminin=False):
+    """
+    Convert number to arabic words in ordinal form, for example convert 25 --> الخامس والعشرون
+    
+      Example:
+        >>> number2text(523)
+        الخمسمئة والثالث والعشرون
+    @param anumber: input number
+    @type anumber: int
+    @return: number words
+    @rtype: unicode
+    """
+    # test if the given type is numeric(float or int
+    # if ok, convert it to string
+    a = 0
+    if type(anumber) is int:
+        anumber = str(anumber)
+    # if the given type is str/unicode, test if it's a valid number
+    elif type(anumber) is str or type(anumber) is unicode:
+        try:
+            a = int(anumber);
+        except ValueError:
+            return u"صفر"
+    # if the given number not a valid return 0
+    else:
+        return u"الصفر"
+    if a == 1:
+        if feminin:
+            return u"الأولى"
+        else:
+            return u"الأول"
+    arbn = ArNumbers()
+    arbn_str = arbn.int2str(anumber)
+    # substitute numeral words to ordinal words
+    # normalize waw
+    arbn_str = arbn_str.replace(u"و ", u"و")
+    tokens = arbn_str.split(" ")
+    # the first token:
+    # if it's  unit, change it to ordinal
+    # and add definate article
+    new_list = []
+    if feminin:
+        ordinal_words = nbconst.UNITS_ORDINAL_WORDS_FEMININ
+    else:
+        ordinal_words = nbconst.UNITS_ORDINAL_WORDS
+    if tokens:
+        tok = tokens[0]
+        if tok in ordinal_words:
+            # ثلاث = ثالث
+            tok = ordinal_words.get(tok, tok)
+        #add definite article
+        tok = u"ال"+tok
+        new_list.append(tok)
+
+        for tok in tokens[1:]:
+            # first strip first Waw
+            if tok.startswith(araby.WAW):
+                # strip waw
+                tok = tok[1:]
+                if tok in ordinal_words:
+                    # ثلاث = ثالث
+                    tok = ordinal_words.get(tok, tok)
+                tok = u"وال"+tok
+            new_list.append(tok)
+    # ajust الواحد at the end
+    if new_list[-1:] == u"الحادي":
+        new_list.pop()
+        new_list.append(u"الواحد")
+    elif new_list[-1:] == u"الحادية":
+        new_list.pop()
+        new_list.append(u"الواحدة")
+    ordinal_string = u" ".join(new_list)
+    return ordinal_string
 
 if __name__ == '__main__':
     # import number as ArabicNumberToLetters
