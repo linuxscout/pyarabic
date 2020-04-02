@@ -46,6 +46,12 @@ class ArabicRepr(reprlib.Repr):
         "Modify unicode display "
         return u"u'%s'" % obj
 
-def arepr(data):
-    """ display a dict with arabic text properly """
-    return repr(data).replace('},','},\n').decode('unicode-escape').encode('utf8')
+if sys.version_info < (3, 0):
+    def arepr(data):
+        """ display a dict with arabic text properly """
+        return repr(data).replace('},','},\n').decode('unicode-escape').encode('utf8')
+else:
+    def arepr(data):
+        """ display a dict with arabic text properly """
+        return repr(data).replace('},','},\n')#.decode('unicode-escape').encode('utf8')
+

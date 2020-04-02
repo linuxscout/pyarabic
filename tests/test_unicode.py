@@ -8,8 +8,6 @@ from __future__ import (
     )
 import sys
 sys.path.append("../")
-#~ import  pyarabic.harf as harf
-#from   pyarabic import harf
 import  pyarabic.araby as araby
 
 for c in araby.arabicrange():
