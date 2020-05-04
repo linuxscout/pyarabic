@@ -71,6 +71,7 @@ t2a_table = {
 }
 
 
+
 # conversion Tablke from the tim bulwalter represetation 
 # into sampa notation
 t2sampa_table = { 
@@ -123,7 +124,55 @@ t2sampa_table = {
 '{': '',#ALEF_WASLA, 
 }
 
-a2t_table = {v: k for k, v in t2a_table.iteritems()}
+
+a2en_table= {'ء': "2",
+ 'آ': 'A',
+ 'أ': 'A',
+ 'ؤ': '2',
+ 'إ': '2',
+ 'ئ': '2',
+ 'ا': 'A',
+ 'ب': 'b',
+ 'ة': 't',
+ 'ت': 't',
+ 'ث': 'th',
+ 'ج': 'j',
+ 'ح': 'H',
+ 'خ': 'kh',
+ 'د': 'd',
+ 'ذ': 'dh',
+ 'ر': 'r',
+ 'ز': 'z',
+ 'س': 's',
+ 'ش': 'sh',
+ 'ص': 'S',
+ 'ض': 'D',
+ 'ط': 'T',
+ 'ظ': 'zh',
+ 'ع': 'E',
+ 'غ': 'g',
+ 'ـ': '',
+ 'ف': 'f',
+ 'ق': 'q',
+ 'ك': 'k',
+ 'ل': 'l',
+ 'م': 'm',
+ 'ن': 'n',
+ 'ه': 'h',
+ 'و': 'w',
+ 'ى': 'a',
+ 'ي': 'y',
+ 'ً': 'an',
+ 'ٌ': 'un',
+ 'ٍ': 'in',
+ 'َ': 'a',
+ 'ُ': 'u',
+ 'ِ': 'i',
+ 'ّ': '',
+ 'ْ': '',
+ 'ٰ': 'a'}
+
+a2t_table = {v: k for k, v in t2a_table.items()}
 # correct case
 a2t_table[ar.ALEF] = 'A'
 
@@ -171,6 +220,16 @@ def tim2sampa(s):
     mystr = re.sub('(?<=u)w',':',mystr);
     mystr = re.sub('(?<=i)j',':',mystr);
     return mystr
+    
+
+def utf82latin(s):
+    "Tranliteration from UTF-8  to latin with plain english no symbol"
+    mystr = u''
+    for mychar in s:
+        mystr += a2en_table.get(mychar, mychar);
+    return mystr
+    
+    
 def convert(text, code_from, code_to):
     """
     convert text from code_from to code_to
@@ -181,8 +240,10 @@ def convert(text, code_from, code_to):
     if code1 in ('utf', 'utf8', 'arabic'):
         if code2 in ("tim", "buckwalter"):
             return utf82tim(text)
-        #~ elif code2 == 'sampa':
-            #~ return tim2sampa(text)
+        elif code2 == 'sampa':
+            return tim2sampa(utf82tim(text))
+        elif code2 in ('latin', 'ascii'):
+            return utf82latin(text)
         else: 
             return text
 
@@ -289,7 +350,7 @@ n~aAsi""".split('\n')
         print(u'\t'.join([word, arabic, timu, sampa , arabic2, timu2, sampa2 , str(timu==word), str(arabic2==arabic), str(timu2==timu), str(sampa2==sampa) ]).encode('utf8'))
         #~ print(u'\t'.join([word, tim2sampa(word)]).encode('utf8'))
         
-    utf2tim_table = {v: k for k, v in t2a_table.iteritems()}
+    utf2tim_table = {v: k for k, v in t2a_table.items()}
     print(utf2tim_table)
     
     from arabrepr import arepr
