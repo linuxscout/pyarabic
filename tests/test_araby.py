@@ -86,6 +86,12 @@ class ArabyTestCase(unittest.TestCase):
         text1 = u"العربية: لغة جميلة."
         wordlist = [u'العربية',u":", u"لغة", u"جميلة", u"."]
         self.assertEqual(ar.tokenize(text1), wordlist)
+        
+    def test_fix_spaces(self):
+        """Test  fix spaces function ?"""
+        text1 = u"كل فرد في الأمة مجند لمعركة المصير: الفلاح في حقله، والعامل في مصنعه، والطالب في معهده، والموظف في ديوانه..."
+        text2 = u"كل فرد في الأمة مجند لمعركة المصير: الفلاح في حقله، والعامل في مصنعه، والطالب في معهده، والموظف في ديوانه..."
+        self.assertEqual(ar.fix_spaces(text1), text2)
 
 
 if __name__ == '__main__':

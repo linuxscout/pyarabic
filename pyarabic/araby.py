@@ -253,6 +253,9 @@ ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])" \
 ARABIC_RANGE = re.compile(
     u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
 
+# Space fixes
+FIX_SPACES_PAT = re.compile(r'\s*([?؟!.,،:]+(?:\s+[?؟!.,،:]+)*)\s*', re.UNICODE)
+
 DIACRITICS = [unichr(x) for x in range(0x0600, 0x06ff) if unicodedata.category(unichr(x)) == "Mn"]
 #~ \u0610   ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM
 #~ \u0611   ARABIC SIGN ALAYHE ASSALLAM
@@ -1326,7 +1329,12 @@ def tokenize(text="", conditions=[], morphs=[]):
     else:
         return []
 
-
+def fix_spaces(text):
+    """
+    """
+    text = FIX_SPACES_PAT.sub(lambda x: "{} ".format(x.group(1).replace(" ", "")), text)
+    return text.strip()
+    
 if __name__ == "__main__":
     # ~WORDS = [u'الْدَرَاجَةُ', u'الدّرّاجة',
     # ~u'سّلّامْ', ]
