@@ -92,6 +92,35 @@ class ArabyTestCase(unittest.TestCase):
         text1 = u"كل فرد في الأمة مجند لمعركة المصير: الفلاح في حقله، والعامل في مصنعه، والطالب في معهده، والموظف في ديوانه..."
         text2 = u"كل فرد في الأمة مجند لمعركة المصير: الفلاح في حقله، والعامل في مصنعه، والطالب في معهده، والموظف في ديوانه..."
         self.assertEqual(ar.fix_spaces(text1), text2)
+        
+    def test_autocorrect(self):
+        """Test  auto correct"""
+        word1 = u"مُُضاعَفة"
+        word2 = u"مُضاعَفة"
+        self.assertEqual(ar.autocorrect(word1), word2)
+        text1 = u"حَرَكَة مُُضاعَفة َسابقة  قبل شَّدة سابقاً"
+        text2 = u"حَرَكَة مُضاعَفة سابقة  قبل شّدة سابقًا"
+        self.assertEqual(ar.autocorrect(text1), text2)
+
+    def test_spellit(self):
+        """Test  spellit"""
+        word1 = u"مُضاّعَفة"
+        word2 = u"ميم, ضمة, ضاد, ألف, شدة, عين, فتحة, فاء, تاء مربوطة"
+        word3 = u"ARABIC LETTER MEEM, ARABIC DAMMA, ARABIC LETTER DAD, ARABIC LETTER ALEF, ARABIC SHADDA, ARABIC LETTER AIN, ARABIC FATHA, ARABIC LETTER FEH, ARABIC LETTER TEH MARBUTA"
+        self.assertEqual(ar.spellit(word1), word2)
+        self.assertEqual(ar.spellit(word1, "unicode"), word3)
+    
+    def test_encode_tashkeel(self):
+        """Test  encode/decode tashkeel"""
+        word1 = u"هَارِبًا"
+        letters = u"هاربا" 
+        encoded_marks = u"a0iA0"
+        self.assertEqual(ar.encode_tashkeel(word1), (letters, encoded_marks))
+        self.assertEqual(ar.decode_tashkeel(letters, encoded_marks), word1)
+        
+        encoded_marks = 40610
+        self.assertEqual(ar.encode_tashkeel(word1, "decimal"), (letters, encoded_marks))
+        self.assertEqual(ar.decode_tashkeel(letters, encoded_marks, "decimal"), word1)
 
 
 if __name__ == '__main__':

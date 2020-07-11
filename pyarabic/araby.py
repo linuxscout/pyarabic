@@ -223,6 +223,7 @@ NAMES = { \
     }
 HAMZAT_STRING = u"".join(HAMZAT)
 HARAKAT_STRING = u"".join(HARAKAT)
+TASHKEEL_STRING = u"".join(TASHKEEL)
 # regular expretion
 
 HARAKAT_PATTERN = re.compile(u"[" + u"".join(HARAKAT) + u"]", re.UNICODE)
@@ -253,6 +254,10 @@ ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])" \
 ARABIC_RANGE = re.compile(
     u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
 
+T2D_TRANS= str.maketrans(NOT_DEF_HARAKA + TASHKEEL_STRING, "012345678")
+T2A_TRANS= str.maketrans(NOT_DEF_HARAKA + TASHKEEL_STRING, "0AUIauio3")
+D2T_TRANS= str.maketrans("012345678"  , NOT_DEF_HARAKA + TASHKEEL_STRING)
+A2T_TRANS= str.maketrans("0AUIauio3"  , NOT_DEF_HARAKA + TASHKEEL_STRING)
 # Space fixes
 FIX_SPACES_PAT = re.compile(r'\s*([?؟!.,،:]+(?:\s+[?؟!.,،:]+)*)\s*', re.UNICODE)
 
@@ -476,15 +481,17 @@ def order(archar):
     return ALPHABETIC_ORDER.get(archar, 0)
 
 
-def name(archar):
+def name(archar, default_name=u""):
     """return Arabic letter name in arabic.     Alef order is 1, Yeh is 28,
     Hamza is 29. Teh Marbuta has the same ordre with Teh, 3.
     @param archar: arabic unicode char
     @type archar: unicode
+    @param default_name: arabic unicode char
+    @type default_name: unicode    
     @return: arabic name.
     @rtype: unicode
     """
-    return NAMES.get(archar, u'')
+    return NAMES.get(archar, default_name)
 
 
 def arabicrange():
@@ -1334,7 +1341,96 @@ def fix_spaces(text):
     """
     text = FIX_SPACES_PAT.sub(lambda x: "{} ".format(x.group(1).replace(" ", "")), text)
     return text.strip()
+
+def autocorrect(text):
+    """
+    Correct most common errors on word 
+    like repetetion of harakats,or tanwin befor alef
+    @param text: input text
+    @type text: unicode
+    @return: corrected text
+    @rtype: unicode
+    """
+    ## HARAKAT
+    text = re.sub(u"(?<=[\s\d])([%s])+"%(TASHKEEL_STRING),"",text,  re.UNICODE)
+    text = re.sub(u"^([%s])+"%(TASHKEEL_STRING),"",text , re.UNICODE)
+    # tanwin on alef
+    text = re.sub(ALEF+FATHATAN, FATHATAN + ALEF,text , re.UNICODE)        
+
+    # SUKUN misplaced on alef /alef maksura and TEH merbuta
+    text = re.sub(u"(?<=[%s%s%s])([%s])+"%(ALEF, ALEF_MAKSURA, TEH_MARBUTA, SUKUN),"" , text, re.UNICODE)        
+
+    # Hakara before Shadda
+    text = re.sub(u"([%s])+(?=[%s])"%(HARAKAT_STRING, SHADDA),"",text, re.UNICODE)
     
+    # repeated harahat
+    text = re.sub(u"(?<=[%s])([%s])+"%(HARAKAT_STRING, HARAKAT_STRING),"",text,  re.UNICODE)
+    
+    ## Letters
+    return text 
+    
+def spellit(word, lang="ar"):
+    """
+    write the word in full letter' names
+    """
+    
+    names = []
+    if lang == "unicode":
+        for c in word:
+            names.append(unicodedata.name(c, c))        
+    else:
+        for c in word:
+            names.append(name(c, c))
+    return u', '.join(names) 
+    
+def encode_tashkeel(word, method = "ascii"):
+    """
+    encode word marks into decimal string to be saved as integer
+    @input word: diacritized arabic diacritcs
+    @type word: unicode
+    @return:  (letters, encoded) zero if fails
+    @rtype: (letters, encoded) ttring/ integer
+    """
+    letters, marks = separate(word)
+
+    if method == "decimal":
+        transed = marks.translate(T2D_TRANS)
+    elif method == "ascii":
+        transed = marks.translate(T2A_TRANS)
+    else:
+        transed = marks.translate(T2A_TRANS)
+
+    if method == "decimal":
+        try:
+            transed = int(transed)
+        except:
+            return word, ""
+    return letters, transed
+    
+def decode_tashkeel(word, marks, method = "ascii"):
+    """ decode tashkeel"""
+    """
+    decode marks from decimal/ascii string to be joint on word
+    @input word: undiacritized arabic diacritcs
+    @type word: unicode
+    @input marks: encoded marks
+    @type marks: unicode/integer
+    @return:  diacritized word
+    @rtype: unicode
+    """    
+    if type(marks) != (str):
+        marks = str(marks)
+    # zeros can be removed in int code, then we must add them to left
+    marks = marks.rjust(len(word),"0")
+    if method == "decimal":
+        transed = marks.translate(D2T_TRANS)
+    elif method == "ascii":
+        transed = marks.translate(A2T_TRANS)
+    else:
+        transed = marks.translate(A2T_TRANS)        
+    word2 = joint(word, transed)
+    return word2
+
 if __name__ == "__main__":
     # ~WORDS = [u'الْدَرَاجَةُ', u'الدّرّاجة',
     # ~u'سّلّامْ', ]
