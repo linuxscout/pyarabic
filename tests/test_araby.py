@@ -109,19 +109,6 @@ class ArabyTestCase(unittest.TestCase):
         word3 = u"ARABIC LETTER MEEM, ARABIC DAMMA, ARABIC LETTER DAD, ARABIC LETTER ALEF, ARABIC SHADDA, ARABIC LETTER AIN, ARABIC FATHA, ARABIC LETTER FEH, ARABIC LETTER TEH MARBUTA"
         self.assertEqual(ar.spellit(word1), word2)
         self.assertEqual(ar.spellit(word1, "unicode"), word3)
-    
-    def test_encode_tashkeel(self):
-        """Test  encode/decode tashkeel"""
-        word1 = u"هَارِبًا"
-        letters = u"هاربا" 
-        encoded_marks = u"a0iA0"
-        self.assertEqual(ar.encode_tashkeel(word1), (letters, encoded_marks))
-        self.assertEqual(ar.decode_tashkeel(letters, encoded_marks), word1)
-        
-        encoded_marks = 40610
-        self.assertEqual(ar.encode_tashkeel(word1, "decimal"), (letters, encoded_marks))
-        self.assertEqual(ar.decode_tashkeel(letters, encoded_marks, "decimal"), word1)
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -176,6 +176,31 @@ a2t_table = {v: k for k, v in t2a_table.items()}
 # correct case
 a2t_table[ar.ALEF] = 'A'
 
+if (sys.version_info > (3, 0)):
+    # Python 3 code in this block
+    T2D_TRANS= str.maketrans(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, "012345678")
+    T2A_TRANS= str.maketrans(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, "0AUIauio3")
+    D2T_TRANS= str.maketrans("012345678"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)
+    A2T_TRANS= str.maketrans("0AUIauio3"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)
+    def translate(word, table):
+        """ translate a word accoring to table"""
+        return word.translate(table)
+else:
+    #~ T2D_TRANS= {ord(c): ord(t) for c, t in zip(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, u"012345678")}
+    #~ T2A_TRANS= {ord(c): ord(t) for c, t in zip(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, u"0AUIauio3")}
+    #~ D2T_TRANS= {ord(c): ord(t) for c, t in zip(u"012345678"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
+    #~ A2T_TRANS= {ord(c): ord(t) for c, t in zip(u"0AUIauio3"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
+    T2D_TRANS= {c:t for c, t in zip(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, u"012345678")}
+    T2A_TRANS= {c:t for c, t in zip(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, u"0AUIauio3")}
+    D2T_TRANS= {c:t for c, t in zip(u"012345678"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
+    A2T_TRANS= {c:t for c, t in zip(u"0AUIauio3"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
+
+    def translate(word, table):
+        """ translate a word accoring to table"""
+        mystr = u''
+        for mychar in word:
+            mystr += table.get(mychar, mychar);
+        return mystr
 def tim2utf8(s):
     "Tranliteration to UTF-8 conversion of a string"
     mystr = u''
@@ -306,7 +331,60 @@ def delimite_language(text, language = "arabic", start="<", end=">"):
         else:
             new_chunks_list.append(chunk)
     return u" ".join(new_chunks_list)    
+
+
     
+    
+def encode_tashkeel(word, method = "ascii"):
+    """
+    encode word marks into decimal string to be saved as integer
+    @input word: diacritized arabic diacritcs
+    @type word: unicode
+    @return:  (letters, encoded) zero if fails
+    @rtype: (letters, encoded) ttring/ integer
+    """
+    letters, marks = ar.separate(word)
+
+    if method == "decimal":
+        transed = translate(marks, T2D_TRANS)
+    elif method == "ascii":
+        transed = translate(marks, T2A_TRANS)
+    else:
+        transed = translate(marks, T2A_TRANS)
+
+
+    if method == "decimal":
+        try:
+            transed = int(transed)
+        except:
+            return word, ""
+    return letters, transed
+
+
+
+def decode_tashkeel(word, marks, method = "ascii"):
+    """ decode tashkeel"""
+    """
+    decode marks from decimal/ascii string to be joint on word
+    @input word: undiacritized arabic diacritcs
+    @type word: unicode
+    @input marks: encoded marks
+    @type marks: unicode/integer
+    @return:  diacritized word
+    @rtype: unicode
+    """
+    if type(marks) != (str):
+        marks = str(marks)
+    # zeros can be removed in int code, then we must add them to left
+    marks = marks.rjust(len(word),str("0"))
+    if method == "decimal":
+        transed = translate(marks, D2T_TRANS)
+    elif method == "ascii":
+        transed = translate(marks, A2T_TRANS)
+    else:
+        transed = translate(marks, A2T_TRANS)        
+    word2 = ar.joint(word, transed)
+    return word2    
     
 if __name__ == '__main__':
     

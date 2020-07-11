@@ -36,7 +36,7 @@ if __name__ == "__main__":
     import stack
 else:
     from . import stack
-
+    
 import pyarabic.stack
 
 # ~ import pyarabic.araby_const
@@ -254,10 +254,6 @@ ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])" \
 ARABIC_RANGE = re.compile(
     u"([^\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff\u0750-\u077f])", re.UNICODE)
 
-T2D_TRANS= str.maketrans(NOT_DEF_HARAKA + TASHKEEL_STRING, "012345678")
-T2A_TRANS= str.maketrans(NOT_DEF_HARAKA + TASHKEEL_STRING, "0AUIauio3")
-D2T_TRANS= str.maketrans("012345678"  , NOT_DEF_HARAKA + TASHKEEL_STRING)
-A2T_TRANS= str.maketrans("0AUIauio3"  , NOT_DEF_HARAKA + TASHKEEL_STRING)
 # Space fixes
 FIX_SPACES_PAT = re.compile(r'\s*([?؟!.,،:]+(?:\s+[?؟!.,،:]+)*)\s*', re.UNICODE)
 
@@ -1382,54 +1378,7 @@ def spellit(word, lang="ar"):
         for c in word:
             names.append(name(c, c))
     return u', '.join(names) 
-    
-def encode_tashkeel(word, method = "ascii"):
-    """
-    encode word marks into decimal string to be saved as integer
-    @input word: diacritized arabic diacritcs
-    @type word: unicode
-    @return:  (letters, encoded) zero if fails
-    @rtype: (letters, encoded) ttring/ integer
-    """
-    letters, marks = separate(word)
 
-    if method == "decimal":
-        transed = marks.translate(T2D_TRANS)
-    elif method == "ascii":
-        transed = marks.translate(T2A_TRANS)
-    else:
-        transed = marks.translate(T2A_TRANS)
-
-    if method == "decimal":
-        try:
-            transed = int(transed)
-        except:
-            return word, ""
-    return letters, transed
-    
-def decode_tashkeel(word, marks, method = "ascii"):
-    """ decode tashkeel"""
-    """
-    decode marks from decimal/ascii string to be joint on word
-    @input word: undiacritized arabic diacritcs
-    @type word: unicode
-    @input marks: encoded marks
-    @type marks: unicode/integer
-    @return:  diacritized word
-    @rtype: unicode
-    """    
-    if type(marks) != (str):
-        marks = str(marks)
-    # zeros can be removed in int code, then we must add them to left
-    marks = marks.rjust(len(word),"0")
-    if method == "decimal":
-        transed = marks.translate(D2T_TRANS)
-    elif method == "ascii":
-        transed = marks.translate(A2T_TRANS)
-    else:
-        transed = marks.translate(A2T_TRANS)        
-    word2 = joint(word, transed)
-    return word2
 
 if __name__ == "__main__":
     # ~WORDS = [u'الْدَرَاجَةُ', u'الدّرّاجة',
