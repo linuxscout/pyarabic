@@ -837,10 +837,10 @@ def normalize_digits(text, to_west=True):
 
     Example:
         >>> text = u'٢٤٧٩٠٥٣٦٨'
-        >>> normalize_numbers(text, to_west=True)
+        >>> normalize_digits(text, to_west=True)
         247905368
         >>> text = u'247905368'
-        >>> normalize_numbers(text, to_west=False)
+        >>> normalize_digits(text, to_west=False)
         ٢٤٧٩٠٥٣٦٨
 
    @param text: arabic text.

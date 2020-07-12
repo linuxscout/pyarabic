@@ -109,6 +109,12 @@ class ArabyTestCase(unittest.TestCase):
         word3 = u"ARABIC LETTER MEEM, ARABIC DAMMA, ARABIC LETTER DAD, ARABIC LETTER ALEF, ARABIC SHADDA, ARABIC LETTER AIN, ARABIC FATHA, ARABIC LETTER FEH, ARABIC LETTER TEH MARBUTA"
         self.assertEqual(ar.spellit(word1), word2)
         self.assertEqual(ar.spellit(word1, "unicode"), word3)
+    def test_normalize_digits(self):
+        """Test  normalize_digits"""
+        word1 = u'٢٤٧٩٠٥٣٦٨'
+        word2 = u"247905368"
+        self.assertEqual(ar.normalize_digits(word1), word2)
+        self.assertEqual(ar.normalize_digits(word2, to_west=False), word1)
 
 if __name__ == '__main__':
     unittest.main()
