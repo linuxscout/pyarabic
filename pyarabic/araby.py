@@ -93,6 +93,16 @@ SIX = u'\u0666'
 SEVEN = u'\u0667'
 EIGHT = u'\u0668'
 NINE = u'\u0669'
+ZERO_W = u'\u0030'
+ONE_W  = u'\u0031'
+TWO_W  = u'\u0032'
+THREE_W = u'\u0033'
+FOUR_W = u'\u0034'
+FIVE_W = u'\u0035'
+SIX_W = u'\u0036'
+SEVEN_W = u'\u0037'
+EIGHT_W = u'\u0038'
+NINE_W = u'\u0039'
 PERCENT = u'\u066a'
 DECIMAL = u'\u066b'
 THOUSANDS = u'\u066c'
@@ -130,6 +140,11 @@ LETTERS = u''.join([ALEF, BEH, TEH, TEH_MARBUTA, THEH, JEEM, HAH, KHAH, \
                     DAL, THAL, REH, ZAIN, SEEN, SHEEN, SAD, DAD, TAH, ZAH, AIN, GHAIN, FEH, \
                     QAF, KAF, LAM, MEEM, NOON, HEH, WAW, ALEF_MAKSURA, YEH, HAMZA, ALEF_MADDA, \
                     ALEF_HAMZA_ABOVE, WAW_HAMZA, ALEF_HAMZA_BELOW, YEH_HAMZA, ])
+
+NUMBERS_EAST = (ZERO, ONE, TWO, THREE, FOUR, FIVE,\
+                SIX, SEVEN, EIGHT, NINE)
+NUMBERS_WEST = (ZERO_W, ONE_W, TWO_W, THREE_W, FOUR_W, FIVE_W,\
+                SIX_W, SEVEN_W, EIGHT_W, NINE_W)
 
 TASHKEEL = (FATHATAN, DAMMATAN, KASRATAN, FATHA, DAMMA, KASRA, \
             SUKUN, SHADDA)
@@ -816,7 +831,31 @@ def strip_diacritics(text):
         text = text.replace(char, '')
     return text
     
+def normalize_digits(text, to_west=True):
+   """Normalize digits to western Arabic numerals if to_west is true,
+   eastern numerals (Hindu-Arabic) otherwise.
 
+    Example:
+        >>> text = u'٢٤٧٩٠٥٣٦٨'
+        >>> normalize_numbers(text, to_west=True)
+        247905368
+        >>> text = u'247905368'
+        >>> normalize_numbers(text, to_west=False)
+        ٢٤٧٩٠٥٣٦٨
+
+   @param text: arabic text.
+   @type text: unicode.
+   @param to_west: Whether to convert digits to western or eastern numerals.
+                   (default is True).
+   @type to_west: Bool
+   @return: returns a converted text.
+   @rtype: unicode.
+   """
+   trans_pair = zip(NUMBERS_EAST, NUMBERS_WEST) if to_west \
+                else zip(NUMBERS_WEST, NUMBERS_EAST)
+   trans_table = str.maketrans(dict(trans_pair))
+   return str(text).translate(trans_table)
+   
 def normalize_ligature(text):
     """Normalize Lam Alef ligatures into two letters (LAM and ALEF),
     and Tand return a result text.
@@ -1389,7 +1428,6 @@ if __name__ == "__main__":
     # ~print u'\t'.join([wrd, l, m, s]).encode('utf8')
     # ~newword = joint(l, m)
     # ~assert (newword != wrd)
-
     print("like: ", vocalizedlike(u'مُتَوَهِّمًا', u'متوهمًا'))
     print("sim: ", vocalized_similarity(u'ثمّ', u'ثُمَّ'))
     print("like: ", vocalizedlike(u'ثمّ', u'ثُمَّ'))
