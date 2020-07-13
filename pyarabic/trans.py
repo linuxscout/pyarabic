@@ -182,6 +182,14 @@ if (sys.version_info > (3, 0)):
     T2A_TRANS= str.maketrans(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, "0AUIauio3")
     D2T_TRANS= str.maketrans("012345678"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)
     A2T_TRANS= str.maketrans("0AUIauio3"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)
+    # -------------- Digits Trans -------------- # 
+    E2W_TRANS = str.maketrans("".join(ar.NUMBERS_EAST), "".join(ar.NUMBERS_WEST))
+    E2P_TRANS = str.maketrans("".join(ar.NUMBERS_EAST), "".join(ar.NUMBERS_PERS))
+    W2E_TRANS = str.maketrans("".join(ar.NUMBERS_WEST), "".join(ar.NUMBERS_EAST))
+    W2P_TRANS = str.maketrans("".join(ar.NUMBERS_WEST), "".join(ar.NUMBERS_PERS))
+    P2E_TRANS = str.maketrans("".join(ar.NUMBERS_PERS), "".join(ar.NUMBERS_EAST))
+    P2W_TRANS = str.maketrans("".join(ar.NUMBERS_PERS), "".join(ar.NUMBERS_WEST))
+
     def translate(word, table):
         """ translate a word accoring to table"""
         return word.translate(table)
@@ -194,6 +202,13 @@ else:
     T2A_TRANS= {c:t for c, t in zip(ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING, u"0AUIauio3")}
     D2T_TRANS= {c:t for c, t in zip(u"012345678"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
     A2T_TRANS= {c:t for c, t in zip(u"0AUIauio3"  , ar.NOT_DEF_HARAKA + ar.TASHKEEL_STRING)}
+
+    E2W_TRANS = {c:t for c, t in zip(ar.NUMBERS_EAST, ar.NUMBERS_WEST)}
+    E2P_TRANS = {c:t for c, t in zip(ar.NUMBERS_EAST, ar.NUMBERS_PERS)}
+    W2E_TRANS = {c:t for c, t in zip(ar.NUMBERS_WEST, ar.NUMBERS_EAST)}
+    W2P_TRANS = {c:t for c, t in zip(ar.NUMBERS_WEST, ar.NUMBERS_PERS)}
+    P2E_TRANS = {c:t for c, t in zip(ar.NUMBERS_PERS, ar.NUMBERS_EAST)}
+    P2W_TRANS = {c:t for c, t in zip(ar.NUMBERS_PERS, ar.NUMBERS_WEST)}
 
     def translate(word, table):
         """ translate a word accoring to table"""
@@ -335,6 +350,53 @@ def delimite_language(text, language = "arabic", start="<", end=">"):
 
     
     
+def normalize_digits(text, source='all', out='west'):
+    """
+    Normalize digits to and from the following writing systems:
+    west:    Western Arabic numerals                (0123456789)
+    east:    Eastern Arabic (Hindu-Arabic) numerals (٠١٢٣٤٥٦٧٨٩)
+    persian: Persian/Urdu numerals                  (۰۱۲۳۴۵۶۷۸۹) 
+    
+    if `source = all`, then all digits contained in the text 
+    will be normalized into `out` writing system.
+    Otherwise digits written in `source` will be normalized
+    without affecting the rest of the digits. 
+
+    Example:
+        >>> text = u'۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789'
+        >>> normalize_digits(text, source='all', out='west')
+        '0123456789 0123456789 0123456789' 
+        >>> normalize_digits(text, source='persian', out='west')
+        >>> '0123456789 ٠١٢٣٤٥٦٧٨٩ 0123456789' 
+
+    @param text: unnormalized text.
+    @type text: unicode.
+    @param source: Writing system for the digits to be normalized.
+                   (default is all).
+    @type source: string
+    @param out: Intended writing system for source.
+                (default is west)
+    @return: returns a normalized text.
+    @rtype: unicode.
+    """
+    source = source.lower()
+    out = out.lower()
+    assert source in ['all', 'west', 'east', 'persian'], 'Invalid option for `source`: %s' % source
+    assert out in ['west', 'east', 'persian'], 'Invalid option for `out`: %s' % out
+    if source == out:
+        return text
+    source_to_out_tbl = {
+        'west': {'east': W2E_TRANS, 'persian': W2P_TRANS},
+        'east': {'west': E2W_TRANS, 'persian': E2P_TRANS},
+        'persian': {'west': P2W_TRANS, 'east': P2E_TRANS}
+    }
+    if source == 'all':
+        del source_to_out_tbl[out]
+        for tbl in source_to_out_tbl.values():
+            text = translate(text, tbl[out])
+        return text
+    return translate(text, source_to_out_tbl[source][out])
+
 def encode_tashkeel(word, method = "ascii"):
     """
     encode word marks into decimal string to be saved as integer

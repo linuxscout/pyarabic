@@ -26,6 +26,24 @@ class ArabyTestCase(unittest.TestCase):
         self.assertEqual(trans.encode_tashkeel(word1, "decimal"), (letters, encoded_marks))
         self.assertEqual(trans.decode_tashkeel(letters, encoded_marks, "decimal"), word1)
 
+    def test_normalize_digits(self):
+        nd_text = u'۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789 نص'
+        self.assertEqual(trans.normalize_digits(nd_text, source='all', out='east'), '٠١٢٣٤٥٦٧٨٩ ٠١٢٣٤٥٦٧٨٩ ١٢٣٤٥٦٧٨٩ نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='all', out='west'), '0123456789 0123456789 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='all', out='persian'), '۰۱۲۳۴۵۶۷۸۹ ۰۱۲۳۴۵۶۷۸۹ ۱۲۳۴۵۶۷۸۹ نص') 
+   
+        self.assertEqual(trans.normalize_digits(nd_text, source='east', out='east'), '۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='east', out='west'), '۰۱۲۳۴۵۶۷۸۹ 0123456789 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='east', out='persian'), '۰۱۲۳۴۵۶۷۸۹ ۰۱۲۳۴۵۶۷۸۹ 123456789 نص') 
+
+        self.assertEqual(trans.normalize_digits(nd_text, source='west', out='east'), '۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ ١٢٣٤٥٦٧٨٩ نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='west', out='west'), '۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='west', out='persian'), '۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ ۱۲۳۴۵۶۷۸۹ نص') 
+
+        self.assertEqual(trans.normalize_digits(nd_text, source='persian', out='east'), '٠١٢٣٤٥٦٧٨٩ ٠١٢٣٤٥٦٧٨٩ 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='persian', out='west'), '0123456789 ٠١٢٣٤٥٦٧٨٩ 123456789 نص') 
+        self.assertEqual(trans.normalize_digits(nd_text, source='persian', out='persian'), '۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789 نص') 
+
 
 if __name__ == '__main__':
     unittest.main()
