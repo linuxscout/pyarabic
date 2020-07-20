@@ -302,8 +302,8 @@ def segment_language(text):
     """
     if not text: return text
     resultlist = []
-    #~ if re.search(u"[\u0600-\u06ff]", text[0]):
-    if re.search(u"[\u0600-\u06ff]", text):
+    if re.search(u"[\u0600-\u06ff]", text[0]):
+    #~ if re.search(u"[\u0600-\u06ff]", text):
         arabic = True
     else:
         arabic = False

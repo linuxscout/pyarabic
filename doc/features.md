@@ -476,7 +476,7 @@ delimite_language
 >>> import pyarabic.trans
 >>> text =u"""السلام عليكم how are you, لم اسمع أخبارك منذ مدة, where are you going"""
 >>> pyarabic.trans.segment_language(text)
-[(u'arabic', u'السلام عليكم'), (u'latin', u' how are you, '), (u'arabic', u'لم اسمع أخبارك منذ مدة'), (u'latin', u', where are young')]
+[(u'arabic', u'السلام عليكم'), (u'latin', u' how are you, '), (u'arabic', u'لم اسمع أخبارك منذ مدة'), (u'latin', u', where are you going')]
 >>> pyarabic.trans.delimite_language(text, start='\RL{', end="}")
 \RL{السلام عليكم}  how are you,  \RL{لم اسمع أخبارك منذ مدة} , where are you going
 >>> pyarabic.trans.delimite_language(text, start="<arabic>", end="</arabic>")
