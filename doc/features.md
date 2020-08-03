@@ -294,6 +294,7 @@ number.py
  * تحويل الكلمات إلى أعداد، 
  * استخلاص العبارات العددية
  * تشكيلها
+ * تنميط الأرقام بتنويعاتها المختلفة
  
 * تحويل عدد إلى كلمات
 Convert number to words
@@ -412,7 +413,30 @@ Vocalized a number clauses in a text.
 >>> print(u" ".join(vocalized))
 وجدت خَمْسمِئَة وَثَلاثَة وَعِشْرِينَ دينارا فاشتريت ثَلاثَةَ عَشَرَ دفترا
 ```
+#### وظائف تنميط الأرقام 
+تستعمل في العربية تنويعتين مشرقية ومغربية، وتنويعات أخرى مثل الفارسية والهندية
 
+Normalize digits to and from the following writing systems:
+west:    Western Arabic numerals                (0123456789)
+east:    Eastern Arabic (Hindu-Arabic) numerals (٠١٢٣٤٥٦٧٨٩)
+persian: Persian/Urdu numerals                  (۰۱۲۳۴۵۶۷۸۹) 
+
+if `source = all`, then all digits contained in the text 
+will be normalized into `out` writing system.
+Otherwise digits written in `source` will be normalized
+without affecting the rest of the digits. 
+
+Uniformize Arabic digits
+normalize_digits(nd_text, source='all', out='east')
+```python 
+>>> import pyarabic.trans
+>>> text = u'۰۱۲۳۴۵۶۷۸۹ ٠١٢٣٤٥٦٧٨٩ 123456789'
+>>> pyarabic.trans.normalize_digits(text, source='all', out='west')
+'0123456789 0123456789 123456789'
+>>> pyarabic.trans.normalize_digits(text, source='persian', out='west')
+'0123456789 ٠١٢٣٤٥٦٧٨٩ 123456789'
+
+```
 
 #### وظائف قلب النصوص
 تستعمل لقلب الحروف، بسبب عدم دعم بعض البرامج للغة العربية، مما يدعونا إلى قلب الحروف.
@@ -467,6 +491,8 @@ u'AlErbyp'
 >>> pyarabic.trans.convert(wordb,'tim','arabic')
 الءرَبِيَ
 ```
+
+
 #### وظائف كشف اللغة
 كشف اللغة العربية بواسطة
 segment_language
