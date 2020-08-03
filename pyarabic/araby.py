@@ -867,31 +867,47 @@ def normalize_ligature(text):
     return text
 
 
-def normalize_hamza(word):
+def normalize_hamza(word, method="uniform"):
     """Standardize the Hamzat into one form of hamza,
     replace Madda by hamza and alef.
     Replace the LamAlefs by simplified letters.
 
 
     Example:
-        >>> text = u"سئل أحد الأئمة"
-        >>> normalize_hamza(text)
-         سءل ءحد الءءمة
-
+        >>> import pyarabic.araby as araby
+        >>> text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
+        >>> araby.normalize_hamza(text1)
+        'جاء سءال الءءمة عن الءسلام ءءجلا'
+        >>> araby.normalize_hamza(text1, method="tasheel")
+            'جاء سوال الايمة عن الاسلام ا
     @param word: arabic text.
     @type word: unicode.
+    @param method: how to convert hamzat (uniform, tasheel).
+    @type method: unicode.
     @return: return a converted text.
     @rtype: unicode.
     """
-    if word.startswith(ALEF_MADDA):
-        if len(word) >= 3 and (word[1] not in HARAKAT) and \
-                (word[2] == SHADDA or len(word) == 3):
-            word = HAMZA + ALEF + word[1:]
-        else:
-            word = HAMZA + HAMZA + word[1:]
-    # convert all Hamza from into one form
-    word = word.replace(ALEF_MADDA, HAMZA + HAMZA)
-    word = HAMZAT_PATTERN.sub(HAMZA, word)
+    if method == "tasheel" or method == u"تسهيل":
+        # Alefat to Alef
+        word = word.replace(ALEF_MADDA, ALEF)
+        word = word.replace(ALEF_HAMZA_ABOVE, ALEF)
+        word = word.replace(ALEF_HAMZA_BELOW, ALEF)
+        word = word.replace(HAMZA_ABOVE, ALEF)
+        word = word.replace(HAMZA_BELOW, ALEF)
+        # on Waw
+        word = word.replace(WAW_HAMZA, WAW)
+        # on Yeh
+        word = word.replace(YEH_HAMZA, YEH)
+    else:
+        if word.startswith(ALEF_MADDA):
+            if len(word) >= 3 and (word[1] not in HARAKAT) and \
+                    (word[2] == SHADDA or len(word) == 3):
+                word = HAMZA + ALEF + word[1:]
+            else:
+                word = HAMZA + HAMZA + word[1:]
+        # convert all Hamza from into one form
+        word = word.replace(ALEF_MADDA, HAMZA + HAMZA)
+        word = HAMZAT_PATTERN.sub(HAMZA, word)
     return word
 
 
@@ -913,6 +929,9 @@ def normalize_alef(text):
     converts all alefs to ALEF_MAMDODA with the exception of Alef maksura
 
     """
+    # a small alef before Alef Maksura is ommited
+    text = text.replace(SMALL_ALEF+ALEF_MAKSURA, ALEF_MAKSURA)
+    text = text.replace(ALEF_MAKSURA+SMALL_ALEF, ALEF_MAKSURA)
     return re.sub(ALEFAT_PATTERN, ALEF, text)
 
 

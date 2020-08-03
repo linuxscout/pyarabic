@@ -96,13 +96,20 @@ Normalize Lam Alef ligatures into two letters (LAM and ALEF)
 
  * توحيد الهمزة
 
-Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. Replace the LamAlefs by simplified letters.
+توحيد الهمزة إلى همزة إلى السطر، مثل (الءسءلة)
+ أو تسهيلها بتحويلها إلى الحرف الذي تكتب عليه، مثل، الاسيلة)
+ 
+Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. 
+
+if Method is "tasheel" تسهيل, the Hamza is converted to the near letters, for example, Hamza on Alef is converted to Alef, where Hamza on Yeh is converted to Yeh.
 
 ```python
->>> from pyarabic.araby import normalize_hamza
->>> text = u"سئل أحد الأئمة"
->>> normalize_hamza(text)
- سءل ءحد الءءمة
+>>> import pyarabic.araby as araby
+>>> text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
+>>> araby.normalize_hamza(text1)
+'جاء سءال الءءمة عن الءسلام ءءجلا'
+>>> araby.normalize_hamza(text1, method="tasheel")
+'جاء سوال الايمة عن الاسلام ا
 ```
 
 * فصل الحركات والحروف
