@@ -399,7 +399,25 @@ def normalize_digits(text, source='all', out='west'):
 
 def encode_tashkeel(word, method = "ascii"):
     """
-    encode word marks into decimal string to be saved as integer
+    Encode word marks into decimal or Ascii string to be saved as integer
+    
+    Example:
+        >>> import pyarabic.trans
+        >>> word1 = u"هَارِبًا"
+        >>> pyarabic.trans.encode_tashkeel(word1)
+        ('هاربا', 'a0iA0')
+        >>> pyarabic.trans.encode_tashkeel(word1, "decimal")
+        ('هاربا', 40610)
+        >>> letters = u"هاربا" 
+        >>> encoded_marks = u"a0iA0"
+        >>> pyarabic.trans.decode_tashkeel(letters, encoded_marks)
+        'هَارِبًا'
+        >>> letters = u"هاربا" 
+        >>> encoded_marks = 40610
+        >>> pyarabic.trans.decode_tashkeel(letters, encoded_marks, "decimal")
+        'هَارِبًا'
+
+
     @input word: diacritized arabic diacritcs
     @type word: unicode
     @return:  (letters, encoded) zero if fails

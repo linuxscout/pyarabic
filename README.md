@@ -192,4 +192,4 @@ ALEF_HAMZA_ABOVE = u'\u0623'
 تفريق كلمات النص |tokenize(text)
 
 طالع الوظائف والأمثلة في ]ملف المزايا[
-[features.md](doc/features.md)
+[features.md](https://github.com/linuxscout/pyarabic/blob/master/doc/features.md)

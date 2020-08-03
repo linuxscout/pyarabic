@@ -533,3 +533,26 @@ delimite_language
 السلام عليكم < how are you, > لم اسمع أخبارك منذ مدة <, where are you going>
 
 ```
+#### ترميز التشكيل رقميا 
+تفيد هذه الوظيفة في ترميز الحركات من الكلمة بطريقة قابلة للقراءة، في شكل عدد أو سلسلة حروف لاتينية، ويهدف إلى تسهيل حفظها على حدى أو إرسالها.
+
+Encode word marks into decimal or Ascii string to be saved or transmitted.
+
+
+```python
+>>> import pyarabic.trans
+>>> word1 = u"هَارِبًا"
+>>> pyarabic.trans.encode_tashkeel(word1)
+('هاربا', 'a0iA0')
+>>> pyarabic.trans.encode_tashkeel(word1, "decimal")
+('هاربا', 40610)
+>>> letters = u"هاربا" 
+>>> encoded_marks = u"a0iA0"
+>>> pyarabic.trans.decode_tashkeel(letters, encoded_marks)
+'هَارِبًا'
+>>> letters = u"هاربا" 
+>>> encoded_marks = 40610
+>>> pyarabic.trans.decode_tashkeel(letters, encoded_marks, "decimal")
+'هَارِبًا'
+
+```
