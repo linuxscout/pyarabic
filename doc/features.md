@@ -143,6 +143,27 @@ joint the letters with the marks the length ot letters and marks must be equal r
 اَلْعَرَبَيَةُ
 ```
 
+* تهجئة الحركات و الحروف
+
+يمكن تهجئة الحروف لاستخراج الحروف (كما تنطق) مفصولة ب"فاصلة". يمكن استخراج اليونيكود أو النطق العربي للحرف، حسب اختيار المستخدم. يسرد النطق العربي المستخدم في المتغير [NAMES](https://github.com/linuxscout/pyarabic/blob/50c3a3bf0479fb2d9a8189a066044ab074a974b4/pyarabic/araby.py#L205) , و يُستخرج الاسم اليونيكود باستخدام [unicodedata](https://docs.python.org/3.8/library/unicodedata.html#unicodedata.name).
+
+```python
+>>> from pyarabic import araby
+
+>>> words_list = araby.spellit('لَاحظ أن المسافة تطبع كمسافة و ليس كلمة "مسافة"، كما تطبع علامات الترقيم.. كما هي!')
+>>> print(words_list)
+>>> print("-------------------------------")
+
+>>> words_list_unicode = araby.spellit('لَاحظ أن المسافة تطبع كمسافة و ليس كلمة "مسافة"، كما تطبع علامات الترقيم.. كما هي!', lang="unicode")
+>>> print(words_list_unicode[:154])  # printed some only. For display purposes.
+
+لام, فتحة, ألف, حاء, ظاء,  , همزة على الألف, نون,  , ألف, لام, ميم, سين, ألف, فاء, تاء مربوطة,  , تاء, طاء, باء, عين,  , كاف, ميم, سين, ألف, فاء, تاء مربوطة,  , واو,  , لام, ياء, سين,  , كاف, لام, ميم, تاء مربوطة,  , ", ميم, سين, ألف, فاء, تاء مربوطة, ", ،,  , كاف, ميم, ألف,  , تاء, طاء, باء, عين,  , عين, لام, ألف, ميم, ألف, تاء,  , ألف, لام, تاء, راء, قاف, ياء, ميم, ., .,  , كاف, ميم, ألف,  , هاء, ياء, !
+-------------------------------
+ARABIC LETTER LAM, ARABIC FATHA, ARABIC LETTER ALEF, ARABIC LETTER HAH, ARABIC LETTER ZAH, SPACE, ARABIC LETTER ALEF WITH HAMZA ABOVE, ARABIC LETTER NOON,
+
+```
+
+
 * حساب التماثل
 
 التماثل في الحركات بين كلمتين يون صحيحا 
@@ -379,7 +400,7 @@ Detect number words in a text and return positions of each phrase.
 
  * DO: لاشيء
  * DB: بداية العبارة العددية
- * BI: داخل العبارة العددية
+ * DI: داخل العبارة العددية
 
 Detect number words in a text and return a taglist as BIO.
 
