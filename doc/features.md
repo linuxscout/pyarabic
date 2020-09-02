@@ -10,6 +10,7 @@
 حذف التطويل| strip_tatweel(text)
 تنميط أشكال الهمزة المختلفة | normalize_hamza(text)
 تفريق كلمات النص |tokenize(text)
+تفريق جمل النص |sentence_tokenize(text)
 
 * حذف الحركات
 
@@ -264,8 +265,17 @@ This structure will enable us to create functions on the fly and pass them:
 >>> tokenize(text, conditions=lambda x: x.startswith(u'ال'))
         ['البدر', 'الوداع']
 ```    
+* تفريق النص إلى جمل
+Tokenize text into Sentences.
 
+```python 
+>>> from pyarabic import araby
+>>> text = u"العربية لغة جميلة. والبلاد بعيدة، والشوق زائد"
+>>> sentences  = araby.sentence_tokenize(text)
+>>> print(sentences)
+['العربية لغة جميلة.', 'والبلاد بعيدة،', 'والشوق زائد']
 
+```
 
 <a name="harf'></a>
 #### وظائف الحروف
