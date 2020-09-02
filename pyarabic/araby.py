@@ -1323,6 +1323,24 @@ def vocalized_similarity(word1, word2):
 # ~ mylist = [x for x in mylist if x]
 # ~ return mylist
 
+def sentence_tokenize(text):
+    u"""
+    Tokenize text into sentences.
+
+    Example:
+        >>> text = u"العربية لغة جميلة. والبلاد بعيدة، والشوق زائد"
+        >>> tokens = araby.sentence_tokenize(text)
+        >>> print(tokens)
+        ‎‎['العربية لغة جميلة.', 'والبلاد بعيدة،', 'والشوق زائد']
+
+    @param text: the input text.
+    @type text: unicode.
+    @return: list of sentences.
+    @rtype: list.
+    """
+    text = re.sub(u"([.,:;،؟?\n])+([\n\t\r ])+",r"\1<SPLIT>", text, re.UNICODE)
+    sentences = re.split("<SPLIT>", text)
+    return sentences 
 
 def tokenize(text="", conditions=[], morphs=[]):
     u"""

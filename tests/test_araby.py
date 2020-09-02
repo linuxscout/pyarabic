@@ -119,5 +119,11 @@ class ArabyTestCase(unittest.TestCase):
         self.assertEqual(ar.spellit(word1), word2)
         self.assertEqual(ar.spellit(word1, "unicode"), word3)
 
+    def test_sentence_tokenize(self):
+        """Test  sentence tokenize function ?"""
+        text1 = u"العربية لغة جميلة. والبلاد بعيدة، والشوق زائد"
+        sentences =['العربية لغة جميلة.', 'والبلاد بعيدة،', 'والشوق زائد']
+        self.assertEqual(ar.sentence_tokenize(text1), sentences)        
+
 if __name__ == '__main__':
     unittest.main()
