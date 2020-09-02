@@ -42,7 +42,7 @@ or in bibtex format
 
 ## مزايا
 * تصنيف الحروف
-* تفريق النص إلى وحدات
+* تفريق النص إلى وحدات (جمل أو كلمات)
 * حذف الحركات:( كل الحركات، الحركات عدا الشدة، حذف الشدة، حذف التطويل، حذف الحركة الأخيرة)
 * فصل الحركات عن النصوص وإدماجها
 * اختزال التشكيل
@@ -55,7 +55,7 @@ or in bibtex format
 
 ## Features
 * Arabic letters classification
-* Text tokenization
+* Text tokenization into words or sentences
 * Strip Harakat ( all, except Shadda, tatweel, last_haraka)
 * Sperate and  join Letters and Harakat
 * Reduce tashkeel
@@ -190,6 +190,7 @@ ALEF_HAMZA_ABOVE = u'\u0623'
 حذف التطويل| strip_tatweel(text)
 تنميط أشكال الهمزة المختلفة | normalize_hamza(text)
 تفريق كلمات النص |tokenize(text)
+تفريق جمل النص |sentence_tokenize(text)
 
 طالع الوظائف والأمثلة في ]ملف المزايا[
 [features.md](https://github.com/linuxscout/pyarabic/blob/master/doc/features.md)
