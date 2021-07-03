@@ -86,8 +86,8 @@ def normalize_hamza(text):
     @return: return a converted text.
     @rtype: unicode.
     """
-    text = arabconst.ALEFAT_PAT.sub(arabconst.ALEF, text)
-    return arabconst.HAMZAT_PAT.sub(arabconst.HAMZA, text)
+    text = arabconst.ALEFAT_PATTERN.sub(arabconst.ALEF, text)
+    return arabconst.HAMZAT_PATTERN.sub(arabconst.HAMZA, text)
 
 #--------------------------------------
 def normalize_lamalef(text):
@@ -109,7 +109,7 @@ def normalize_lamalef(text):
     @return: return a converted text.
     @rtype: unicode.
     """
-    return arabconst.normalize(text)
+    return arabconst.normalize_ligature(text)
 #--------------------------------------
 def normalize_spellerrors(text):
     """Normalize some spellerrors like,
