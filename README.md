@@ -10,7 +10,7 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 Features |   value
 ---------|---------------------------------------------------------------------------------
 Authors  | Taha Zerrouki: http://tahadz.com,  taha dot zerrouki at gmail dot com
-Release  | 0.6.8
+Release  | 0.6.12 
 License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
@@ -67,18 +67,16 @@ or in bibtex format
 * Unshiping texts
 
 
-Applications
-====
+### Applications
+
 * Arabic text processing
 
-Installation
-=====
+### Installation
 ```
 pip install pyarabic
-```    
-    
-Usage
-=====
+```
+
+### Usage
 ```python
 import pyarabic.araby as araby
 import pyarabic.number as number
@@ -87,21 +85,19 @@ import pyarabic.number as number
 
 
 
-Package Documentation
-=====
+### Package Documentation
 [https://pythonhosted.org/PyArabic/](https://pythonhosted.org/PyArabic/)
 
-Files
-=====
+#### Files
 * file/directory    category    description 
  * araby.py: arabic routins.
  * named.py: handle named enteties recognation.
  * unshape.py: unshaping arabic text
 
-# وصف
+## وصف
 مكتبة بيثون للعربيةPyArabic  مكتبة برمجية تجمع في طياتها خصائص ووظائف يحتاجها المبرمج للتعامل مع النصوص العربية، وهي مستوحاة من مكتبة بي أتش بي العربية لصديقنا خالد الشمعة، التي تستهدف توفير مصدر مفتوح لكثير من وظائف النصوص العربية لاستعمالها في مجال النشر في الإنترنت.
 
-#تعريف نص عربي
+### تعريف نص عربي
 أفضل طريقة للتعامل مع النصوص العربية بلغة بيثون هو استخدام الترميز يونيكود، التي يدعمها بيثون دعما أصليا، لا حاجة فيه إلى مكتبات خارجية أو دوال خاصة، وقد يكون هذا أهمّ ما دفعني لاختيار لغة بيثون، إذ يكفي أن تسبق النص بحرف يو u  لتدع بيثون يريحك من عناء التفكير وبرمجة النصوص، ويعامل معها بشفافية عالية.
 
 تعريف نص عربي بترميز يونيكود
@@ -154,7 +150,7 @@ ALEF_HAMZA_ABOVE = u'\u0623'
 المزيد في ملف araby.py
 
 تضم مجموعة الحروف العربية الحروف الأساسية، والحركات والأرقام، وعلامات الترقيم، وبعض الحروف الخاصة كالألف الخنجرية والياء الصغيرة، و لامات الألف بأشكالها.
-####مجموعات الأحرف: 
+#### مجموعات الأحرف: 
 ويمكن تقسيم الحروف في مجموعات وتصنيفات نستعملها فيما بعد في الوظائف المختلفة
 
 الاسم العربي | وصف المجموعة | عناصرها

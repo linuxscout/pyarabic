@@ -81,7 +81,7 @@ Strip tatweel or Shadda from a text.
 >>> strip_shadda(text)
  الشمسية
 ```
- 
+
 * تنميط الحروف المركبة والهمزة
 
 بعض البرامج تعطي حروف متراكبة، توحيدها يرجعها إلى حروف بسيطة
@@ -99,7 +99,7 @@ Normalize Lam Alef ligatures into two letters (LAM and ALEF)
 
 توحيد الهمزة إلى همزة إلى السطر، مثل (الءسءلة)
  أو تسهيلها بتحويلها إلى الحرف الذي تكتب عليه، مثل، الاسيلة)
- 
+
 Standardize the Hamzat into one form of hamza, replace Madda by hamza and alef. 
 
 if Method is "tasheel" تسهيل, the Hamza is converted to the near letters, for example, Hamza on Alef is converted to Alef, where Hamza on Yeh is converted to Yeh.
@@ -264,7 +264,7 @@ This structure will enable us to create functions on the fly and pass them:
 >>> text = u"طلع البدر علينا من ثنيات الوداع"
 >>> tokenize(text, conditions=lambda x: x.startswith(u'ال'))
         ['البدر', 'الوداع']
-```    
+```
 * تفريق النص إلى جمل
 Tokenize text into Sentences.
 
@@ -277,7 +277,6 @@ Tokenize text into Sentences.
 
 ```
 
-<a name="harf'></a>
 #### وظائف الحروف
 دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة المطلوبة
 
@@ -301,7 +300,7 @@ Tokenize text into Sentences.
 إذا كان الحرف المعطى حرفا قمريا يرجع صحيح | is_moon(archar)
 إذا كان الحرف المعطى حرفا شمسيا يرجع صحيح | is_sun(archar)
 
-### مثال
+##### مثال
 
 في نطق الأسماء يتحوّل الحرف الشمسي بعد ال التعريف إلى حرف مشدد أي أنّ "الشمس" تنطق "أششمس"، 
 
@@ -325,15 +324,17 @@ for word in words:
 ```
 
 # وظائف الأعداد والأرقام
-number.py
+## number.py
+
 توفر هذه المكتبة وظائف مثل : 
+
  * تحويل عدد إلى كلمات
  * البحث عن مواضع العبارات العددية
  * تحويل الكلمات إلى أعداد، 
  * استخلاص العبارات العددية
  * تشكيلها
  * تنميط الأرقام بتنويعاتها المختلفة
- 
+
 * تحويل عدد إلى كلمات
 Convert number to words
 

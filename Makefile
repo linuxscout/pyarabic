@@ -37,4 +37,5 @@ test:
 test3:
 	python3 -m unittest discover tests
 doc:
-	epydoc -v --config epydoc.conf
+	#epydoc -v --config epydoc.conf
+	cd docs; make html
