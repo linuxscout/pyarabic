@@ -1404,7 +1404,7 @@ def tokenize_with_location(text: str) -> list:
 
     Example:
         >>> text = "حدثنا ابن أبي عامر، قال: رايت مناما"
-        >>> tokens = araby.tokenize_with_position(text)
+        >>> tokens = araby.tokenize_with_location(text)
         >>> print u"\\n".join(tokens)
          [{'token': 'حدثنا', 'start': 0,  'end': 5},
           {'token': 'ابن',   'start': 6,  'end': 9}, 

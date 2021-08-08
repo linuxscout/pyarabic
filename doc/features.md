@@ -11,6 +11,7 @@
 تنميط أشكال الهمزة المختلفة | normalize_hamza(text)
 تفريق كلمات النص |tokenize(text)
 تفريق جمل النص |sentence_tokenize(text)
+تفريق النص إلى كلمات مع مواضع الكلمات| ar.tokenize_with_location(text)
 
 * حذف الحركات
 
@@ -276,7 +277,21 @@ Tokenize text into Sentences.
 ['العربية لغة جميلة.', 'والبلاد بعيدة،', 'والشوق زائد']
 
 ```
-
+* تفريق النص إلى كلمات مع مواضع الكلمات
+Tokenize text into tokens with locations
+```python
+>>> text = "حدثنا ابن أبي عامر، قال: رايت مناما"
+>>> tokens = araby.tokenize_with_location(text)
+>>> print u"\\n".join(tokens)
+ [{'token': 'حدثنا', 'start': 0,  'end': 5},
+ {'token': 'ابن',   'start': 6,  'end': 9}, 
+ {'token': 'أبي',   'start': 10, 'end': 13}, 
+ {'token': 'عامر',  'start': 14, 'end': 18}, 
+ {'token': 'قال',   'start': 20, 'end': 23}, 
+ {'token': 'رايت',  'start': 25, 'end': 29},
+ {'token': 'مناما','start': 30, 'end': 35}
+ ]
+```
 #### وظائف الحروف
 دوال الحروف وهي تعيد صواب إذا انتمى الحرف إلى المجموعة المطلوبة
 
