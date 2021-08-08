@@ -7,7 +7,7 @@ def readme():
     with open('README.md', encoding="utf8") as f:
         return f.read()
         
-setup (name='PyArabic', version='0.6.12',
+setup (name='PyArabic', version='0.6.13',
       author='Taha Zerrouki',
       author_email='taha_zerrouki@hotmail.com',
       url='http://pyarabic.sourceforge.net/',
