@@ -1,0 +1,7 @@
+abstract: A specific Arabic language library for Python, provides basic functions to manipulate Arabic letters and text, like detecting Arabic letters, Arabic letters groups and characteristics, remove diacritics etc.
+authors:
+  - family-names: Zerrouki
+    given-names: Taha
+cff-version: 1.0.0
+message: If you use this software, please cite it using these metadata.
+title: pyarabic, An Arabic language library for Python.
