@@ -6,6 +6,7 @@ A specific *Arabic language* library for **Python**, provides basic functions to
 
 ![downloads](https://img.shields.io/pypi/dm/PyArabic?style=plastic)
 
+
   Developpers:  Taha Zerrouki: http://tahadz.com
     taha dot zerrouki at gmail dot com
 
