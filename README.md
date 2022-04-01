@@ -89,7 +89,7 @@ import pyarabic.number as number
 
 
 ### Package Documentation
-[https://pythonhosted.org/PyArabic/](https://pythonhosted.org/PyArabic/)
+[https://pyarabic.readthedocs.io/](https://pyarabic.readthedocs.io/)
 
 #### Files
 * file/directory    category    description 
