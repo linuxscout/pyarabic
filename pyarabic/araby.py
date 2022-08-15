@@ -879,9 +879,9 @@ def normalize_hamza(word, method="uniform"):
         >>> import pyarabic.araby as araby
         >>> text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
         >>> araby.normalize_hamza(text1)
-        'جاء سءال الءءمة عن الءسلام ءءجلا'
+        'جاء سءال الءءمة عن الءسلام ءاجلا'
         >>> araby.normalize_hamza(text1, method="tasheel")
-            'جاء سوال الايمة عن الاسلام ا
+            'جاء سوال الايمة عن الاسلام اجلا'
     @param word: arabic text.
     @type word: unicode.
     @param method: how to convert hamzat (uniform, tasheel).
@@ -908,7 +908,7 @@ def normalize_hamza(word, method="uniform"):
             else:
                 word = HAMZA + HAMZA + word[1:]
         # convert all Hamza from into one form
-        word = word.replace(ALEF_MADDA, HAMZA + HAMZA)
+        word = word.replace(ALEF_MADDA, HAMZA + ALEF)
         word = HAMZAT_PATTERN.sub(HAMZA, word)
     return word
 
