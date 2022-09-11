@@ -168,6 +168,18 @@ class TestStringMethods(unittest.TestCase):
         last_word = result_tokenize_text[0]['token']
 
         self.assertEqual(last_word, "حذف")
+        
+    def test_alef_small_word(self):
+        """ Test it Alef supscript is supported"""
+        
+        text = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
+
+        result_tokenize_text = araby.tokenize(text)
+        print(result_tokenize_text)
+        print(" ".join(result_tokenize_text[1:]))
+
+        self.assertEqual(len(result_tokenize_text),4)
+
 
 if __name__ == '__main__':
     unittest.main()

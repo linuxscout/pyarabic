@@ -271,9 +271,9 @@ ALEFAT_PATTERN = re.compile(u"[" + u"".join(ALEFAT) + u"]", re.UNICODE)
 # ~ """ all alef like letters """
 LIGUATURES_PATTERN = re.compile(u"[" + u"".join(LIGUATURES) + u"]", re.UNICODE)
 # ~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(u"([^\w\u064b-\u0652']+)", re.UNICODE)
+TOKEN_PATTERN = re.compile(u"([^\w\u0670\u064b-\u0652']+)", re.UNICODE)
 # ~ """ pattern to tokenize a text"""
-TOKEN_PATTERN_SPLIT = re.compile(u"([\w\u064b-\u0652']+)", re.UNICODE)
+TOKEN_PATTERN_SPLIT = re.compile(u"([\w\u0670\u064b-\u0652']+)", re.UNICODE)
 # ~ """ pattern to tokenize a text with positions"""
 TOKEN_REPLACE = re.compile(u'\t|\r|\f|\v| ')
 
