@@ -1,6 +1,6 @@
 ---
 title: >-
-    'PyArabic: A Python package for Arabic text'
+    PyArabic: A Python package for Arabic text
 tags:
     Python
     Arabic Language
