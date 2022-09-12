@@ -1,6 +1,6 @@
 ---
-title:
-    PyArabic: A Python package for Arabic text
+title: >-
+    'PyArabic: A Python package for Arabic text'
 tags:
     Python
     Arabic Language
@@ -14,7 +14,7 @@ authors:
     corresponding: true
 affiliations:
     index: 1
-    name: Bouira University , Algeria
+    name: Bouira University, Bouira, Algeria
 date: 12 September 2022
 bibliography: paper.bib
 ---
