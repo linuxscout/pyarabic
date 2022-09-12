@@ -1,5 +1,7 @@
-on: [push]
-
+on:
+  push:
+    branches:
+      - paper
 jobs:
   paper:
     runs-on: ubuntu-latest
