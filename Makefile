@@ -39,3 +39,8 @@ test3:
 doc:
 	#epydoc -v --config epydoc.conf
 	cd docs; make html
+paper:
+	pandoc paper.md --citeproc --bibliography paper.bib -t latex -o paper.pdf
+# remove any invisible char
+#	sed -i "s/$(echo -ne '\u200b')//g" file
+
