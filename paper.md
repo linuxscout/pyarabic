@@ -1,19 +1,20 @@
 ---
 title:
-    'PyArabic: A Python package for Arabic text '
+    PyArabic: A Python package for Arabic text
 tags:
     Python
     Arabic Language
     Natural Language Processing
     Text Preprocessing
 authors:
-    name: Taha Zerrouki
+  - name: Taha Zerrouki
+    email: t.zerrouki@univ-bouira.dz
+    affiliation: [1]
     orcid: 0000-0001-9960-5533
-    equal-contrib: true
+    corresponding: true
 affiliations:
-    affiliation: 1 
-    name: Bouira University , Algeria
     index: 1
+    name: Bouira University , Algeria
 date: 12 September 2022
 bibliography: paper.bib
 ---
