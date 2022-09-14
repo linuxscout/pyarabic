@@ -13,7 +13,7 @@ authors:
     orcid: 0000-0001-9960-5533
     corresponding: true
 affiliations:
-    name: Bouira University, Bouira, Algeria
+  - name: Bouira University, Bouira, Algeria
     index: 1
 date: 12 September 2022
 bibliography: paper.bib
