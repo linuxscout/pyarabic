@@ -43,6 +43,15 @@ or in bibtex format
   year={2010}
 }
 ```
+or 
+
+```bibtex
+@article{zerroukipyarabic,
+  title={PyArabic: A Python package for Arabic text},
+  journal={Journal of Open Source Software},
+  author={Zerrouki, Taha}
+}
+```
 
 
 ## مزايا
