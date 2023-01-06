@@ -59,6 +59,8 @@ The PyArabic package includes five major submodules:
 - Trans: Provides functions for converting between Arabic transliterations such as SAMPA, TIM Bukwalter, and Unicode.
 - Normalize: Utility functions that are used to prepare an Arabic text for searching and indexing.
 
+
+
 More advanced projects use PyArabic, such as:
 
 - Adawat is an open framework for processing Arabic language that the author developed as part of his PhD research. In PhD work, we release a set of tools, the most important of which are:
@@ -81,6 +83,13 @@ PyArabic was created to aid researchers and developers in natural language proce
 - Text preprocessing (remove diacritics,  tokenization, etc.): [@tarmom2019non:2019; @yusuf2019arabic:2019; @Nguyen:2019; @AlSarem:2020;@elouali2020hate:2020@zhang2021rise:2021;@duwairi2021deep:2021; @jimin:2021;@Moaz:2022;@alrumayyan2022neural:2022; @al2022flusa:2022; @solyman2022automatic:2022; @marie2022samee:2022; @alasmari2022hybrid:2022]
 - Lexical resources [@choe2019word2word:2019]
 - Text similarity [@mouty2019effect:2019]
+
+
+PyArabic was inspired by Ar-PHP[@ar-php], an Arabic library for the PHP programming language that provides basic routines for web developers. Then the two libraries grow together through collaborations, and they are inspired mutually by each other. Ar-PHP provides basic routines for PHP and MySQL databases and attempts to solve web development issues such as arabic glyph rendering; however, the Ar-PHP library also includes advanced modules such as sentiment analysis, muslim prayer times, and auto-summarize [@ar-php].
+
+There are many dedicated frameworks for Arabic natural language processing, like MADAMIRA(Java) [@pasha2014madamira], FARASA(Java)[@abdelali2016farasa], CAMeL(Python) [@obeid-etal-2020-camel]. Many multilingual frameworks, however, such as NLTK (Python) [@loper2002nltk], Spacy (Python) [@vasiliev2020natural], and CLTK (Python) [@johnson2014:2014], only partially support Arabic.
+
+In PyArabic, we focused on basic routines and build our library to be native and independent enough to be embedded in complex projects. This library was used in many projects and adopted by frameworks like CLTK[@johnson2014:2014], and has been inspired to build more specific libraries like TaKseem (a tokenization library for Arabic) [@tkseem2020] and Tankeeh (Arabic cleaning, normalization, and segmentation library) [@tnkeeh2020].
 
 # Acknowledgements
 
