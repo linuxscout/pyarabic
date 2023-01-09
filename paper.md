@@ -61,16 +61,16 @@ The PyArabic package includes five major submodules:
 
 
 
-More advanced projects use PyArabic, such as:
+- More advanced projects use PyArabic, such as Adawat, which is an open framework for processing Arabic that the author developed as part of his PhD research. In our PhD work, we release a set of tools, the most important of which are:
 
-- Adawat is an open framework for processing Arabic language that the author developed as part of his PhD research. In PhD work, we release a set of tools, the most important of which are:
+  - Tashaphyne, Arabic Light Stemming Library [@tashaphyne]. We primarily use tokenization, diacritics removal, and letter constants from PyArabic in this basic library.
+  - Qalsadi is an Arabic morphology analyzer [@qalsadi], which is based on Tashaphyne Stemmer, It uses Pyarabic, especially for tokenization and letters and diacritics handling, which includes removing tashkeel, handling Shadda, removing the last diacritic for inflection cases, and comparing two words with full or partial diacritization.
+  - Qutrub [@qutrub] is an Arabic verb conjugator, and this conjugation library requires basic features such as the separation of diacritics from letters and rejoining them to form words during conjugation. normalizing letters and words to prepare them for conjugation.
+  - Mishkal, is a system for Arabic text diacritization [@mishkal]. It is built on cited libraries like the Qalsadi morphology analyzer, the Tashaphyne stemmer, the Qutrub conjugator, and others. For basic routines, it uses PyArabic for letter constant names, diacritics management, word normalization, tokenization, and numeric phrase detection.
 
-- Mishkal, for restoring Arabic text diacritics [@mishkal].
-- Qalsadi is an Arabic morphology analyzer [@qalsadi].
-- Tashaphyne, Arabic light stemming [@tashaphyne].
-- Qutrub is an Arabic verb conjugator [@qutrub].
+  
 
-- The Classical Language Toolkit (CLTK)\footnote{\url{http://cltk.org}} [@johnson2014:2014] provides natural language processing support for Ancient, Classical, and Medieval Eurasia languages. CLTK integrates PyArabic functionalities for corpus importer, tokenization, text converting, and transliteration for classical Arabic [@johnson2014:2014], which is the form of the Arabic language used in texts from the 7th century AD to the 9th century AD (like the orthography of the Quran).
+  The Classical Language Toolkit (CLTK)\footnote{\url{http://cltk.org}} [@johnson2014:2014] provides natural language processing support for Ancient, Classical, and Medieval Eurasia languages. CLTK integrates PyArabic functionalities for corpus importer, tokenization, text converting, and transliteration for classical Arabic [@johnson2014:2014], which is the form of the Arabic language used in texts from the 7th century AD to the 9th century AD (like the orthography of the Quran).
 
 
 
