@@ -74,7 +74,7 @@ The PyArabic package includes five major submodules:
 
 
 
-PyArabic was created to aid researchers and developers in natural language processing tasks, particularly text preprocessing. It has already appeared in several scientific publications. It is mentioned in:
+PyArabic was created to aid researchers and developers in natural language processing tasks, particularly text preprocessing (tokenization, cleaning, normalization, strip diacritics). It has already appeared in several scientific publications. It is mentioned in:
 
 - Text alignment [@mikhael2014greek:2014].
 - Text classification [@abufayad2018semantic:2018; @abozinadah2016improved:2016; @ajlouni2021experience:2021; @habash2021team:2021; @mgheed2021scalable:2021;@AlBatayha:2021].
