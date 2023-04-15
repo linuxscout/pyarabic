@@ -16,7 +16,7 @@ Features |   value
 ---------|---------------------------------------------------------------------------------
 Authors  | Taha Zerrouki: http://tahadz.com,  taha dot zerrouki at gmail dot com
 Release  | 0.6.12 
-License  |[GPL](https://github.com/linuxscout/pyarabic/master/LICENSE)
+License  |[GPLv3](https://github.com/linuxscout/pyarabic/blob/master/LICENSE)
 Tracker  |[linuxscout/pyarabic/Issues](https://github.com/linuxscout/pyarabic/issues)
 Website  |[https://pypi.python.org/pypi/pyarabic](https://pypi.python.org/pypi/pyarabic)
 Doc  |[package Documentaion](https://pyarabic.readthedocs.io/)
@@ -41,6 +41,15 @@ or in bibtex format
   author={Zerrouki, Taha},
   url={https://pypi.python.org/pypi/pyarabic,
   year={2010}
+}
+```
+or 
+
+```bibtex
+@article{zerroukipyarabic,
+  title={PyArabic: A Python package for Arabic text},
+  journal={Journal of Open Source Software},
+  author={Zerrouki, Taha}
 }
 ```
 
