@@ -12,3 +12,6 @@ pyarabic/stack.py
 pyarabic/unshape.py
 README.md
 LICENSE
+include docs/*
+include doc/*
+include tests/*
