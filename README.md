@@ -28,13 +28,33 @@ Accounts  |[@Twitter](https://twitter.com/linuxscout)  [@Sourceforge](http://sou
 
 
 ## Citation
-If you would cite it in academic work, can you use this citation
-```
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04886/status.svg)](https://doi.org/10.21105/joss.04886)
+
+
+Zerrouki, T., (2023). PyArabic: A Python package for Arabic text. 
+Journal of Open Source Software, 8(84), 4886, https://doi.org/10.21105/joss.04886  
+
 T. Zerrouki‏, Pyarabic, An Arabic language library for Python,
   https://pypi.python.org/pypi/pyarabic/, 2010
+
 ```
 or in bibtex format
 
+```bibtex
+@article{Zerrouki2023,
+	title        = {PyArabic: A Python package for Arabic text},
+	author       = {Taha Zerrouki},
+	year         = 2023,
+	journal      = {Journal of Open Source Software},
+	publisher    = {The Open Journal},
+	volume       = 8,
+	number       = 84,
+	pages        = 4886,
+	doi          = {10.21105/joss.04886},
+	url          = {https://doi.org/10.21105/joss.04886}
+}
+```
+or 
 ```bibtex
 @misc{zerrouki2012pyarabic,
   title={pyarabic, An Arabic language library for Python},
@@ -43,15 +63,9 @@ or in bibtex format
   year={2010}
 }
 ```
-or 
 
-```bibtex
-@article{zerroukipyarabic,
-  title={PyArabic: A Python package for Arabic text},
-  journal={Journal of Open Source Software},
-  author={Zerrouki, Taha}
-}
-```
+
+
 
 
 ## مزايا
