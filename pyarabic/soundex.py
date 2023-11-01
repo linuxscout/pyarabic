@@ -11,18 +11,7 @@ Utility functions used by to encode homophones to the same representation so tha
 @date:2023/10/31
 @version:0.3
 """
-from __future__ import (
-    absolute_import,
-    print_function,
-    unicode_literals,
-    division,
-)
-from __future__ import (
-    absolute_import,
-    print_function,
-    unicode_literals,
-    division,
-)
+
 SOUNDEX_CODE = {
     u'\u0627' : "0",
     u'\u0648' : "0",
@@ -88,49 +77,51 @@ SOUNDEX_TRANSLATION = {
 
 
 
-def arSoundexMapCode(word):
+def soundex_map_code(word: str):
 
-    encodedWord = ''
-    wordLength = len(word)
+    encoded_word = ''
+    word_length = len(word)
 
-    for i in range(wordLength):
+    for i in range(word_length):
         char = word[i]
         if char in SOUNDEX_CODE:
-            encodedWord += SOUNDEX_CODE[char]
+            encoded_word += SOUNDEX_CODE[char]
         else:
-            encodedWord+= str(0)
+            encoded_word+= str(0)
         
-    return encodedWord
+    return encoded_word
 
 
-def arSoundexTrimRep(word):
+def soundex_trim_rep(word: str):
 
-    lastChar  = None
-    cleanWord = ""
-    wordLength = len(word)
+    last_char  = None
+    clean_word = ""
+    word_length = len(word)
 
-    for i in range(wordLength):
+    for i in range(word_length):
         char = word[i]
-        if char != lastChar:
-            cleanWord+= char
-        lastChar = char
-    return cleanWord
+        if char != last_char:
+            clean_word+= char
+        last_char = char
+    return clean_word
 
 
-def soundex(word , length = 6):
+def soundex(word:str , length:int = 6) -> str:
+
     soundex = word[0]
     soundex = SOUNDEX_TRANSLATION[soundex]
     rest = word[1:]
 
-    encodedRest = arSoundexMapCode(rest)
-    cleanEncodedRest = arSoundexTrimRep(encodedRest)
+    encoded_rest = soundex_map_code(rest)
+    clean_encoded_rest = soundex_trim_rep(encoded_rest)
     
-    soundex += cleanEncodedRest
+    soundex += clean_encoded_rest
     soundex = soundex.replace("0","")
-    totalLen = len(soundex)
+    total_len = len(soundex)
 
-    if totalLen > length :
+    if total_len > length :
         soundex = soundex[0:length]
     else:
-        soundex += "0"*(length - totalLen)
+        soundex += "0"*(length - total_len)
+    
     return soundex
