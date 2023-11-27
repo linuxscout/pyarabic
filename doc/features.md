@@ -93,7 +93,7 @@ Normalize Lam Alef ligatures into two letters (LAM and ALEF)
 >>> from pyarabic.araby import normalize_ligature
 >>> text = u"لانها لالء الاسلام"
 >>> normalize_ligature(text)
-لانها لالئ الاسلام
+لانها لالء الاسلام
 ```
 
  * توحيد الهمزة
