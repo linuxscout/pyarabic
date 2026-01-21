@@ -129,9 +129,9 @@ Yeh is converted to Yeh.
     >>> import pyarabic.araby as araby
     >>> text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
     >>> araby.normalize_hamza(text1)
-    'جاء سءال الءءمة عن الءسلام ءءجلا'
+    'جاء سءال الءءمة عن الءسلام ءاجلا'
     >>> araby.normalize_hamza(text1, method="tasheel")
-    'جاء سوال الايمة عن الاسلام ا
+    'جاء سوال الايمة عن الاسلام اجلا'
 
 -  فصل الحركات والحروف
 

@@ -71,11 +71,17 @@ class ArabyTestCase(unittest.TestCase):
     def test_normalize_hamza(self):
         """Test normalize_hamzafunction ?"""
         text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
-        text2 = u'جاء سءال الءءمة عن الءسلام ءءجلا'
+        text2 = u'جاء سءال الءءمة عن الءسلام ءاجلا'
         self.assertEqual(ar.normalize_hamza(text1), text2)
         text1 = u"جاء سؤال الأئمة عن الإسلام آجلا"
         text3 = u"جاء سوال الايمة عن الاسلام اجلا"
         self.assertEqual(ar.normalize_hamza(text1, method="tasheel"), text3)
+        text4 = u"القرآن"
+        text5 = u"القرءان"
+        self.assertEqual(ar.normalize_hamza(text4), text5)
+        text4 = u"القرآن"
+        text6 = u"القران"
+        self.assertEqual(ar.normalize_hamza(text4, method="tasheel"), text6)
         
     def test_normalize_alefat(self):
         """Test normalize_alefat ?"""
