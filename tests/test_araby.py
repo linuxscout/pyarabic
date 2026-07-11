@@ -110,6 +110,11 @@ class ArabyTestCase(unittest.TestCase):
         text1 = u"حَرَكَة مُُضاعَفة َسابقة  قبل شَّدة سابقاً"
         text2 = u"حَرَكَة مُضاعَفة سابقة  قبل شّدة سابقًا"
         self.assertEqual(ar.autocorrect(text1), text2)
+        # more than 32 corrections in one call, used to stop after 32
+        # because re.UNICODE was passed as the count arg instead of flags
+        long1 = u" ".join([u"سابقاً"] * 40)
+        long2 = u" ".join([u"سابقًا"] * 40)
+        self.assertEqual(ar.autocorrect(long1), long2)
 
     def test_spellit(self):
         """Test  spellit"""
@@ -123,7 +128,10 @@ class ArabyTestCase(unittest.TestCase):
         """Test  sentence tokenize function ?"""
         text1 = u"العربية لغة جميلة. والبلاد بعيدة، والشوق زائد"
         sentences =['العربية لغة جميلة.', 'والبلاد بعيدة،', 'والشوق زائد']
-        self.assertEqual(ar.sentence_tokenize(text1), sentences)        
+        self.assertEqual(ar.sentence_tokenize(text1), sentences)
+        # more than 32 boundaries, the tail used to come back as one unsplit blob
+        long_text = u" ".join([u"جملة رقم."] * 40)
+        self.assertEqual(len(ar.sentence_tokenize(long_text)), 40)
 
 if __name__ == '__main__':
     unittest.main()

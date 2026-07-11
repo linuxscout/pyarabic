@@ -1340,7 +1340,7 @@ def sentence_tokenize(text):
     @return: list of sentences.
     @rtype: list.
     """
-    text = re.sub(u"([.,:;،؟?\n])+([\n\t\r ])+",r"\1<SPLIT>", text, re.UNICODE)
+    text = re.sub(u"([.,:;،؟?\n])+([\n\t\r ])+",r"\1<SPLIT>", text, flags=re.UNICODE)
     sentences = re.split("<SPLIT>", text)
     return sentences 
 
@@ -1447,19 +1447,19 @@ def autocorrect(text):
     @rtype: unicode
     """
     ## HARAKAT
-    text = re.sub(u"(?<=[\s\d])([%s])+"%(TASHKEEL_STRING),"",text,  re.UNICODE)
-    text = re.sub(u"^([%s])+"%(TASHKEEL_STRING),"",text , re.UNICODE)
+    text = re.sub(u"(?<=[\s\d])([%s])+"%(TASHKEEL_STRING),"",text, flags=re.UNICODE)
+    text = re.sub(u"^([%s])+"%(TASHKEEL_STRING),"",text , flags=re.UNICODE)
     # tanwin on alef
-    text = re.sub(ALEF+FATHATAN, FATHATAN + ALEF,text , re.UNICODE)        
+    text = re.sub(ALEF+FATHATAN, FATHATAN + ALEF,text , flags=re.UNICODE)
 
     # SUKUN misplaced on alef /alef maksura and TEH merbuta
-    text = re.sub(u"(?<=[%s%s%s])([%s])+"%(ALEF, ALEF_MAKSURA, TEH_MARBUTA, SUKUN),"" , text, re.UNICODE)        
+    text = re.sub(u"(?<=[%s%s%s])([%s])+"%(ALEF, ALEF_MAKSURA, TEH_MARBUTA, SUKUN),"" , text, flags=re.UNICODE)
 
     # Hakara before Shadda
-    text = re.sub(u"([%s])+(?=[%s])"%(HARAKAT_STRING, SHADDA),"",text, re.UNICODE)
-    
+    text = re.sub(u"([%s])+(?=[%s])"%(HARAKAT_STRING, SHADDA),"",text, flags=re.UNICODE)
+
     # repeated harahat
-    text = re.sub(u"(?<=[%s])([%s])+"%(HARAKAT_STRING, HARAKAT_STRING),"",text,  re.UNICODE)
+    text = re.sub(u"(?<=[%s])([%s])+"%(HARAKAT_STRING, HARAKAT_STRING),"",text, flags=re.UNICODE)
     
     ## Letters
     return text 
