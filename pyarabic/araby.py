@@ -271,14 +271,14 @@ ALEFAT_PATTERN = re.compile(u"[" + u"".join(ALEFAT) + u"]", re.UNICODE)
 # ~ """ all alef like letters """
 LIGUATURES_PATTERN = re.compile(u"[" + u"".join(LIGUATURES) + u"]", re.UNICODE)
 # ~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(u"([^\w\u0670\u064b-\u0652']+)", re.UNICODE)
+TOKEN_PATTERN = re.compile(r"([^\w\u0670\u064b-\u0652']+)", re.UNICODE)
 # ~ """ pattern to tokenize a text"""
-TOKEN_PATTERN_SPLIT = re.compile(u"([\w\u0670\u064b-\u0652']+)", re.UNICODE)
+TOKEN_PATTERN_SPLIT = re.compile(r"([\w\u0670\u064b-\u0652']+)", re.UNICODE)
 # ~ """ pattern to tokenize a text with positions"""
 TOKEN_REPLACE = re.compile(u'\t|\r|\f|\v| ')
 
 # Arabic string
-ARABIC_STRING = re.compile(u"([^\u0600-\u0652%s%s%s\s\d])" \
+ARABIC_STRING = re.compile(r"([^\u0600-\u0652%s%s%s\s\d])" \
                            % (LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), re.UNICODE)
 # Arabic range
 ARABIC_RANGE = re.compile(
@@ -1234,7 +1234,7 @@ def reduce_tashkeel(text):
         u"%s(?=%s)" % (FATHA, ALEF), \
         # delete fatha from yeh and waw if they are in the word begining.
 
-        u"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
+        r"(?<=\s(%s|%s))%s" % (WAW, YEH, FATHA), \
         # delete kasra if preceded by Hamza below alef.
 
         u"(?<=%s)%s" % (ALEF_HAMZA_BELOW, KASRA), \
@@ -1447,7 +1447,7 @@ def autocorrect(text):
     @rtype: unicode
     """
     ## HARAKAT
-    text = re.sub(u"(?<=[\s\d])([%s])+"%(TASHKEEL_STRING),"",text,  re.UNICODE)
+    text = re.sub(r"(?<=[\s\d])([%s])+"%(TASHKEEL_STRING),"",text,  re.UNICODE)
     text = re.sub(u"^([%s])+"%(TASHKEEL_STRING),"",text , re.UNICODE)
     # tanwin on alef
     text = re.sub(ALEF+FATHATAN, FATHATAN + ALEF,text , re.UNICODE)        
