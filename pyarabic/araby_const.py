@@ -268,4 +268,4 @@ ALEFAT_PATTERN  = re.compile(u"["+u"".join(ALEFAT)+u"]",  re.UNICODE)
 #~ """ all alef like letters """
 LIGUATURES_PATTERN  = re.compile(u"["+u"".join(LIGUATURES)+u"]",  re.UNICODE)
 #~ """ all liguatures pattern """
-TOKEN_PATTERN = re.compile(u"[^\w\u064b-\u0652']+", re.UNICODE)
+TOKEN_PATTERN = re.compile(r"[^\w\u064b-\u0652']+", re.UNICODE)
