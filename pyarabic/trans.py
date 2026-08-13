@@ -316,7 +316,7 @@ def segment_language(text):
                 resultlist.append(('latin', actual_text))
                 arabic = True
                 actual_text = k
-        elif re.search(u"[\s\d\?, :\!\(\)]", k):
+        elif re.search(r"[\s\d\?, :\!\(\)]", k):
             actual_text += k
         else:
             if arabic:
@@ -515,7 +515,7 @@ n~aAsi""".split('\n')
     # test detect language
     text =u"""السلام عليكم how are you, لم اسمع أخبارك منذ مدة, where are you going"""
     print(arepr(segment_language(text)))
-    text_out= delimite_language(text, start='\RL{', end="}")
+    text_out= delimite_language(text, start=r'\RL{', end="}")
     print(text_out.encode('utf8'))
     text_out= delimite_language(text, start="<arabic>", end="</arabic>")
     print(text_out.encode('utf8'))
