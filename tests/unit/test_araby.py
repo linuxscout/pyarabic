@@ -108,6 +108,14 @@ class TestSequenceFunctions(unittest.TestCase):
 
         self.assertTrue(Araby.is_arabicword(u"العربية"))
 
+        # long words with clitics are still valid
+        self.assertTrue(Araby.is_arabicword(u"أفاستسقيناكموها"))
+        # diacritics and tatweel do not count towards the length
+        self.assertTrue(Araby.is_arabicword(u"فَأَسْقَيْنَاكُمُوهُ"))
+        self.assertTrue(Araby.is_arabicword(u"العـــــربية"))
+        # a sentence written without spaces is not a word (issue #76)
+        self.assertFalse(Araby.is_arabicword(u"حطتخطاياهولوكانتمثلزبدالبحر"))
+
     def test_char(self):
 
         # first_char(word)
