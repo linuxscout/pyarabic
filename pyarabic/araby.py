@@ -611,10 +611,17 @@ def is_arabicrange(text):
     return True
 
 
+# Longest plausible Arabic word, counted in letters only (no tashkeel, no tatweel).
+# Long words with clitics such as "أفاستسقيناكموها" have 15 letters.
+MAX_WORD_LENGTH = 15
+
+
 def is_arabicword(word):
     """ Checks for an valid Arabic  word.
     An Arabic word not contains spaces, digits and pounctuation
     avoid some spelling error, TEH_MARBUTA must be at the end.
+    A word longer than MAX_WORD_LENGTH letters is rejected; diacritics
+    and tatweel are not counted, so vocalized words are not penalized.
     @param word: input word
     @type word: unicode
     @return: True if all charaters are in Arabic block
@@ -624,6 +631,9 @@ def is_arabicword(word):
         return False
     elif re.search(u"([^\u0600-\u0652%s%s%s])" \
                    % (LAM_ALEF, LAM_ALEF_HAMZA_ABOVE, LAM_ALEF_MADDA_ABOVE), word):
+        return False
+    elif len([c for c in word if c not in TASHKEEL and c != TATWEEL]) > MAX_WORD_LENGTH:
+        # e.g. a sentence written without spaces
         return False
     elif is_haraka(word[0]) or word[0] in (WAW_HAMZA, YEH_HAMZA):
         return False
