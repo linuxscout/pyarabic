@@ -255,6 +255,15 @@ TASHKEEL_STRING = u"".join(TASHKEEL)
 # regular expretion
 
 HARAKAT_PATTERN = re.compile(u"[" + u"".join(HARAKAT) + u"]", re.UNICODE)
+# Alef carrying Tanween Fath at the end of a word, in either order
+# (FATHATAN + ALEF or ALEF + FATHATAN). Quranic small marks written
+# between them, as in the Uthmani "رَحِيمًۭا", are kept.
+_TANWEEN_ALEF_MARKS = u"\u0610-\u061a\u064c-\u065f\u0670\u06d6-\u06ed"
+TANWEEN_ALEF_PATTERN = re.compile(
+    u"%s([%s]*)%s(?![%s])|%s([%s]*)%s(?![%s])" % (
+        FATHATAN, _TANWEEN_ALEF_MARKS, ALEF, LETTERS,
+        ALEF, _TANWEEN_ALEF_MARKS, FATHATAN, LETTERS),
+    re.UNICODE)
 # ~ """ pattern to strip Harakat"""
 LASTHARAKA_PATTERN = \
     re.compile(u"[%s]$|[%s]" % (u"".join(HARAKAT), u''.join(TANWIN)), re.UNICODE)
@@ -741,7 +750,33 @@ def strip_lastharaka(text):
     return text
 
 
-def strip_tashkeel(text):
+def strip_tanween_alef(text):
+    """Remove the Alef that carries Tanween Fath at the end of a word,
+    so that the accusative form matches the bare word in searches.
+    Only an Alef written next to FATHATAN is removed, in either order
+    (letter + FATHATAN + ALEF, or letter + ALEF + FATHATAN), so the
+    text must be vocalized for this to have an effect.
+
+    Note: the Alef of an Ism Maqsur (e.g. عصًا, فتًى) is part of the word,
+    but is written the same way, so it is removed too.
+
+    Example:
+        >>> text = u"رَحِيمًا"
+        >>> strip_tanween_alef(text)
+        رَحِيمً
+
+    @param text: arabic text.
+    @type text: unicode.
+    @return: return the text without the Tanween Fath Alef.
+    @rtype: unicode.
+    """
+    if not text:
+        return text
+    return TANWEEN_ALEF_PATTERN.sub(
+        lambda m: FATHATAN + (m.group(1) or m.group(2) or u""), text)
+
+
+def strip_tashkeel(text, remove_tanween_alef=False):
     """Strip vowels from a text, include Shadda.
     The striped marks are :
         - FATHA, DAMMA, KASRA
@@ -753,15 +788,22 @@ def strip_tashkeel(text):
         >>> text = u"الْعَرَبِيّةُ"
         >>> strip_tashkeel(text)
         العربية
+        >>> strip_tashkeel(u"غَفُورًا رَحِيمًا", remove_tanween_alef=True)
+        غفور رحيم
 
     @param text: arabic text.
     @type text: unicode.
+    @param remove_tanween_alef: also remove the Alef that carries
+        Tanween Fath at the end of a word (see strip_tanween_alef).
+    @type remove_tanween_alef: bool.
     @return: return a striped text.
     @rtype: unicode.
     """
     if not text:
         return text
-    elif is_vocalized(text):
+    if remove_tanween_alef:
+        text = strip_tanween_alef(text)
+    if is_vocalized(text):
         for char in TASHKEEL:
             text = text.replace(char, '')
     return text
@@ -823,7 +865,7 @@ def strip_shadda(text):
     """
     return text.replace(SHADDA, '')
 
-def strip_diacritics(text):
+def strip_diacritics(text, remove_tanween_alef=False):
     """Strip arabic diacritics from a text
     The striped marks are :
         - Small Alef الألف الخنجرية, .
@@ -837,11 +879,16 @@ def strip_diacritics(text):
 
     @param text: arabic text.
     @type text: unicode.
+    @param remove_tanween_alef: also remove the Alef that carries
+        Tanween Fath at the end of a word (see strip_tanween_alef).
+    @type remove_tanween_alef: bool.
     @return: return a striped text.
     @rtype: unicode.
     """
     if not text:
         return text
+    if remove_tanween_alef:
+        text = strip_tanween_alef(text)
     for char in DIACRITICS:
         text = text.replace(char, '')
     return text
