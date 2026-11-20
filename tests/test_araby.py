@@ -20,6 +20,25 @@ class ArabyTestCase(unittest.TestCase):
         word_nm = u'العربية'
         self.assertEqual(ar.strip_tashkeel(word), word_nm)
         self.assertNotEqual(ar.strip_tashkeel(word), word)
+    def test_strip_tanween_alef(self):
+        """Test removing the Alef of Tanween Fath (issue #70)"""
+        # FATHATAN on the letter before the Alef
+        self.assertEqual(ar.strip_tashkeel(u"رَحِيمًا", remove_tanween_alef=True), u"رحيم")
+        # FATHATAN typed after the Alef
+        self.assertEqual(ar.strip_tashkeel(u"رَحِيماً", remove_tanween_alef=True), u"رحيم")
+        # Several words, and a Quranic small mark between FATHATAN and Alef
+        self.assertEqual(ar.strip_diacritics(u"غَفُورًۭا رَّحِيمًۭا", remove_tanween_alef=True), u"غفور رحيم")
+        # Words without Tanween Fath keep their Alef
+        self.assertEqual(ar.strip_tashkeel(u"دُنْيَا كِتَابًا", remove_tanween_alef=True), u"دنيا كتاب")
+        self.assertEqual(ar.strip_tashkeel(u"قَالَ", remove_tanween_alef=True), u"قال")
+        # Tanween Fath without an Alef (Teh Marbuta, Hamza) is unchanged
+        self.assertEqual(ar.strip_tashkeel(u"رَحْمَةً سَمَاءً", remove_tanween_alef=True), u"رحمة سماء")
+        # Default behaviour is unchanged
+        self.assertEqual(ar.strip_tashkeel(u"رَحِيمًا"), u"رحيما")
+        self.assertEqual(ar.strip_diacritics(u"رَحِيمًا"), u"رحيما")
+        # The helper keeps the other marks
+        self.assertEqual(ar.strip_tanween_alef(u"رَحِيمًا"), u"رَحِيمً")
+
     def test_strip_harakat(self):
         """Test striped tashkeel for العربية?"""
         word = u"الْعَرَبِيَّةُ"
